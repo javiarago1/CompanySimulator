@@ -1,0 +1,19 @@
+Andalucía: 25€
+Aragón: 40€
+Asturias: 50€
+Islas Baleares: 60€
+Canarias: 65€
+Cantabria: 55€
+Castilla La Mancha: 40€
+Castilla y León: 45€
+Cataluña: 50€
+Valencia: 40€
+Extremadura: 50€
+Galicia: 60€
+La Rioja: 50€
+Madrid: 10€
+Murcia: 30€
+Navarra: 60€
+País Vasco: 50€
+Ceuta: 40€ 
+Melilla: 50€
