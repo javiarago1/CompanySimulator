@@ -1836,6 +1836,5 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JLabel unTrabajoLabel1;
     // End of variables declaration//GEN-END:variables
     protected static DefaultTableModel TablaModelContratos;
-    protected static DefaultTableModel TablaModelEmpleados;
 
 }
