@@ -165,7 +165,7 @@ public final class Game extends javax.swing.JFrame {
                 dias_reloj++;
                 LabelDias.setText("Dia: " + dias_reloj);
                 horas_reloj = 8;
-                HorasLabel.setText(String.valueOf(horas_reloj));
+                LabelHoras.setText("0"+String.valueOf(horas_reloj)+":");
                 minutos_reloj = 0;
                 LabelMinutos.setText(String.valueOf("0" + minutos_reloj));
             }
@@ -1485,6 +1485,8 @@ public final class Game extends javax.swing.JFrame {
             GenerarEmpleados.contratos.get(selectedRow).setTraslado(
                     true);
             dineroEmpresa -= GenerarEmpleados.contratos.get(selectedRow).getOriginPrice();
+                        GenerarEmpleados.contratos.get(selectedRow).setFechaIncorporacion(dias_reloj);
+            GenerarEmpleados.contratos.get(selectedRow).setFechaFinalizacion(GenerarEmpleados.contratos.get(selectedRow).getFechaIncorporacion()+GenerarEmpleados.contratos.get(selectedRow).getDuracion());
 
         } else {
             GenerarEmpleados.contratos.get(selectedRow).setTraslado(
@@ -1503,6 +1505,7 @@ public final class Game extends javax.swing.JFrame {
         }
         
         System.out.println("Fecha: "+GenerarEmpleados.contratos.get(selectedRow).getFechaIncorporacion());
+                System.out.println("Fecha: "+GenerarEmpleados.contratos.get(selectedRow).getFechaFinalizacion());
     }
 
 
