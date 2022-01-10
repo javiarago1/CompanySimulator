@@ -82,15 +82,20 @@ public abstract class CrearEmpleados {
         this.trabajandoDeb = ((horaReal >= horaHorario && minutoReal >= minutoHorario || horaReal > horaHorario) && (horaReal < horaFinal || horaReal == horaFinal && minutoReal < minutoFinal) && (diaReal >= fechaIncorporacion && diaReal < fechaFinalizacion));
 
         if (!trabajandoDeb && trabajando) {
+            Game.abstractModelEmpleados.fireTableCellUpdated(
+                    GenerarEmpleados.empleados.indexOf(this), 2);
             trabajando = false;
 
         } else if (tempDay != diaReal && trabajandoDeb) {
             trabajando = true;
-
+            Game.abstractModelEmpleados.setValueAt(getStrWorking(),
+                    GenerarEmpleados.empleados.indexOf(this), 2);
             tempDay = diaReal;
         }
 
         if (switcher) {
+            Game.abstractModelEmpleados.fireTableCellUpdated(
+                    GenerarEmpleados.empleados.indexOf(this), 1);
             switcher = false;
         }
         if (this.felicidad != this.felicidadTempInicial) {
@@ -99,6 +104,8 @@ public abstract class CrearEmpleados {
             this.setRendimientoTempInicial(this.rendimiento);
             this.rendimiento = (Double.parseDouble(GenerarEmpleados.df.format(
                     ((100 - op) / 100) * this.rendimiento).replace(",", ".")));
+            Game.abstractModelEmpleados.fireTableCellUpdated(
+                    GenerarEmpleados.empleados.indexOf(this), 1);
             switcher = true;
         }
 
@@ -107,7 +114,7 @@ public abstract class CrearEmpleados {
     public int getFechaFinalizacion() {
         return fechaFinalizacion;
     }
-    
+
     public void setFechaFinalizacion(int fechaFinalizacion) {
         this.fechaFinalizacion = fechaFinalizacion;
     }

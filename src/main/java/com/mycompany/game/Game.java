@@ -182,13 +182,14 @@ public final class Game extends javax.swing.JFrame {
 
         for (CrearEmpleados ex : GenerarEmpleados.empleados) {
             ex.checkWorkingHorario(horas_reloj, minutos_reloj, dias_reloj);
-            updateSeleccion();
-            if (ex.isTrabajandoDeb()) {
+            if (ex.isTrabajando()) {
 
                 ex.setContadorInternoTrabajando(
                         ex.getContadorInternoTrabajando() + 1);
                 if (ex.getContadorInternoTrabajando() == ex.getContadorInternoTrabajandoFinal()) {
                     LuckyClass.probabilidadTrabajando(ex);
+                    abstractModelEmpleados.fireTableCellUpdated(
+                            GenerarEmpleados.empleados.indexOf(ex), 2);
                     ex.setContadorInternoTrabajando(0);
                     ex.setContadorInternoTrabajandoFinal(
                             LuckyClass.probabilidadTiempoFelicidadYTrabajo());
@@ -197,7 +198,7 @@ public final class Game extends javax.swing.JFrame {
                         ex.getContadorInternoFelicidad() + 1);
                 if (ex.getContadorInternoFelicidad() == ex.getContadorInternoFelicidadFinal()) {
                     System.out.println("he restado xd");
-                    ex.setFelicidad(ex.getFelicidad() - 1);
+                    ex.setFelicidad(ex.getFelicidad() + 1);
                     ex.setContadorInternoFelicidad(0);
                     ex.setContadorInternoFelicidadFinal(
                             LuckyClass.probabilidadTiempoFelicidadYTrabajo());
@@ -342,9 +343,7 @@ public final class Game extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        FieldCambiarSalario = new javax.swing.JTextField();
         LabelFechas = new javax.swing.JLabel();
         MenuPanel2 = new javax.swing.JPanel();
         AnimationPanel = new javax.swing.JPanel();
@@ -796,6 +795,7 @@ public final class Game extends javax.swing.JFrame {
 
             }
             else {
+                FieldCambiarSalario.setText(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getSueldo()+" €");
                 VerContratoEmpleados.setEnabled(true);
                 ProgressBarFelicidad.setValue(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getFelicidad());
                 ProgressBarFelicidad.setForeground(Color.getHSBColor(ProgressBarFelicidad.getValue()/300f, 1f, 0.40f));
@@ -857,7 +857,7 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         MenuPanel1.add(jButton1);
-        jButton1.setBounds(550, 220, 110, 22);
+        jButton1.setBounds(550, 240, 110, 22);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Sin especificar", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -866,7 +866,7 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         MenuPanel1.add(jComboBox1);
-        jComboBox1.setBounds(410, 220, 130, 22);
+        jComboBox1.setBounds(410, 240, 130, 22);
 
         jButton2.setText("Cambiar salario");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -875,23 +875,9 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         MenuPanel1.add(jButton2);
-        jButton2.setBounds(530, 150, 120, 22);
-        MenuPanel1.add(jTextField1);
-        jTextField1.setBounds(420, 150, 80, 22);
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel7.setText("€");
-        MenuPanel1.add(jLabel7);
-        jLabel7.setBounds(505, 152, 10, 16);
-
-        jButton3.setText("DINERO XD");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        MenuPanel1.add(jButton3);
-        jButton3.setBounds(420, 190, 150, 22);
+        jButton2.setBounds(530, 200, 120, 22);
+        MenuPanel1.add(FieldCambiarSalario);
+        FieldCambiarSalario.setBounds(420, 200, 80, 22);
 
         LabelFechas.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         LabelFechas.setText("Dias restantes de contrato: ");
@@ -1538,7 +1524,9 @@ public final class Game extends javax.swing.JFrame {
                 FirmaRepresentante.getText());
         GenerarEmpleados.empleados.add(GenerarEmpleados.contratos.get(
                 selectedRow));
-
+        abstractModelEmpleados.fireTableRowsInserted(
+                GenerarEmpleados.empleados.size() - 1,
+                GenerarEmpleados.empleados.size() - 1);
         eliminarComun();
 
     }//GEN-LAST:event_ContratarButtonActionPerformed
@@ -1549,6 +1537,8 @@ public final class Game extends javax.swing.JFrame {
             DniValidationFrame.PanelCristalRight.setVisible(false);
             DniValidationFrame.PanelCristalNormal.setVisible(true);
         }
+        DescartarButton.setEnabled(false);
+        ContratarButton.setEnabled(false);
         timer_contrato.stop();
         TablaModelContratos.removeRow(selectedRow);
         GenerarEmpleados.contratos.remove(selectedRow);
@@ -1702,10 +1692,6 @@ public final class Game extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        dineroEmpresa += 500;
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     public static void main(String args[]) {
         try {
             UIManager.put("Table.selectionBackground", new java.awt.Color(9, 48,
@@ -1742,6 +1728,7 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JLabel DuracionLabel1;
     private javax.swing.JLabel FechaLabel;
     private javax.swing.JLabel FechaLabel1;
+    private javax.swing.JTextField FieldCambiarSalario;
     private javax.swing.JTextField FirmaRepresentante;
     private javax.swing.JTextField FirmaRepresentante1;
     private javax.swing.JLabel FirmaTrabajadorLabel;
@@ -1796,7 +1783,6 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JLabel dineroEmpresaLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -1804,7 +1790,6 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -1832,7 +1817,6 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel unFechaLabel;
     private javax.swing.JLabel unFechaLabel1;
     private javax.swing.JLabel unFechaLabel2;

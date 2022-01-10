@@ -21,8 +21,6 @@ public class ColorWorkingTable extends DefaultTableCellRenderer {
                 
         if (dato.equals("Working")) {
             l.setForeground(ColorSueldoTable.VERDE_SUELDO);
-            
-
         } else {
             l.setForeground(ColorSueldoTable.ROJO_SUELDO);
         }

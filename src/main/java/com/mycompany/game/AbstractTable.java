@@ -5,12 +5,9 @@ import javax.swing.table.AbstractTableModel;
 
 public class AbstractTable extends AbstractTableModel {
 
-    
-    private String [] tableHeader = {"Trabajo","Rendimiento","Estado"};
-    private List<CrearEmpleados> listEmpleados;
+    private final String[] tableHeader = {"Trabajo", "Rendimiento", "Estado"};
+    private final List<CrearEmpleados> listEmpleados;
 
-    
-    
     public AbstractTable(List<CrearEmpleados> listaEmpleados) {
         this.listEmpleados = listaEmpleados;
 
@@ -43,17 +40,23 @@ public class AbstractTable extends AbstractTableModel {
 
         }
         return null;
+
     }
 
-    public void añadirRow() {
-        fireTableRowsInserted(listEmpleados.size() - 1, listEmpleados.size() - 1);
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        super.setValueAt(aValue, rowIndex, columnIndex);
+        super.fireTableCellUpdated(rowIndex, columnIndex);
     }
 
+    @Override
+    public void fireTableRowsInserted(int firstRow, int lastRow) {
+        super.fireTableRowsInserted(firstRow, lastRow);
+    }
+    
     @Override
     public String getColumnName(int column) {
         return tableHeader[column];
     }
-    
-    
 
 }

@@ -15,5 +15,5 @@ Madrid: 10€
 Murcia: 30€
 Navarra: 60€
 País Vasco: 50€
-Ceuta: 40€ 
+Ceuta: 40€
 Melilla: 50€

@@ -1153,7 +1153,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="VerContratoEmpleadosActionPerformed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="ListSelectionModel cellSelectionModel = TablaEmpleados.getSelectionModel();&#xa;    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xa;    cellSelectionModel.addListSelectionListener((ListSelectionEvent e) -&gt; {&#xa;         if (TablaEmpleados.getSelectedRows().length==0){&#xa;             VerContratoEmpleados.setEnabled(false);&#xa;             ProgressBarFelicidad.setValue(0);&#xa;            &#xa;         }&#xa;         else {&#xa;             VerContratoEmpleados.setEnabled(true);&#xa;             ProgressBarFelicidad.setValue(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getFelicidad());&#xa;             ProgressBarFelicidad.setForeground(Color.getHSBColor(ProgressBarFelicidad.getValue()/300f, 1f, 0.40f));&#xa;             //ProgressBar&#xa;             HorarioLabel.setText(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getHorario());&#xa;             if (dias_reloj&lt;GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getFechaIncorporacion()){&#xa;             LabelFechas.setText(&quot;Fecha de incorporaci&#xf3;n: d&#xed;a &quot;+GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getFechaIncorporacion());&#xa;             }&#xa;             else {&#xa;             CrearEmpleados ex = GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow());&#xa;             int oper = ex.getFechaFinalizacion()-dias_reloj;&#xa;&#xa;               if (oper&lt;=0){&#xa;                   LabelFechas.setText(&quot;Contrato finalizado&quot;);&#xa;                }&#xa;               else {&#xa;                   String diaString = &quot; d&#xed;as&quot;;&#xa;                   if (oper==1)diaString=diaString.substring(0,4);&#xa;&#xa;                   LabelFechas.setText(&quot;Tiempo restante de contrato: &quot;+oper+diaString);&#xa;                } &#xa;             }&#xa;         }&#xa;        });"/>
+            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="ListSelectionModel cellSelectionModel = TablaEmpleados.getSelectionModel();&#xa;    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xa;    cellSelectionModel.addListSelectionListener((ListSelectionEvent e) -&gt; {&#xa;         if (TablaEmpleados.getSelectedRows().length==0){&#xa;             VerContratoEmpleados.setEnabled(false);&#xa;             ProgressBarFelicidad.setValue(0);&#xa;            &#xa;         }&#xa;         else {&#xa;             FieldCambiarSalario.setText(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getSueldo()+&quot; &#x20ac;&quot;);&#xa;             VerContratoEmpleados.setEnabled(true);&#xa;             ProgressBarFelicidad.setValue(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getFelicidad());&#xa;             ProgressBarFelicidad.setForeground(Color.getHSBColor(ProgressBarFelicidad.getValue()/300f, 1f, 0.40f));&#xa;             //ProgressBar&#xa;             HorarioLabel.setText(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getHorario());&#xa;             if (dias_reloj&lt;GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getFechaIncorporacion()){&#xa;             LabelFechas.setText(&quot;Fecha de incorporaci&#xf3;n: d&#xed;a &quot;+GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getFechaIncorporacion());&#xa;             }&#xa;             else {&#xa;             CrearEmpleados ex = GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow());&#xa;             int oper = ex.getFechaFinalizacion()-dias_reloj;&#xa;&#xa;               if (oper&lt;=0){&#xa;                   LabelFechas.setText(&quot;Contrato finalizado&quot;);&#xa;                }&#xa;               else {&#xa;                   String diaString = &quot; d&#xed;as&quot;;&#xa;                   if (oper==1)diaString=diaString.substring(0,4);&#xa;&#xa;                   LabelFechas.setText(&quot;Tiempo restante de contrato: &quot;+oper+diaString);&#xa;                } &#xa;             }&#xa;         }&#xa;        });"/>
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -1241,7 +1241,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="550" y="220" width="110" height="-1"/>
+              <AbsoluteConstraints x="550" y="240" width="110" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -1265,7 +1265,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="410" y="220" width="130" height="-1"/>
+              <AbsoluteConstraints x="410" y="240" width="130" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -1278,40 +1278,14 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="530" y="150" width="120" height="-1"/>
+              <AbsoluteConstraints x="530" y="200" width="120" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="FieldCambiarSalario">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="420" y="150" width="80" height="-1"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel7">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="14" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="&#x20ac;"/>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="505" y="152" width="10" height="16"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="DINERO XD"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
-          </Events>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="420" y="190" width="150" height="-1"/>
+              <AbsoluteConstraints x="420" y="200" width="80" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
