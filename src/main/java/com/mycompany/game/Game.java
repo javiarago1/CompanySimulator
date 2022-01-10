@@ -65,7 +65,9 @@ public final class Game extends javax.swing.JFrame {
                 protected Void doInBackground() throws Exception {
                     tempTotal = 0;
                     for (int i = 0; i < GenerarEmpleados.empleados.size(); i++) {
-                        tempTotal += GenerarEmpleados.empleados.get(i).getRendimientoXminuto();
+                        if (GenerarEmpleados.empleados.get(i).isTrabajando()) {
+                            tempTotal += GenerarEmpleados.empleados.get(i).getRendimientoXminuto();
+                        }
                     }
                     dineroEmpresa += tempTotal;
                     dineroEmpresaLabel.setText(
@@ -161,11 +163,11 @@ public final class Game extends javax.swing.JFrame {
             }
             restarCapacidad();
 
-            if (minutos_reloj == 8) {
+            if (minutos_reloj == 11) {
                 dias_reloj++;
                 LabelDias.setText("Dia: " + dias_reloj);
                 horas_reloj = 8;
-                LabelHoras.setText("0"+String.valueOf(horas_reloj)+":");
+                LabelHoras.setText("0" + String.valueOf(horas_reloj) + ":");
                 minutos_reloj = 0;
                 LabelMinutos.setText(String.valueOf("0" + minutos_reloj));
             }
@@ -707,10 +709,12 @@ public final class Game extends javax.swing.JFrame {
         });
         AnimationPanelEmpleados.add(TrasladoCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 20));
 
+        unFirmaRepresentanteLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         unFirmaRepresentanteLabel1.setForeground(new java.awt.Color(63, 63, 63));
         unFirmaRepresentanteLabel1.setText("Firma de la empresa:");
         AnimationPanelEmpleados.add(unFirmaRepresentanteLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 252, -1, 20));
 
+        unFirmaTrabajadorLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         unFirmaTrabajadorLabel1.setForeground(new java.awt.Color(63, 63, 63));
         unFirmaTrabajadorLabel1.setText("Firma del trabajador:");
         AnimationPanelEmpleados.add(unFirmaTrabajadorLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, -1, -1));
@@ -1485,14 +1489,14 @@ public final class Game extends javax.swing.JFrame {
             GenerarEmpleados.contratos.get(selectedRow).setTraslado(
                     true);
             dineroEmpresa -= GenerarEmpleados.contratos.get(selectedRow).getOriginPrice();
-                        GenerarEmpleados.contratos.get(selectedRow).setFechaIncorporacion(dias_reloj);
-            GenerarEmpleados.contratos.get(selectedRow).setFechaFinalizacion(GenerarEmpleados.contratos.get(selectedRow).getFechaIncorporacion()+GenerarEmpleados.contratos.get(selectedRow).getDuracion());
+            GenerarEmpleados.contratos.get(selectedRow).setFechaIncorporacion(dias_reloj);
+            GenerarEmpleados.contratos.get(selectedRow).setFechaFinalizacion(GenerarEmpleados.contratos.get(selectedRow).getFechaIncorporacion() + GenerarEmpleados.contratos.get(selectedRow).getDuracion());
 
         } else {
             GenerarEmpleados.contratos.get(selectedRow).setTraslado(
                     false);
             GenerarEmpleados.contratos.get(selectedRow).setFechaIncorporacion(dias_reloj + LuckyClass.probabilidadTiempoIncorporacion());
-            GenerarEmpleados.contratos.get(selectedRow).setFechaFinalizacion(GenerarEmpleados.contratos.get(selectedRow).getFechaIncorporacion()+GenerarEmpleados.contratos.get(selectedRow).getDuracion());
+            GenerarEmpleados.contratos.get(selectedRow).setFechaFinalizacion(GenerarEmpleados.contratos.get(selectedRow).getFechaIncorporacion() + GenerarEmpleados.contratos.get(selectedRow).getDuracion());
 
         }
         if (SeguroCheckBox.isSelected()) {
@@ -1503,9 +1507,6 @@ public final class Game extends javax.swing.JFrame {
             GenerarEmpleados.contratos.get(selectedRow).setSeguro(
                     false);
         }
-        
-        System.out.println("Fecha: "+GenerarEmpleados.contratos.get(selectedRow).getFechaIncorporacion());
-                System.out.println("Fecha: "+GenerarEmpleados.contratos.get(selectedRow).getFechaFinalizacion());
     }
 
 

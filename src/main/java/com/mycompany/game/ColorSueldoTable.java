@@ -7,9 +7,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class ColorSueldoTable extends DefaultTableCellRenderer {
-        final static Color verdeSueldo = new java.awt.Color(25, 111, 61);
+        final static Color VERDE_SUELDO = new java.awt.Color(25, 111, 61);
         final Color naranjaSueldo = new java.awt.Color(147, 81, 22);
-        final static Color rojoSueldo = new java.awt.Color(135, 54, 0);
+        final static Color ROJO_SUELDO = new java.awt.Color(135, 54, 0);
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
@@ -22,14 +22,14 @@ public class ColorSueldoTable extends DefaultTableCellRenderer {
         int num = Integer.parseInt(dato);
      
             if (num >= 0 && num < 50) {
-                label.setForeground(verdeSueldo);
-                GenerarEmpleados.contratos.get(row).setColorSueldo(verdeSueldo);
+                label.setForeground(VERDE_SUELDO);
+                GenerarEmpleados.contratos.get(row).setColorSueldo(VERDE_SUELDO);
             } else if (num >= 50 && num < 80) {
                 label.setForeground(naranjaSueldo);
                 GenerarEmpleados.contratos.get(row).setColorSueldo(naranjaSueldo);
             } else {
-                label.setForeground(rojoSueldo);
-                GenerarEmpleados.contratos.get(row).setColorSueldo(rojoSueldo);
+                label.setForeground(ROJO_SUELDO);
+                GenerarEmpleados.contratos.get(row).setColorSueldo(ROJO_SUELDO);
             }   
         return label;
     }

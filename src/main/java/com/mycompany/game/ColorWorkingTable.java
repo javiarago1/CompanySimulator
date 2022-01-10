@@ -20,11 +20,11 @@ public class ColorWorkingTable extends DefaultTableCellRenderer {
         String dato = String.valueOf(value);
                 
         if (dato.equals("Working")) {
-            l.setForeground(ColorSueldoTable.verdeSueldo);
+            l.setForeground(ColorSueldoTable.VERDE_SUELDO);
             
 
         } else {
-            l.setForeground(ColorSueldoTable.rojoSueldo);
+            l.setForeground(ColorSueldoTable.ROJO_SUELDO);
         }
 
         return l;
