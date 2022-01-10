@@ -196,6 +196,7 @@ public final class Game extends javax.swing.JFrame {
                 ex.setContadorInternoFelicidad(
                         ex.getContadorInternoFelicidad() + 1);
                 if (ex.getContadorInternoFelicidad() == ex.getContadorInternoFelicidadFinal()) {
+                    System.out.println("he restado xd");
                     ex.setFelicidad(ex.getFelicidad() - 1);
                     ex.setContadorInternoFelicidad(0);
                     ex.setContadorInternoFelicidadFinal(
@@ -208,11 +209,11 @@ public final class Game extends javax.swing.JFrame {
 
     protected static void updateSeleccion() {
         if (!AnimationPanelEmpleados.isVisible()) {
-            int selectedRow = Game.TablaEmpleados.getSelectedRow();
+            int selected = Game.TablaEmpleados.getSelectedRow();
             abstractModelEmpleados.fireTableDataChanged();
-            if (selectedRow >= 0) {
-                Game.TablaEmpleados.setRowSelectionInterval(selectedRow,
-                        selectedRow);
+            if (selected >= 0) {
+                Game.TablaEmpleados.setRowSelectionInterval(selected,
+                        selected);
             }
         }
 
@@ -268,6 +269,7 @@ public final class Game extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jProgressBar1 = new javax.swing.JProgressBar();
         PanelIzquierdo = new javax.swing.JPanel();
         VerEmpelados = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -796,39 +798,53 @@ public final class Game extends javax.swing.JFrame {
             else {
                 VerContratoEmpleados.setEnabled(true);
                 ProgressBarFelicidad.setValue(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getFelicidad());
+                ProgressBarFelicidad.setForeground(Color.getHSBColor(ProgressBarFelicidad.getValue()/300f, 1f, 0.40f));
+                //ProgressBar
                 HorarioLabel.setText(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getHorario());
                 if (dias_reloj<GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getFechaIncorporacion()){
-                    LabelFechas.setText("Fecha de incorporación: "+GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getFechaIncorporacion());
+                    LabelFechas.setText("Fecha de incorporación: día "+GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getFechaIncorporacion());
                 }
                 else {
-                    LabelFechas.setText("adios");
-                }
+                    CrearEmpleados ex = GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow());
+                    int oper = ex.getFechaFinalizacion()-dias_reloj;
 
+                    if (oper<=0){
+                        LabelFechas.setText("Contrato finalizado");
+                    }
+                    else {
+                        String diaString = " días";
+                        if (oper==1)diaString=diaString.substring(0,4);
+
+                        LabelFechas.setText("Tiempo restante de contrato: "+oper+diaString);
+                    }
+                }
             }
         });
         MenuPanel1.add(VerContratoEmpleados);
-        VerContratoEmpleados.setBounds(410, 250, 140, 24);
+        VerContratoEmpleados.setBounds(520, 270, 140, 22);
+
+        ProgressBarFelicidad.setForeground(new java.awt.Color(42, 127, 0));
         MenuPanel1.add(ProgressBarFelicidad);
         ProgressBarFelicidad.setBounds(420, 40, 240, 10);
 
         jLabel1.setText("Nivel de felicidad");
         MenuPanel1.add(jLabel1);
-        jLabel1.setBounds(420, 20, 150, 18);
+        jLabel1.setBounds(420, 20, 150, 16);
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel2.setText("Lista de empleados");
         MenuPanel1.add(jLabel2);
         jLabel2.setBounds(10, 10, 170, 19);
 
-        unHorarioLabel.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
+        unHorarioLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         unHorarioLabel.setText("Horario laboral:");
         MenuPanel1.add(unHorarioLabel);
-        unHorarioLabel.setBounds(420, 70, 100, 18);
+        unHorarioLabel.setBounds(420, 70, 100, 14);
 
-        HorarioLabel.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
+        HorarioLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         HorarioLabel.setText("9:00  - 16:00 ");
         MenuPanel1.add(HorarioLabel);
-        HorarioLabel.setBounds(520, 70, 100, 18);
+        HorarioLabel.setBounds(510, 70, 100, 18);
 
         jLabel4.setText("No se encuentra trabajando porque no esta en su horario");
         MenuPanel1.add(jLabel4);
@@ -841,7 +857,7 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         MenuPanel1.add(jButton1);
-        jButton1.setBounds(550, 220, 110, 24);
+        jButton1.setBounds(550, 220, 110, 22);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Sin especificar", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -850,18 +866,18 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         MenuPanel1.add(jComboBox1);
-        jComboBox1.setBounds(410, 220, 130, 24);
+        jComboBox1.setBounds(410, 220, 130, 22);
 
-        jButton2.setText("Subir salario");
+        jButton2.setText("Cambiar salario");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
         MenuPanel1.add(jButton2);
-        jButton2.setBounds(530, 150, 110, 24);
+        jButton2.setBounds(530, 150, 120, 22);
         MenuPanel1.add(jTextField1);
-        jTextField1.setBounds(420, 150, 80, 24);
+        jTextField1.setBounds(420, 150, 80, 22);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("€");
@@ -875,11 +891,12 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         MenuPanel1.add(jButton3);
-        jButton3.setBounds(420, 190, 150, 24);
+        jButton3.setBounds(420, 190, 150, 22);
 
+        LabelFechas.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         LabelFechas.setText("Dias restantes de contrato: ");
         MenuPanel1.add(LabelFechas);
-        LabelFechas.setBounds(420, 90, 210, 18);
+        LabelFechas.setBounds(420, 100, 210, 14);
 
         getContentPane().add(MenuPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 675, 310));
 
@@ -1486,14 +1503,20 @@ public final class Game extends javax.swing.JFrame {
             GenerarEmpleados.contratos.get(selectedRow).setTraslado(
                     true);
             dineroEmpresa -= GenerarEmpleados.contratos.get(selectedRow).getOriginPrice();
-            GenerarEmpleados.contratos.get(selectedRow).setFechaIncorporacion(dias_reloj);
-            GenerarEmpleados.contratos.get(selectedRow).setFechaFinalizacion(GenerarEmpleados.contratos.get(selectedRow).getFechaIncorporacion() + GenerarEmpleados.contratos.get(selectedRow).getDuracion());
+            GenerarEmpleados.contratos.get(selectedRow).setFechaIncorporacion(
+                    dias_reloj);
+            GenerarEmpleados.contratos.get(selectedRow).setFechaFinalizacion(
+                    GenerarEmpleados.contratos.get(selectedRow).getFechaIncorporacion() + GenerarEmpleados.contratos.get(
+                    selectedRow).getDuracion());
 
         } else {
             GenerarEmpleados.contratos.get(selectedRow).setTraslado(
                     false);
-            GenerarEmpleados.contratos.get(selectedRow).setFechaIncorporacion(dias_reloj + LuckyClass.probabilidadTiempoIncorporacion());
-            GenerarEmpleados.contratos.get(selectedRow).setFechaFinalizacion(GenerarEmpleados.contratos.get(selectedRow).getFechaIncorporacion() + GenerarEmpleados.contratos.get(selectedRow).getDuracion());
+            GenerarEmpleados.contratos.get(selectedRow).setFechaIncorporacion(
+                    dias_reloj + LuckyClass.probabilidadTiempoIncorporacion());
+            GenerarEmpleados.contratos.get(selectedRow).setFechaFinalizacion(
+                    GenerarEmpleados.contratos.get(selectedRow).getFechaIncorporacion() + GenerarEmpleados.contratos.get(
+                    selectedRow).getDuracion());
 
         }
         if (SeguroCheckBox.isSelected()) {
@@ -1786,6 +1809,7 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;

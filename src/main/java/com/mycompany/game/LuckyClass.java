@@ -19,8 +19,6 @@ public class LuckyClass {
     }
 
     protected static int probabilidadTiempoFelicidadYTrabajo() {
-
-        
         return r.nextInt(10 - 5) + 5;
 
     }
