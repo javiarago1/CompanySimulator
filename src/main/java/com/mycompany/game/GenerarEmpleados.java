@@ -242,7 +242,7 @@ public class GenerarEmpleados {
         horaFinal = horaInicial + tempHoras;
 
        // return tempInicial + ":" + tempMinutos + " - " + (horaFinal) + ":" + tempMinutos;
-         return " "+8 + ":" + 10 + " - " + "12" + ":" + "00";
+         return " "+8 + ":" + "0"+5 + " - " + "12" + ":" + "00";
 
     }
 

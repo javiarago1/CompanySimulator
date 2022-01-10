@@ -112,6 +112,7 @@ public final class Game extends javax.swing.JFrame {
                 TablaModelContratos.addRow(row);
                 tiempo = GenerarEmpleados.timerContrato();
                 timer_añadir.setDelay(100);
+
             }
         });
 
@@ -160,7 +161,7 @@ public final class Game extends javax.swing.JFrame {
             }
             restarCapacidad();
 
-            if (horas_reloj == 12) {
+            if (minutos_reloj == 8) {
                 dias_reloj++;
                 LabelDias.setText("Dia: " + dias_reloj);
                 horas_reloj = 8;
@@ -192,10 +193,6 @@ public final class Game extends javax.swing.JFrame {
                 }
                 ex.setContadorInternoFelicidad(
                         ex.getContadorInternoFelicidad() + 1);
-                System.out.println(
-                        "Contador interno estado: " + ex.getContadorInternoFelicidad());
-                System.out.println(
-                        "Contador interno final: " + ex.getContadorInternoFelicidadFinal());
                 if (ex.getContadorInternoFelicidad() == ex.getContadorInternoFelicidadFinal()) {
                     ex.setFelicidad(ex.getFelicidad() - 1);
                     if (GenerarEmpleados.empleados.indexOf(ex) == TablaEmpleados.getSelectedRow()) {
@@ -817,13 +814,15 @@ public final class Game extends javax.swing.JFrame {
         MenuPanel1.add(jLabel2);
         jLabel2.setBounds(10, 10, 170, 19);
 
+        unHorarioLabel.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         unHorarioLabel.setText("Horario laboral:");
         MenuPanel1.add(unHorarioLabel);
         unHorarioLabel.setBounds(420, 70, 100, 18);
 
+        HorarioLabel.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         HorarioLabel.setText("9:00  - 16:00 ");
         MenuPanel1.add(HorarioLabel);
-        HorarioLabel.setBounds(510, 70, 100, 18);
+        HorarioLabel.setBounds(520, 70, 100, 18);
 
         jLabel4.setText("No se encuentra trabajando porque no esta en su horario");
         MenuPanel1.add(jLabel4);
@@ -1482,12 +1481,17 @@ public final class Game extends javax.swing.JFrame {
 
     private void comprobarCheckBox() {
         if (TrasladoCheckBox.isSelected()) {
+
             GenerarEmpleados.contratos.get(selectedRow).setTraslado(
                     true);
             dineroEmpresa -= GenerarEmpleados.contratos.get(selectedRow).getOriginPrice();
+
         } else {
             GenerarEmpleados.contratos.get(selectedRow).setTraslado(
                     false);
+            GenerarEmpleados.contratos.get(selectedRow).setFechaIncorporacion(dias_reloj + LuckyClass.probabilidadTiempoIncorporacion());
+            GenerarEmpleados.contratos.get(selectedRow).setFechaFinalizacion(GenerarEmpleados.contratos.get(selectedRow).getFechaIncorporacion()+GenerarEmpleados.contratos.get(selectedRow).getDuracion());
+
         }
         if (SeguroCheckBox.isSelected()) {
             GenerarEmpleados.contratos.get(selectedRow).setSeguro(
@@ -1497,6 +1501,8 @@ public final class Game extends javax.swing.JFrame {
             GenerarEmpleados.contratos.get(selectedRow).setSeguro(
                     false);
         }
+        
+        System.out.println("Fecha: "+GenerarEmpleados.contratos.get(selectedRow).getFechaIncorporacion());
     }
 
 
@@ -1508,12 +1514,7 @@ public final class Game extends javax.swing.JFrame {
                 FirmaRepresentante.getText());
         GenerarEmpleados.empleados.add(GenerarEmpleados.contratos.get(
                 selectedRow));
-        CrearEmpleados elemento = GenerarEmpleados.contratos.get(selectedRow);
-        Object[] row = new Object[]{
-            elemento.getNivel(), elemento.getRendimiento(), "Not working"
-        };
-        //TablaModelEmpleados.addRow(row);
-        abstractModelEmpleados.añadirRow();
+
         eliminarComun();
 
     }//GEN-LAST:event_ContratarButtonActionPerformed

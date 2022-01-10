@@ -20,6 +20,9 @@ public abstract class CrearEmpleados {
     //checker
 
     private boolean switcher;
+
+    private int fechaIncorporacion, fechaFinalizacion;
+
     private int horaFinal, minutoFinal, horaHorario, minutoHorario, tempDay;
     private int contadorInternoTrabajando, contadorInternoTrabajandoFinal;
     private int contadorInternoFelicidad, contadorInternoFelicidadFinal;
@@ -76,7 +79,7 @@ public abstract class CrearEmpleados {
 
     public void checkWorkingHorario(int horaReal, int minutoReal, int diaReal) {
 
-        this.trabajandoDeb = (horaReal >= horaHorario && minutoReal >= minutoHorario || horaReal > horaHorario) && (horaReal < horaFinal || horaReal == horaFinal && minutoReal < minutoFinal);
+        this.trabajandoDeb = ((horaReal >= horaHorario && minutoReal >= minutoHorario || horaReal > horaHorario) && (horaReal < horaFinal || horaReal == horaFinal && minutoReal < minutoFinal) && (diaReal >= fechaIncorporacion && diaReal < fechaFinalizacion));
 
         if (!trabajandoDeb && trabajando) {
             trabajando = false;
@@ -99,6 +102,22 @@ public abstract class CrearEmpleados {
             switcher = true;
         }
 
+    }
+
+    public int getFechaFinalizacion() {
+        return fechaFinalizacion;
+    }
+
+    public void setFechaFinalizacion(int fechaFinalizacion) {
+        this.fechaFinalizacion = fechaFinalizacion;
+    }
+
+    public int getFechaIncorporacion() {
+        return fechaIncorporacion;
+    }
+
+    public void setFechaIncorporacion(int fechaIncorporacion) {
+        this.fechaIncorporacion = fechaIncorporacion;
     }
 
     public int getContadorInternoTrabajando() {

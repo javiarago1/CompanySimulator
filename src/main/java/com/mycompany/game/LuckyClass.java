@@ -3,6 +3,8 @@ package com.mycompany.game;
 import java.util.Random;
 
 public class LuckyClass {
+    
+    private static Random r = new Random();
 
     protected static void probabilidadTrabajando(CrearEmpleados ex) {
         // 90 - ex.getFelicidad()
@@ -18,9 +20,15 @@ public class LuckyClass {
 
     protected static int probabilidadTiempoFelicidadYTrabajo() {
 
-        Random r = new Random();
+        
         return r.nextInt(10 - 5) + 5;
 
+    }
+    
+    
+    protected static int probabilidadTiempoIncorporacion(){
+        return r.nextInt(3-1)+1;
+        
     }
 
 }
