@@ -107,7 +107,7 @@ public abstract class CrearEmpleados {
     public int getFechaFinalizacion() {
         return fechaFinalizacion;
     }
-
+    
     public void setFechaFinalizacion(int fechaFinalizacion) {
         this.fechaFinalizacion = fechaFinalizacion;
     }

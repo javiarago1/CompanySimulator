@@ -197,11 +197,6 @@ public final class Game extends javax.swing.JFrame {
                         ex.getContadorInternoFelicidad() + 1);
                 if (ex.getContadorInternoFelicidad() == ex.getContadorInternoFelicidadFinal()) {
                     ex.setFelicidad(ex.getFelicidad() - 1);
-                    if (GenerarEmpleados.empleados.indexOf(ex) == TablaEmpleados.getSelectedRow()) {
-                        ProgressBarFelicidad.setValue(
-                                ex.getFelicidad());
-
-                    }
                     ex.setContadorInternoFelicidad(0);
                     ex.setContadorInternoFelicidadFinal(
                             LuckyClass.probabilidadTiempoFelicidadYTrabajo());
@@ -348,7 +343,7 @@ public final class Game extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        LabelFechas = new javax.swing.JLabel();
         MenuPanel2 = new javax.swing.JPanel();
         AnimationPanel = new javax.swing.JPanel();
         PanelDatosPersonales = new javax.swing.JPanel();
@@ -802,6 +797,13 @@ public final class Game extends javax.swing.JFrame {
                 VerContratoEmpleados.setEnabled(true);
                 ProgressBarFelicidad.setValue(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getFelicidad());
                 HorarioLabel.setText(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getHorario());
+                if (dias_reloj<GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getFechaIncorporacion()){
+                    LabelFechas.setText("Fecha de incorporación: "+GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getFechaIncorporacion());
+                }
+                else {
+                    LabelFechas.setText("adios");
+                }
+
             }
         });
         MenuPanel1.add(VerContratoEmpleados);
@@ -873,16 +875,11 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         MenuPanel1.add(jButton3);
-        jButton3.setBounds(420, 100, 150, 24);
+        jButton3.setBounds(420, 190, 150, 24);
 
-        jButton4.setText("jButton4");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        MenuPanel1.add(jButton4);
-        jButton4.setBounds(550, 10, 83, 24);
+        LabelFechas.setText("Dias restantes de contrato: ");
+        MenuPanel1.add(LabelFechas);
+        LabelFechas.setBounds(420, 90, 210, 18);
 
         getContentPane().add(MenuPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 675, 310));
 
@@ -1686,10 +1683,6 @@ public final class Game extends javax.swing.JFrame {
         dineroEmpresa += 500;
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-
-    }//GEN-LAST:event_jButton4ActionPerformed
-
     public static void main(String args[]) {
         try {
             UIManager.put("Table.selectionBackground", new java.awt.Color(9, 48,
@@ -1736,6 +1729,7 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JLabel HorasLabel;
     private javax.swing.JLabel HorasLabel1;
     private javax.swing.JLabel LabelDias;
+    private javax.swing.JLabel LabelFechas;
     private javax.swing.JLabel LabelFoto;
     private javax.swing.JLabel LabelFoto1;
     protected static javax.swing.JLabel LabelHoras;
@@ -1780,7 +1774,6 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
