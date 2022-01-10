@@ -804,13 +804,13 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         MenuPanel1.add(VerContratoEmpleados);
-        VerContratoEmpleados.setBounds(410, 250, 140, 22);
+        VerContratoEmpleados.setBounds(410, 250, 140, 24);
         MenuPanel1.add(ProgressBarFelicidad);
         ProgressBarFelicidad.setBounds(420, 40, 240, 10);
 
         jLabel1.setText("Nivel de felicidad");
         MenuPanel1.add(jLabel1);
-        jLabel1.setBounds(420, 20, 150, 16);
+        jLabel1.setBounds(420, 20, 150, 18);
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel2.setText("Lista de empleados");
@@ -819,11 +819,11 @@ public final class Game extends javax.swing.JFrame {
 
         unHorarioLabel.setText("Horario laboral:");
         MenuPanel1.add(unHorarioLabel);
-        unHorarioLabel.setBounds(420, 70, 100, 16);
+        unHorarioLabel.setBounds(420, 70, 100, 18);
 
         HorarioLabel.setText("9:00  - 16:00 ");
         MenuPanel1.add(HorarioLabel);
-        HorarioLabel.setBounds(510, 70, 100, 16);
+        HorarioLabel.setBounds(510, 70, 100, 18);
 
         jLabel4.setText("No se encuentra trabajando porque no esta en su horario");
         MenuPanel1.add(jLabel4);
@@ -836,7 +836,7 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         MenuPanel1.add(jButton1);
-        jButton1.setBounds(550, 220, 110, 22);
+        jButton1.setBounds(550, 220, 110, 24);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Sin especificar", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -845,7 +845,7 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         MenuPanel1.add(jComboBox1);
-        jComboBox1.setBounds(410, 220, 130, 22);
+        jComboBox1.setBounds(410, 220, 130, 24);
 
         jButton2.setText("Subir salario");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -854,9 +854,9 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         MenuPanel1.add(jButton2);
-        jButton2.setBounds(530, 150, 110, 22);
+        jButton2.setBounds(530, 150, 110, 24);
         MenuPanel1.add(jTextField1);
-        jTextField1.setBounds(420, 150, 80, 22);
+        jTextField1.setBounds(420, 150, 80, 24);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("€");
@@ -870,7 +870,7 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         MenuPanel1.add(jButton3);
-        jButton3.setBounds(420, 100, 150, 22);
+        jButton3.setBounds(420, 100, 150, 24);
 
         jButton4.setText("jButton4");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -879,7 +879,7 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         MenuPanel1.add(jButton4);
-        jButton4.setBounds(550, 10, 75, 22);
+        jButton4.setBounds(550, 10, 83, 24);
 
         getContentPane().add(MenuPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 675, 310));
 
@@ -1107,10 +1107,12 @@ public final class Game extends javax.swing.JFrame {
         TrasladoCheckBox.setText("Pagar traslado desde Castilla la Mancha: 40€");
         AnimationPanel.add(TrasladoCheckBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 20));
 
+        unFirmaRepresentanteLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         unFirmaRepresentanteLabel.setForeground(new java.awt.Color(63, 63, 63));
         unFirmaRepresentanteLabel.setText("Firma de la empresa:");
         AnimationPanel.add(unFirmaRepresentanteLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 252, -1, 20));
 
+        unFirmaTrabajadorLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         unFirmaTrabajadorLabel.setForeground(new java.awt.Color(63, 63, 63));
         unFirmaTrabajadorLabel.setText("Firma del trabajador:");
         AnimationPanel.add(unFirmaTrabajadorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, -1, -1));
@@ -1173,7 +1175,7 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         TablaContratos.setToolTipText(null);
-        TablaContratos.getColumnModel().getColumn(2).setCellRenderer(new ColorSueldoTable());
+        TablaContratos.getColumnModel().getColumn(2).setCellRenderer(new com.mycompany.game.ColorSueldoTable());
         TablaContratos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         TablaContratos.setDefaultRenderer(Object.class, centerRenderer);
         TablaContratos.addMouseListener(new java.awt.event.MouseAdapter() {
