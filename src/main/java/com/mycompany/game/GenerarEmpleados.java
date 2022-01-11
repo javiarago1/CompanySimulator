@@ -241,7 +241,7 @@ public class GenerarEmpleados {
         }
         horaFinal = horaInicial + tempHoras;
 
-       // return tempInicial + ":" + tempMinutos + " - " + (horaFinal) + ":" + tempMinutos;
+       //return tempInicial + ":" + tempMinutos + " - " + (horaFinal) + ":" + tempMinutos;
          return " "+8 + ":" + "0"+5 + " - " + "12" + ":" + "00";
 
     }
@@ -251,7 +251,8 @@ public class GenerarEmpleados {
         low = 3;
         num = r.nextInt(high - low) + low;
         tempDias = num;
-        return tempDias;
+        //return tempDias;
+        return 1;
     }
 
     protected static int timerContrato() {

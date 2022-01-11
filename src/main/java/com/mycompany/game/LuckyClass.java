@@ -29,5 +29,9 @@ public class LuckyClass {
         return r.nextInt(3 - 1) + 1;
 
     }
+    
+    protected static int azarTiempoRenovar(){
+        return r.nextInt(15-10)+10;
+    }
 
 }

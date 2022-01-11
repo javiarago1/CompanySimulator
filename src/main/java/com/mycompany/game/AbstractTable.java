@@ -44,16 +44,23 @@ public class AbstractTable extends AbstractTableModel {
     }
 
     @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        super.setValueAt(aValue, rowIndex, columnIndex);
-        super.fireTableCellUpdated(rowIndex, columnIndex);
+    public void fireTableCellUpdated(int row, int column) {
+        if (!Game.AnimationPanelEmpleados.isVisible()) {
+            super.fireTableCellUpdated(row, column);
+        }
+
     }
 
     @Override
     public void fireTableRowsInserted(int firstRow, int lastRow) {
         super.fireTableRowsInserted(firstRow, lastRow);
     }
-    
+
+    @Override
+    public void fireTableRowsDeleted(int firstRow, int lastRow) {
+        super.fireTableRowsDeleted(firstRow, lastRow);
+    }
+
     @Override
     public String getColumnName(int column) {
         return tableHeader[column];

@@ -26,6 +26,7 @@ public abstract class CrearEmpleados {
     private int horaFinal, minutoFinal, horaHorario, minutoHorario, tempDay;
     private int contadorInternoTrabajando, contadorInternoTrabajandoFinal;
     private int contadorInternoFelicidad, contadorInternoFelicidadFinal;
+    private int contadorInternoRenovar;
     private int felicidadTempInicial;
     private double rendimientoTempInicial;
 
@@ -109,6 +110,14 @@ public abstract class CrearEmpleados {
             switcher = true;
         }
 
+    }
+
+    public int getContadorInternoRenovar() {
+        return contadorInternoRenovar;
+    }
+
+    public void setContadorInternoRenovar(int contadorInternoRenovar) {
+        this.contadorInternoRenovar = contadorInternoRenovar;
     }
 
     public int getFechaFinalizacion() {
