@@ -23,8 +23,11 @@ public abstract class CrearEmpleados {
 
     private int fechaIncorporacion, fechaFinalizacion;
 
+    private boolean finJornada;
+    private boolean empleadoRepeticion = true;
     
-    private boolean contadorRenovar;
+    
+
     private int horaFinal, minutoFinal, horaHorario, minutoHorario, tempDay;
     private int contadorInternoTrabajando, contadorInternoTrabajandoFinal;
     private int contadorInternoFelicidad, contadorInternoFelicidadFinal;
@@ -84,6 +87,8 @@ public abstract class CrearEmpleados {
 
         this.trabajandoDeb = ((horaReal >= horaHorario && minutoReal >= minutoHorario || horaReal > horaHorario) && (horaReal < horaFinal || horaReal == horaFinal && minutoReal < minutoFinal) && (diaReal >= fechaIncorporacion && diaReal < fechaFinalizacion));
 
+        this.finJornada = horaReal > horaFinal || horaReal == horaFinal && minutoReal > minutoFinal;
+    
         if (!trabajandoDeb && trabajando) {
             Game.abstractModelEmpleados.fireTableCellUpdated(
                     GenerarEmpleados.empleados.indexOf(this), 2);
@@ -112,6 +117,22 @@ public abstract class CrearEmpleados {
             switcher = true;
         }
 
+    }
+
+    public boolean isEmpleadoRepeticion() {
+        return empleadoRepeticion;
+    }
+
+    public void setEmpleadoRepeticion(boolean empleadoRepeticion) {
+        this.empleadoRepeticion = empleadoRepeticion;
+    }
+
+    public boolean isFinJornada() {
+        return finJornada;
+    }
+
+    public void setFinJornada(boolean finJornada) {
+        this.finJornada = finJornada;
     }
 
     public int getContadorInternoRenovar() {
