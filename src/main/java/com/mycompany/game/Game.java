@@ -141,7 +141,7 @@ public final class Game extends javax.swing.JFrame {
         Game.LabelMinutos.setText(temp);
         temp = String.valueOf("0" + horas_reloj + ":");
         Game.LabelHoras.setText(temp);
-        timer_reloj = new Timer(1000, (ActionEvent e) -> {
+        timer_reloj = new Timer(100, (ActionEvent e) -> {
             minutos_reloj++;
             if (minutos_reloj == 60) {
                 horas_reloj++;
@@ -161,7 +161,7 @@ public final class Game extends javax.swing.JFrame {
             }
             restarCapacidad();
 
-            if (minutos_reloj == 13) {
+            if (horas_reloj == 11) {
                 dias_reloj++;
                 LabelDias.setText("Dia: " + dias_reloj);
                 horas_reloj = 8;
@@ -184,7 +184,7 @@ public final class Game extends javax.swing.JFrame {
                 ex.setContadorInternoTrabajando(
                         ex.getContadorInternoTrabajando() + 1);
                 if (ex.getContadorInternoTrabajando() == ex.getContadorInternoTrabajandoFinal()) {
-                    LuckyClass.probabilidadTrabajando(ex);
+                    //LuckyClass.probabilidadTrabajando(ex);
                     abstractModelEmpleados.fireTableCellUpdated(
                             GenerarEmpleados.empleados.indexOf(ex), 2);
                     ex.setContadorInternoTrabajando(0);
@@ -847,10 +847,12 @@ public final class Game extends javax.swing.JFrame {
                     CrearEmpleados ex = GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow());
                     int oper = ex.getFechaFinalizacion()-dias_reloj;
 
-                    if (oper<=0){
+                    if (oper==0){
                         LabelFechas.setText("Contrato finalizado");
+                        System.out.println("Contrato finalizado");
                         renovarMet();
                     }
+
                     else {
                         String diaString = " días";
                         if (oper==1)diaString=diaString.substring(0,4);
@@ -1250,16 +1252,20 @@ public final class Game extends javax.swing.JFrame {
     private void renovarMet() {
         CrearEmpleados ex = GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow());
         ex.setContadorInternoRenovar(LuckyClass.azarTiempoRenovar());
+
         Timer renovar_timer = new Timer(1000, (ActionEvent e) -> {
             RenovarBoton.setText("Renovar (" + ex.getContadorInternoRenovar() + ")");
             ex.setContadorInternoRenovar(ex.getContadorInternoRenovar() - 1);
-            if (ex.getContadorInternoRenovar()<=0){
+            if (ex.getContadorInternoRenovar() <= 0) {
+                ((Timer) e.getSource()).stop();
                 GenerarEmpleados.empleados.remove(ex);
                 int num = GenerarEmpleados.empleados.indexOf(ex);
-                abstractModelEmpleados.fireTableRowsDeleted(num,num);
+                abstractModelEmpleados.fireTableRowsDeleted(num, num);
             }
 
-        }); renovar_timer.start();
+        });
+        renovar_timer.start();
+   
     }
 
     private void VerEmpeladosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VerEmpeladosMouseClicked
@@ -1562,7 +1568,7 @@ public final class Game extends javax.swing.JFrame {
         }
         DescartarButton.setEnabled(false);
         ContratarButton.setEnabled(false);
-  
+
         TablaModelContratos.removeRow(selectedRow);
         GenerarEmpleados.contratos.remove(selectedRow);
         helpAble(TablaContratos);

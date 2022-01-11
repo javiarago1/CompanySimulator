@@ -23,6 +23,8 @@ public abstract class CrearEmpleados {
 
     private int fechaIncorporacion, fechaFinalizacion;
 
+    
+    private boolean contadorRenovar;
     private int horaFinal, minutoFinal, horaHorario, minutoHorario, tempDay;
     private int contadorInternoTrabajando, contadorInternoTrabajandoFinal;
     private int contadorInternoFelicidad, contadorInternoFelicidadFinal;
