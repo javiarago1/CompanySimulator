@@ -38,6 +38,7 @@ public class GenerarEmpleados {
                 generarNacionalidad(), generarNacionalidadColor(),
                 generarProcedencia(), generarFuenteFirma(), generarHorario(),GenerarFelicidad()));
 
+     
     }
 
     private static String generarDNI() {

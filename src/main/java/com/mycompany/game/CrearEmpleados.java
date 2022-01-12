@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import javax.swing.ImageIcon;
 
-public abstract class CrearEmpleados {
+public class CrearEmpleados {
 
     private Color colorSueldo;
     private boolean traslado, seguro, trabajandoDeb, trabajando;

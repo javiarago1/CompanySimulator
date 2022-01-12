@@ -16,7 +16,7 @@ public class ColorRendimientoTable extends DefaultTableCellRenderer {
         CrearEmpleados ex = GenerarEmpleados.empleados.get(row);
         if (ex.isSwitcher()) {
 
-            if (ex.getRendimientoTempInicial() > ex.getRendimiento()) {
+            if (ex.getRendimientoTempInicial() > ex.getRendimiento()) {  
                 l.setForeground(ColorSueldoTable.ROJO_SUELDO);
             } else {
                 l.setForeground(ColorSueldoTable.VERDE_SUELDO);
