@@ -7,48 +7,42 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import javax.swing.ImageIcon;
 
-public class CrearEmpleados {
+public abstract class CrearEmpleados {
 
     private Color colorSueldo;
-    private boolean traslado, seguro, trabajandoDeb, trabajando;
+    protected boolean traslado, seguro, trabajandoDeb, trabajando;
     private Font fuenteFirma;
-    private String DNI, nombre, apellido, nivel, fechaNacimiento, genero, nacionalidad, nacionalidadColor, procedencia, rendimientoRango, firmaEmpleado, firmaEmpresa, horario;
+    private String DNI, nombre, apellido, nivel, fechaNacimiento, genero, nacionalidad, nacionalidadColor, procedencia, firmaEmpleado, firmaEmpresa, horario;
     private ImageIcon foto;
     private LocalDate DatoLocal;
-    private double rendimiento;
-    private int horas, duracion, edad, sueldo, felicidad;
+    private int horas, duracion, edad, sueldo;
+    protected int felicidad;
     //checker
 
-    private boolean switcher;
+    protected boolean switcher;
 
     private int fechaIncorporacion, fechaFinalizacion;
 
-    private boolean finJornada;
+    protected boolean finContrato;
     private boolean empleadoRepeticion = true;
-    
-    
 
-    private int horaFinal, minutoFinal, horaHorario, minutoHorario, tempDay;
+    protected int horaFinal, minutoFinal, horaHorario, minutoHorario, tempDay;
     private int contadorInternoTrabajando, contadorInternoTrabajandoFinal;
     private int contadorInternoFelicidad, contadorInternoFelicidadFinal;
     private int contadorInternoRenovar;
-    private int felicidadTempInicial;
-    private double rendimientoTempInicial;
+    protected int felicidadTempInicial;
 
     public CrearEmpleados(String DNI, String genero, String nombre,
             String apellido,
             String nivel, int duracion, int horas, int sueldo,
-            double rendimiento, String rendimientoRango,
             LocalDate fechaNacimiento,
             int edad, ImageIcon foto, String nacionalidad,
             String nacionalidadColor, String procedencia, Font fuenteFirma,
             String horario, int felicidad) {
-        this.rendimientoTempInicial = rendimiento;
         this.felicidadTempInicial = felicidad;
         this.felicidad = felicidad;
         this.horario = horario;
         this.fuenteFirma = fuenteFirma;
-        this.rendimientoRango = rendimientoRango;
         this.nacionalidad = nacionalidad;
         this.procedencia = procedencia;
         this.foto = foto;
@@ -60,7 +54,6 @@ public class CrearEmpleados {
         this.nombre = nombre;
         this.apellido = apellido;
         this.nivel = nivel;
-        this.rendimiento = rendimiento;
         this.sueldo = sueldo;
         this.horas = horas;
         this.duracion = duracion;
@@ -87,8 +80,9 @@ public class CrearEmpleados {
 
         this.trabajandoDeb = ((horaReal >= horaHorario && minutoReal >= minutoHorario || horaReal > horaHorario) && (horaReal < horaFinal || horaReal == horaFinal && minutoReal < minutoFinal) && (diaReal >= fechaIncorporacion && diaReal < fechaFinalizacion));
 
-        this.finJornada = horaReal > horaFinal || horaReal == horaFinal && minutoReal > minutoFinal;
-    
+        this.finContrato = (horaReal > horaFinal || horaReal == horaFinal && minutoReal >= minutoFinal) && (fechaFinalizacion-diaReal<=1);
+
+
         if (!trabajandoDeb && trabajando) {
             Game.abstractModelEmpleados.fireTableCellUpdated(
                     GenerarEmpleados.empleados.indexOf(this), 2);
@@ -101,23 +95,13 @@ public class CrearEmpleados {
             tempDay = diaReal;
         }
 
-        if (switcher) {
-            Game.abstractModelEmpleados.fireTableCellUpdated(
-                    GenerarEmpleados.empleados.indexOf(this), 1);
-            switcher = false;
-        }
-        if (this.felicidad != this.felicidadTempInicial) {
-            double op = this.felicidadTempInicial - this.felicidad;
-            this.felicidadTempInicial = felicidad;
-            this.setRendimientoTempInicial(this.rendimiento);
-            this.rendimiento = (Double.parseDouble(GenerarEmpleados.df.format(
-                    ((100 - op) / 100) * this.rendimiento).replace(",", ".")));
-            Game.abstractModelEmpleados.fireTableCellUpdated(
-                    GenerarEmpleados.empleados.indexOf(this), 1);
-            switcher = true;
-        }
-
     }
+
+    public abstract Object getAbstractRendimientoTemp();
+    
+    public abstract Object getAbstractRendimiento();
+
+    public abstract String getAbstractRangoRendimiento();
 
     public boolean isEmpleadoRepeticion() {
         return empleadoRepeticion;
@@ -127,14 +111,16 @@ public class CrearEmpleados {
         this.empleadoRepeticion = empleadoRepeticion;
     }
 
-    public boolean isFinJornada() {
-        return finJornada;
+    public boolean isFinContrato() {
+        return finContrato;
     }
 
-    public void setFinJornada(boolean finJornada) {
-        this.finJornada = finJornada;
+    public void setFinContrato(boolean finContrato) {
+        this.finContrato = finContrato;
     }
 
+    
+    
     public int getContadorInternoRenovar() {
         return contadorInternoRenovar;
     }
@@ -201,14 +187,6 @@ public class CrearEmpleados {
         this.switcher = switcher;
     }
 
-    public double getRendimientoTempInicial() {
-        return rendimientoTempInicial;
-    }
-
-    public void setRendimientoTempInicial(double rendimientoTempInicial) {
-        this.rendimientoTempInicial = rendimientoTempInicial;
-    }
-
     public int getFelicidadTempInicial() {
         return felicidadTempInicial;
     }
@@ -254,10 +232,6 @@ public class CrearEmpleados {
 
     public void setTrabajandoDeb(boolean trabajando) {
         this.trabajandoDeb = trabajando;
-    }
-
-    public double getRendimientoXminuto() {
-        return this.rendimiento / 40;
     }
 
     public boolean getTraslado() {
@@ -310,22 +284,6 @@ public class CrearEmpleados {
 
     public void setProcedencia(String procedencia) {
         this.procedencia = procedencia;
-    }
-
-    public String getRendimientoRango() {
-        return rendimientoRango;
-    }
-
-    public void setRendimientoRango(String rendimientoRango) {
-        this.rendimientoRango = rendimientoRango;
-    }
-
-    public double getRendimiento() {
-        return rendimiento;
-    }
-
-    public void setRendimiento(double rendimiento) {
-        this.rendimiento = rendimiento;
     }
 
     public String getOriginName() {

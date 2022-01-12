@@ -27,6 +27,7 @@ public class GenerarEmpleados {
 
     protected static List<CrearEmpleados> empleados = new ArrayList<>();
     protected static ArrayList<CrearEmpleados> contratos = new ArrayList<>();
+    protected static ArrayList<CrearTecnico> tecnicos = new ArrayList<>();
 
     protected static void generarContratos() {
         contratos.add(new CrearProgramador(generarDNI(), generarGenero(),
@@ -40,6 +41,7 @@ public class GenerarEmpleados {
 
      
     }
+        
 
     private static String generarDNI() {
         low = 0;
@@ -243,7 +245,7 @@ public class GenerarEmpleados {
         horaFinal = horaInicial + tempHoras;
 
        //return tempInicial + ":" + tempMinutos + " - " + (horaFinal) + ":" + tempMinutos;
-         return " "+8 + ":" + "0"+5 + " - " + "10" + ":" + "00";
+         return 10 + ":" + "0"+5 + " - " + "10" + ":" + "12";
 
     }
 

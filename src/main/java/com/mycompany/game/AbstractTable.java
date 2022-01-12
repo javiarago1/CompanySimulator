@@ -31,7 +31,7 @@ public class AbstractTable extends AbstractTableModel {
             }
 
             case 1 -> {
-                return listEmpleados.get(rowIndex).getRendimiento() + " €/h";
+                return listEmpleados.get(rowIndex).getAbstractRendimiento() + " €/h";
             }
 
             case 2 -> {

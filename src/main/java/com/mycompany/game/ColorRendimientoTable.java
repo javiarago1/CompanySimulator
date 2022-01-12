@@ -14,9 +14,10 @@ public class ColorRendimientoTable extends DefaultTableCellRenderer {
                 isSelected, hasFocus, row, column);
         l.setHorizontalAlignment(JLabel.CENTER);
         CrearEmpleados ex = GenerarEmpleados.empleados.get(row);
+        
         if (ex.isSwitcher()) {
 
-            if (ex.getRendimientoTempInicial() > ex.getRendimiento()) {  
+            if (Double.parseDouble(ex.getAbstractRendimientoTemp().toString())> Double.parseDouble(ex.getAbstractRendimiento().toString())) {  
                 l.setForeground(ColorSueldoTable.ROJO_SUELDO);
             } else {
                 l.setForeground(ColorSueldoTable.VERDE_SUELDO);
