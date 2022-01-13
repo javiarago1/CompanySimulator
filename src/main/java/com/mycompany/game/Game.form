@@ -1300,7 +1300,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="224" y="80" width="31" height="-1"/>
+                      <AbsoluteConstraints x="224" y="80" width="31" height="24"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -1312,9 +1312,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FieldRenovarDuracionActionPerformed"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="KeyAdapter fieldTextOnlyNumber = new KeyAdapter() {&#xa;            @Override&#xa;            public void keyTyped(KeyEvent e) {&#xa;                char c = e.getKeyChar();&#xa;                if (!((c &gt;= &apos;0&apos;) &amp;&amp; (c &lt;= &apos;9&apos;) &#xa;                        || (c == KeyEvent.VK_BACK_SPACE)&#xa;                        || (c == KeyEvent.VK_DELETE))) {&#xa;                    e.consume();&#xa;                }&#xa;            }&#xa;        };"/>
-                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="FieldRenovarDuracion.addFocusListener(new FocusListener() {&#xa;            @Override&#xa;            public void focusGained(FocusEvent e) {&#xa;                FieldRenovarDuracion.setText(&quot;&quot;);&#xa;            }&#xa;&#xa;            @Override&#xa;            public void focusLost(FocusEvent e) {&#xa;                if (FieldRenovarDuracion.getText().isBlank()){&#xa;                    FieldRenovarDuracion.setText(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getDuracion()+&quot; d&#xed;as&quot;);&#xa;                }&#xa;                else{&#xa;                    try {&#xa;                        if (Integer.valueOf(FieldRenovarDuracion.getText())&gt;20){&#xa;                            FieldRenovarDuracion.setText(&quot;20 d&#xed;as&quot;);&#xa;                        }&#xa;                        else {&#xa;                            FieldRenovarDuracion.setText(FieldRenovarDuracion.getText()+&quot; d&#xed;as&quot;);&#xa;                        }&#xa;                    } catch (NumberFormatException ex) {&#xa;                            FieldRenovarDuracion.setText(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getDuracion()+&quot; d&#xed;as&quot;);&#xa;                        }   &#xa;                }          &#xa;            }&#xa;        });"/>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="FieldRenovarDuracion.addKeyListener(fieldTextOnlyNumber);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="PlainDocument doc = (PlainDocument) FieldRenovarDuracion.getDocument();&#xa;doc.setDocumentFilter(new FieldTester());    &#xa;FieldRenovarDuracion.addFocusListener(fieldTester(FieldRenovarDuracion));"/>
                   </AuxValues>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -1339,9 +1337,6 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FieldRenovarJornadaActionPerformed"/>
                   </Events>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="FieldRenovarDuracion.addKeyListener(fieldTextOnlyNumber);"/>
-                  </AuxValues>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                       <AbsoluteConstraints x="90" y="50" width="80" height="-1"/>
@@ -1355,9 +1350,6 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FieldRenovarSueldoActionPerformed"/>
                   </Events>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="FieldRenovarSueldo.addKeyListener(fieldTextOnlyNumber);"/>
-                  </AuxValues>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                       <AbsoluteConstraints x="170" y="50" width="85" height="-1"/>

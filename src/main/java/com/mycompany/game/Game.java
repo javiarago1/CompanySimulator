@@ -8,6 +8,7 @@ import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
@@ -24,6 +25,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.PlainDocument;
 
 public final class Game extends javax.swing.JFrame {
 
@@ -233,9 +235,9 @@ public final class Game extends javax.swing.JFrame {
         if (GenerarEmpleados.empleados.indexOf(ex) == TablaEmpleados.getSelectedRow() && !AnimationPanelEmpleados.isVisible()) {
             RenovarBoton.setText(
                     "Renovar contrato (" + ex.getContadorInternoRenovar() + ")");
-            if (!PanelRenovacion.isVisible()){
-            PanelRenovacion.setVisible(true);
-            PanelDatosDefecto.setVisible(false);
+            if (!PanelRenovacion.isVisible()) {
+                PanelRenovacion.setVisible(true);
+                PanelDatosDefecto.setVisible(false);
             }
         }
         ex.setEmpleadoRepeticion(false);
@@ -375,1046 +377,1010 @@ public final class Game extends javax.swing.JFrame {
         PanelRenovacion = new javax.swing.JPanel();
         RenovarBoton = new javax.swing.JButton();
         EliminarBoton = new javax.swing.JButton();
-        KeyAdapter fieldTextOnlyNumber = new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char c = e.getKeyChar();
-                if (!((c >= '0') && (c <= '9')
-                    || (c == KeyEvent.VK_BACK_SPACE)
-                    || (c == KeyEvent.VK_DELETE))) {
-                e.consume();
+        FieldRenovarDuracion = new javax.swing.JTextField();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        FieldRenovarJornada = new javax.swing.JTextField();
+        FieldRenovarSueldo = new javax.swing.JTextField();
+        jSeparator23 = new javax.swing.JSeparator();
+        PanelDatosDefecto = new javax.swing.JPanel();
+        BotonSancionar = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        BotonDespedir = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        jSeparator24 = new javax.swing.JSeparator();
+        jSeparator25 = new javax.swing.JSeparator();
+        jSeparator26 = new javax.swing.JSeparator();
+        MenuPanel2 = new javax.swing.JPanel();
+        AnimationPanel = new javax.swing.JPanel();
+        PanelDatosPersonales = new javax.swing.JPanel();
+        unLabelName = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        NameLabel = new javax.swing.JLabel();
+        DniLabel = new javax.swing.JLabel();
+        unLabelDni = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
+        unFechaLabel = new javax.swing.JLabel();
+        unNacionalidadLabel = new javax.swing.JLabel();
+        GeneroLabel = new javax.swing.JLabel();
+        FechaLabel = new javax.swing.JLabel();
+        jSeparator6 = new javax.swing.JSeparator();
+        jSeparator5 = new javax.swing.JSeparator();
+        jSeparator7 = new javax.swing.JSeparator();
+        PanelFoto = new javax.swing.JPanel();
+        LabelFoto = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        unGeneroLabel = new javax.swing.JLabel();
+        NacionalidadLabel = new javax.swing.JLabel();
+        PanelDatosConntrato = new javax.swing.JPanel();
+        HorasLabel = new javax.swing.JLabel();
+        TrabajoLabel = new javax.swing.JLabel();
+        unTrabajoLabel = new javax.swing.JLabel();
+        unFechaLabel1 = new javax.swing.JLabel();
+        jSeparator11 = new javax.swing.JSeparator();
+        unLabelName2 = new javax.swing.JLabel();
+        DuracionLabel = new javax.swing.JLabel();
+        unLabelSueldo = new javax.swing.JLabel();
+        SueldoLabel = new javax.swing.JLabel();
+        jSeparator14 = new javax.swing.JSeparator();
+        jSeparator15 = new javax.swing.JSeparator();
+        unRendimientoLabel = new javax.swing.JLabel();
+        RendimientoLabel = new javax.swing.JLabel();
+        jSeparator16 = new javax.swing.JSeparator();
+        ContratarButton = new javax.swing.JButton();
+        DescartarButton = new javax.swing.JButton();
+        DatosPersonales = new javax.swing.JLabel();
+        SeguroCheckBox = new javax.swing.JCheckBox();
+        TrasladoCheckBox = new javax.swing.JCheckBox();
+        unFirmaRepresentanteLabel = new javax.swing.JLabel();
+        unFirmaTrabajadorLabel = new javax.swing.JLabel();
+        FirmaRepresentante = new javax.swing.JTextField();
+        jSeparator13 = new javax.swing.JSeparator();
+        FirmaTrabajadorLabel = new javax.swing.JLabel();
+        TransLayer = new javax.swing.JLabel();
+        TituloContratos = new javax.swing.JLabel();
+        PaneContratos = new javax.swing.JScrollPane();
+        TablaContratos = new javax.swing.JTable();
+        ShowContractButton = new javax.swing.JButton();
+        MenuPanel3 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentMoved(java.awt.event.ComponentEvent evt) {
+                formComponentMoved(evt);
             }
+        });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        PanelIzquierdo.setBackground(new java.awt.Color(58, 72, 77));
+        PanelIzquierdo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        VerEmpelados.setBackground(new java.awt.Color(58, 72, 77));
+        VerEmpelados.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        VerEmpelados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                VerEmpeladosMouseClicked(evt);
+            }
+        });
+        VerEmpelados.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setIcon(new javax.swing.ImageIcon("src/main/java/images/general/workers.png"));
+        jLabel3.setText(" Empleados");
+        VerEmpelados.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 9, 130, 30));
+
+        PanelIzquierdo.add(VerEmpelados, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 150, 50));
+
+        ContrarEmpleados.setBackground(new java.awt.Color(58, 72, 77));
+        ContrarEmpleados.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        ContrarEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ContrarEmpleadosMouseClicked(evt);
+            }
+        });
+        ContrarEmpleados.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setIcon(new javax.swing.ImageIcon("src/main/java/images/general/add.png"));
+        jLabel5.setText(" Contratar");
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        ContrarEmpleados.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 2, 130, 30));
+
+        PanelIzquierdo.add(ContrarEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 150, 40));
+
+        jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
+        PanelIzquierdo.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 130, 10));
+
+        jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
+        PanelIzquierdo.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 130, 10));
+
+        getContentPane().add(PanelIzquierdo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, 430));
+
+        PanelSuperior.setBackground(new java.awt.Color(76, 94, 100));
+        PanelSuperior.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(76, 94, 100));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        LabelHoras.setFont(CargarArchivos.reloj_Font);
+        LabelHoras.setForeground(new java.awt.Color(255, 255, 255));
+        LabelHoras.setText("0");
+        jPanel1.add(LabelHoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 70, 40));
+
+        LabelMinutos.setFont(CargarArchivos.reloj_Font);
+        LabelMinutos.setForeground(new java.awt.Color(255, 255, 255));
+        LabelMinutos.setText("0");
+        jPanel1.add(LabelMinutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 0, 50, 40));
+
+        PanelSuperior.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, 140, 40));
+
+        dineroEmpresaLabel.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        dineroEmpresaLabel.setText("500");
+        PanelSuperior.add(dineroEmpresaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        LabelDias.setText("Dia 1");
+        PanelSuperior.add(LabelDias, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, -1, -1));
+
+        getContentPane().add(PanelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, 675, 120));
+
+        MenuPanel1.setBackground(new java.awt.Color(60, 64, 65));
+        MenuPanel1.setLayout(null);
+
+        AnimationPanelEmpleados.setVisible(false);
+        AnimationPanelEmpleados.setBackground(new java.awt.Color(192, 192, 192));
+        AnimationPanelEmpleados.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 0, true));
+        AnimationPanelEmpleados.setPreferredSize(new java.awt.Dimension(500, 300));
+        AnimationPanelEmpleados.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        AnimationPanelEmpleados.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, -30, -1, -1));
+
+        PanelDatosPersonales1.setBackground(new java.awt.Color(231, 231, 231));
+        PanelDatosPersonales1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(146, 146, 146)));
+        PanelDatosPersonales1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        unLabelName1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        unLabelName1.setForeground(new java.awt.Color(121, 121, 121));
+        unLabelName1.setText("Nombre:");
+        PanelDatosPersonales1.add(unLabelName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 3, -1, 30));
+
+        jSeparator8.setBackground(new java.awt.Color(135, 135, 135));
+        jSeparator8.setForeground(new java.awt.Color(135, 135, 135));
+        PanelDatosPersonales1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 65, 410, 10));
+
+        NameLabel1.setBackground(new java.awt.Color(52, 55, 57));
+        NameLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        NameLabel1.setForeground(new java.awt.Color(99, 99, 99));
+        NameLabel1.setText("Javier Aragoneses");
+        PanelDatosPersonales1.add(NameLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 10, -1, -1));
+
+        DniLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        DniLabel1.setForeground(new java.awt.Color(99, 99, 99));
+        DniLabel1.setText("50633883G");
+        PanelDatosPersonales1.add(DniLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 8, -1, 20));
+
+        unLabelDni1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        unLabelDni1.setForeground(new java.awt.Color(121, 121, 121));
+        unLabelDni1.setText("NIF:");
+        PanelDatosPersonales1.add(unLabelDni1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 3, 30, 30));
+
+        jSeparator9.setBackground(new java.awt.Color(135, 135, 135));
+        jSeparator9.setForeground(new java.awt.Color(135, 135, 135));
+        jSeparator9.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        PanelDatosPersonales1.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 33, 9, 68));
+
+        unFechaLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        unFechaLabel2.setForeground(new java.awt.Color(121, 121, 121));
+        unFechaLabel2.setText("Fecha de nacimiento:");
+        PanelDatosPersonales1.add(unFechaLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 42, -1, -1));
+
+        unNacionalidadLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        unNacionalidadLabel1.setForeground(new java.awt.Color(121, 121, 121));
+        unNacionalidadLabel1.setText("Nacionalidad:");
+        PanelDatosPersonales1.add(unNacionalidadLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 73, -1, 20));
+
+        GeneroLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        GeneroLabel1.setForeground(new java.awt.Color(99, 99, 99));
+        GeneroLabel1.setText("Sin genero");
+        PanelDatosPersonales1.add(GeneroLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 73, -1, 20));
+
+        FechaLabel1.setBackground(new java.awt.Color(52, 55, 57));
+        FechaLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        FechaLabel1.setForeground(new java.awt.Color(99, 99, 99));
+        FechaLabel1.setText("28 de septiembre de 2003");
+        PanelDatosPersonales1.add(FechaLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 42, 230, -1));
+
+        jSeparator10.setBackground(new java.awt.Color(135, 135, 135));
+        jSeparator10.setForeground(new java.awt.Color(135, 135, 135));
+        jSeparator10.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        PanelDatosPersonales1.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 71, 10, 22));
+
+        jSeparator12.setBackground(new java.awt.Color(135, 135, 135));
+        jSeparator12.setForeground(new java.awt.Color(135, 135, 135));
+        PanelDatosPersonales1.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 32, 480, 10));
+
+        jSeparator17.setBackground(new java.awt.Color(135, 135, 135));
+        jSeparator17.setForeground(new java.awt.Color(135, 135, 135));
+        jSeparator17.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        PanelDatosPersonales1.add(jSeparator17, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 6, 8, 22));
+
+        PanelFoto1.setBackground(new java.awt.Color(239, 239, 239));
+        PanelFoto1.setForeground(new java.awt.Color(255, 255, 255));
+        PanelFoto1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        LabelFoto1.setIcon(new javax.swing.ImageIcon("src/main/java/images/nouser.png"));
+        PanelFoto1.add(LabelFoto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, -1, 70));
+
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 48)); // NOI18N
+        jLabel9.setText("?");
+        PanelFoto1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 8, -1, -1));
+
+        PanelDatosPersonales1.add(PanelFoto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 33, 67, 66));
+
+        unGeneroLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        unGeneroLabel1.setForeground(new java.awt.Color(121, 121, 121));
+        unGeneroLabel1.setText("Genero:");
+        PanelDatosPersonales1.add(unGeneroLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 73, -1, 20));
+
+        NacionalidadLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        NacionalidadLabel1.setForeground(new java.awt.Color(99, 99, 99));
+        NacionalidadLabel1.setText("Española");
+        PanelDatosPersonales1.add(NacionalidadLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(277, 75, -1, -1));
+
+        AnimationPanelEmpleados.add(PanelDatosPersonales1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 480, 100));
+
+        PanelDatosConntrato1.setBackground(new java.awt.Color(231, 231, 231));
+        PanelDatosConntrato1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(146, 146, 146)));
+        PanelDatosConntrato1.setForeground(new java.awt.Color(215, 215, 215));
+        PanelDatosConntrato1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        HorasLabel1.setBackground(new java.awt.Color(52, 55, 57));
+        HorasLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        HorasLabel1.setForeground(new java.awt.Color(99, 99, 99));
+        HorasLabel1.setText("10 horas");
+        PanelDatosConntrato1.add(HorasLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, -1, -1));
+
+        TrabajoLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        TrabajoLabel1.setForeground(new java.awt.Color(99, 99, 99));
+        TrabajoLabel1.setText("Programador");
+        PanelDatosConntrato1.add(TrabajoLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 8, -1, 20));
+
+        unTrabajoLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        unTrabajoLabel1.setForeground(new java.awt.Color(117, 117, 117));
+        unTrabajoLabel1.setText("Trabajo:");
+        PanelDatosConntrato1.add(unTrabajoLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 3, -1, 30));
+
+        unFechaLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        unFechaLabel3.setForeground(new java.awt.Color(117, 117, 117));
+        unFechaLabel3.setText("Jornada:");
+        PanelDatosConntrato1.add(unFechaLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 10, -1, -1));
+
+        jSeparator18.setBackground(new java.awt.Color(135, 135, 135));
+        jSeparator18.setForeground(new java.awt.Color(135, 135, 135));
+        PanelDatosConntrato1.add(jSeparator18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 32, 480, 10));
+
+        unLabelName3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        unLabelName3.setForeground(new java.awt.Color(117, 117, 117));
+        unLabelName3.setText("Duración:");
+        PanelDatosConntrato1.add(unLabelName3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 3, -1, 30));
+
+        DuracionLabel1.setBackground(new java.awt.Color(52, 55, 57));
+        DuracionLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        DuracionLabel1.setForeground(new java.awt.Color(99, 99, 99));
+        DuracionLabel1.setText("30 días");
+        PanelDatosConntrato1.add(DuracionLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 10, -1, -1));
+
+        unLabelSueldo1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        unLabelSueldo1.setForeground(new java.awt.Color(117, 117, 117));
+        unLabelSueldo1.setText("Salario diario:");
+        PanelDatosConntrato1.add(unLabelSueldo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 37, -1, 30));
+
+        SueldoLabel1.setBackground(new java.awt.Color(52, 55, 57));
+        SueldoLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        SueldoLabel1.setForeground(new java.awt.Color(99, 99, 99));
+        SueldoLabel1.setText("76€");
+        PanelDatosConntrato1.add(SueldoLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 44, -1, -1));
+
+        jSeparator19.setBackground(new java.awt.Color(135, 135, 135));
+        jSeparator19.setForeground(new java.awt.Color(135, 135, 135));
+        jSeparator19.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        PanelDatosConntrato1.add(jSeparator19, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 6, 8, 22));
+
+        jSeparator20.setBackground(new java.awt.Color(135, 135, 135));
+        jSeparator20.setForeground(new java.awt.Color(135, 135, 135));
+        jSeparator20.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        PanelDatosConntrato1.add(jSeparator20, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 6, 10, 22));
+
+        unRendimientoLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        unRendimientoLabel1.setForeground(new java.awt.Color(117, 117, 117));
+        unRendimientoLabel1.setText("Rendimiento real:");
+        PanelDatosConntrato1.add(unRendimientoLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(173, 37, -1, 30));
+
+        RendimientoLabel1.setBackground(new java.awt.Color(52, 55, 57));
+        RendimientoLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        RendimientoLabel1.setForeground(new java.awt.Color(99, 99, 99));
+        RendimientoLabel1.setText("8.56€/h");
+        PanelDatosConntrato1.add(RendimientoLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(305, 44, -1, -1));
+
+        jSeparator21.setBackground(new java.awt.Color(135, 135, 135));
+        jSeparator21.setForeground(new java.awt.Color(135, 135, 135));
+        jSeparator21.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        PanelDatosConntrato1.add(jSeparator21, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 40, 8, 22));
+
+        AnimationPanelEmpleados.add(PanelDatosConntrato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 135, 480, 70));
+
+        DescartarButton.setFocusable(false);
+        CerrarContrato.setBackground(new java.awt.Color(52, 68, 98));
+        CerrarContrato.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        CerrarContrato.setText("Cerrar");
+        CerrarContrato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CerrarContratoActionPerformed(evt);
+            }
+        });
+        AnimationPanelEmpleados.add(CerrarContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 150, 30));
+
+        DatosPersonales1.setFont(CargarArchivos.contract_Font);
+        DatosPersonales1.setForeground(new java.awt.Color(88, 88, 88));
+        DatosPersonales1.setText("DATOS DE CONTRATO");
+        AnimationPanelEmpleados.add(DatosPersonales1, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 7, -1, 20));
+
+        SeguroCheckBox.setFocusable(false);
+        SeguroCheckBox1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        SeguroCheckBox1.setForeground(new java.awt.Color(99, 99, 99));
+        SeguroCheckBox1.setText("Pagar seguro de vida del empleado: 120€");
+        SeguroCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SeguroCheckBox1ActionPerformed(evt);
+            }
+        });
+        AnimationPanelEmpleados.add(SeguroCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
+
+        TrasladoCheckBox.setFocusable(false);
+        TrasladoCheckBox1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        TrasladoCheckBox1.setForeground(new java.awt.Color(99, 99, 99));
+        TrasladoCheckBox1.setText("Pagar traslado desde Castilla la Mancha: 40€");
+        TrasladoCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TrasladoCheckBox1ActionPerformed(evt);
+            }
+        });
+        AnimationPanelEmpleados.add(TrasladoCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 20));
+
+        unFirmaRepresentanteLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        unFirmaRepresentanteLabel1.setForeground(new java.awt.Color(63, 63, 63));
+        unFirmaRepresentanteLabel1.setText("Firma de la empresa:");
+        AnimationPanelEmpleados.add(unFirmaRepresentanteLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 252, -1, 20));
+
+        unFirmaTrabajadorLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        unFirmaTrabajadorLabel1.setForeground(new java.awt.Color(63, 63, 63));
+        unFirmaTrabajadorLabel1.setText("Firma del trabajador:");
+        AnimationPanelEmpleados.add(unFirmaTrabajadorLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, -1, -1));
+
+        FirmaRepresentante1.setEditable(false);
+        FirmaRepresentante1.setBackground(new java.awt.Color(192, 192, 192));
+        FirmaRepresentante1.setHorizontalAlignment(JTextField.CENTER);
+        FirmaRepresentante1.setFont(CargarArchivos.miFirma_Font);
+        FirmaRepresentante1.setForeground(new java.awt.Color(22, 22, 22));
+        FirmaRepresentante1.setBorder(null);
+        FirmaRepresentante1.setCaretColor(new java.awt.Color(40, 40, 40));
+        FirmaRepresentante1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FirmaRepresentante1ActionPerformed(evt);
+            }
+        });
+        FirmaRepresentante1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                FirmaRepresentante1KeyTyped(evt);
+            }
+        });
+        AnimationPanelEmpleados.add(FirmaRepresentante1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 150, 25));
+
+        jSeparator22.setBackground(new java.awt.Color(135, 135, 135));
+        jSeparator22.setForeground(new java.awt.Color(135, 135, 135));
+        jSeparator22.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        AnimationPanelEmpleados.add(jSeparator22, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 210, 8, 80));
+
+        FirmaTrabajadorLabel1.setFont(CargarArchivos.arrayFuentesRandom.get(0)
+        );
+        FirmaTrabajadorLabel1.setForeground(new java.awt.Color(58, 77, 127));
+        FirmaTrabajadorLabel1.setText("Javier Aragoneses");
+        AnimationPanelEmpleados.add(FirmaTrabajadorLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(348, 222, 170, 40));
+
+        MenuPanel1.add(AnimationPanelEmpleados);
+        AnimationPanelEmpleados.setBounds(80, 315, 500, 300);
+
+        TransLayerEmpleados.setIcon(new javax.swing.ImageIcon("src/main/java/images/general/trans.png"));
+        TransLayer.setFocusable(false);
+        MenuPanel1.add(TransLayerEmpleados);
+        TransLayerEmpleados.setBounds(0, 315, 680, 320);
+
+        TablaEmpleados.setFocusable(false);
+        TablaEmpleados.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        TablaEmpleados.setModel(abstractModelEmpleados);
+        TablaEmpleados.getColumnModel().getColumn(1).setCellRenderer(new ColorRendimientoTable());
+        TablaEmpleados.getColumnModel().getColumn(2).setCellRenderer(new ColorWorkingTable());
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        TablaEmpleados.setDefaultRenderer(Object.class, centerRenderer);
+        TablaEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TablaEmpleadosMousePressed(evt);
+            }
+        });
+        PaneEmpleados.setViewportView(TablaEmpleados);
+        if (TablaEmpleados.getColumnModel().getColumnCount() > 0) {
+            TablaEmpleados.getColumnModel().getColumn(0).setResizable(false);
+            TablaEmpleados.getColumnModel().getColumn(1).setResizable(false);
+            TablaEmpleados.getColumnModel().getColumn(1).setPreferredWidth(100);
+            TablaEmpleados.getColumnModel().getColumn(2).setResizable(false);
         }
-    };
-    FieldRenovarDuracion = new javax.swing.JTextField();
-    jCheckBox1 = new javax.swing.JCheckBox();
-    FieldRenovarJornada = new javax.swing.JTextField();
-    FieldRenovarSueldo = new javax.swing.JTextField();
-    jSeparator23 = new javax.swing.JSeparator();
-    PanelDatosDefecto = new javax.swing.JPanel();
-    BotonSancionar = new javax.swing.JButton();
-    jComboBox1 = new javax.swing.JComboBox<>();
-    jComboBox2 = new javax.swing.JComboBox<>();
-    BotonDespedir = new javax.swing.JButton();
-    jButton1 = new javax.swing.JButton();
-    jComboBox3 = new javax.swing.JComboBox<>();
-    jSeparator24 = new javax.swing.JSeparator();
-    jSeparator25 = new javax.swing.JSeparator();
-    jSeparator26 = new javax.swing.JSeparator();
-    MenuPanel2 = new javax.swing.JPanel();
-    AnimationPanel = new javax.swing.JPanel();
-    PanelDatosPersonales = new javax.swing.JPanel();
-    unLabelName = new javax.swing.JLabel();
-    jSeparator3 = new javax.swing.JSeparator();
-    NameLabel = new javax.swing.JLabel();
-    DniLabel = new javax.swing.JLabel();
-    unLabelDni = new javax.swing.JLabel();
-    jSeparator4 = new javax.swing.JSeparator();
-    unFechaLabel = new javax.swing.JLabel();
-    unNacionalidadLabel = new javax.swing.JLabel();
-    GeneroLabel = new javax.swing.JLabel();
-    FechaLabel = new javax.swing.JLabel();
-    jSeparator6 = new javax.swing.JSeparator();
-    jSeparator5 = new javax.swing.JSeparator();
-    jSeparator7 = new javax.swing.JSeparator();
-    PanelFoto = new javax.swing.JPanel();
-    LabelFoto = new javax.swing.JLabel();
-    jLabel8 = new javax.swing.JLabel();
-    unGeneroLabel = new javax.swing.JLabel();
-    NacionalidadLabel = new javax.swing.JLabel();
-    PanelDatosConntrato = new javax.swing.JPanel();
-    HorasLabel = new javax.swing.JLabel();
-    TrabajoLabel = new javax.swing.JLabel();
-    unTrabajoLabel = new javax.swing.JLabel();
-    unFechaLabel1 = new javax.swing.JLabel();
-    jSeparator11 = new javax.swing.JSeparator();
-    unLabelName2 = new javax.swing.JLabel();
-    DuracionLabel = new javax.swing.JLabel();
-    unLabelSueldo = new javax.swing.JLabel();
-    SueldoLabel = new javax.swing.JLabel();
-    jSeparator14 = new javax.swing.JSeparator();
-    jSeparator15 = new javax.swing.JSeparator();
-    unRendimientoLabel = new javax.swing.JLabel();
-    RendimientoLabel = new javax.swing.JLabel();
-    jSeparator16 = new javax.swing.JSeparator();
-    ContratarButton = new javax.swing.JButton();
-    DescartarButton = new javax.swing.JButton();
-    DatosPersonales = new javax.swing.JLabel();
-    SeguroCheckBox = new javax.swing.JCheckBox();
-    TrasladoCheckBox = new javax.swing.JCheckBox();
-    unFirmaRepresentanteLabel = new javax.swing.JLabel();
-    unFirmaTrabajadorLabel = new javax.swing.JLabel();
-    FirmaRepresentante = new javax.swing.JTextField();
-    jSeparator13 = new javax.swing.JSeparator();
-    FirmaTrabajadorLabel = new javax.swing.JLabel();
-    TransLayer = new javax.swing.JLabel();
-    TituloContratos = new javax.swing.JLabel();
-    PaneContratos = new javax.swing.JScrollPane();
-    TablaContratos = new javax.swing.JTable();
-    ShowContractButton = new javax.swing.JButton();
-    MenuPanel3 = new javax.swing.JPanel();
-    jLabel6 = new javax.swing.JLabel();
 
-    setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-    setResizable(false);
-    addComponentListener(new java.awt.event.ComponentAdapter() {
-        public void componentMoved(java.awt.event.ComponentEvent evt) {
-            formComponentMoved(evt);
-        }
-    });
-    getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-    PanelIzquierdo.setBackground(new java.awt.Color(58, 72, 77));
-    PanelIzquierdo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-    VerEmpelados.setBackground(new java.awt.Color(58, 72, 77));
-    VerEmpelados.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-    VerEmpelados.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            VerEmpeladosMouseClicked(evt);
-        }
-    });
-    VerEmpelados.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-    jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-    jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-    jLabel3.setIcon(new javax.swing.ImageIcon("src/main/java/images/general/workers.png"));
-    jLabel3.setText(" Empleados");
-    VerEmpelados.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 9, 130, 30));
-
-    PanelIzquierdo.add(VerEmpelados, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 150, 50));
-
-    ContrarEmpleados.setBackground(new java.awt.Color(58, 72, 77));
-    ContrarEmpleados.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-    ContrarEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            ContrarEmpleadosMouseClicked(evt);
-        }
-    });
-    ContrarEmpleados.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-    jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-    jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-    jLabel5.setIcon(new javax.swing.ImageIcon("src/main/java/images/general/add.png"));
-    jLabel5.setText(" Contratar");
-    jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-    ContrarEmpleados.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 2, 130, 30));
-
-    PanelIzquierdo.add(ContrarEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 150, 40));
-
-    jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
-    jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
-    PanelIzquierdo.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 130, 10));
-
-    jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
-    jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
-    PanelIzquierdo.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 130, 10));
-
-    getContentPane().add(PanelIzquierdo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, 430));
-
-    PanelSuperior.setBackground(new java.awt.Color(76, 94, 100));
-    PanelSuperior.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-    jPanel1.setBackground(new java.awt.Color(76, 94, 100));
-    jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-    LabelHoras.setFont(CargarArchivos.reloj_Font);
-    LabelHoras.setForeground(new java.awt.Color(255, 255, 255));
-    LabelHoras.setText("0");
-    jPanel1.add(LabelHoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 70, 40));
-
-    LabelMinutos.setFont(CargarArchivos.reloj_Font);
-    LabelMinutos.setForeground(new java.awt.Color(255, 255, 255));
-    LabelMinutos.setText("0");
-    jPanel1.add(LabelMinutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 0, 50, 40));
-
-    PanelSuperior.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, 140, 40));
-
-    dineroEmpresaLabel.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-    dineroEmpresaLabel.setText("500");
-    PanelSuperior.add(dineroEmpresaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-
-    LabelDias.setText("Dia 1");
-    PanelSuperior.add(LabelDias, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, -1, -1));
-
-    getContentPane().add(PanelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, 675, 120));
-
-    MenuPanel1.setBackground(new java.awt.Color(60, 64, 65));
-    MenuPanel1.setLayout(null);
-
-    AnimationPanelEmpleados.setVisible(false);
-    AnimationPanelEmpleados.setBackground(new java.awt.Color(192, 192, 192));
-    AnimationPanelEmpleados.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 0, true));
-    AnimationPanelEmpleados.setPreferredSize(new java.awt.Dimension(500, 300));
-    AnimationPanelEmpleados.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-    AnimationPanelEmpleados.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, -30, -1, -1));
-
-    PanelDatosPersonales1.setBackground(new java.awt.Color(231, 231, 231));
-    PanelDatosPersonales1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(146, 146, 146)));
-    PanelDatosPersonales1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-    unLabelName1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-    unLabelName1.setForeground(new java.awt.Color(121, 121, 121));
-    unLabelName1.setText("Nombre:");
-    PanelDatosPersonales1.add(unLabelName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 3, -1, 30));
-
-    jSeparator8.setBackground(new java.awt.Color(135, 135, 135));
-    jSeparator8.setForeground(new java.awt.Color(135, 135, 135));
-    PanelDatosPersonales1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 65, 410, 10));
-
-    NameLabel1.setBackground(new java.awt.Color(52, 55, 57));
-    NameLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    NameLabel1.setForeground(new java.awt.Color(99, 99, 99));
-    NameLabel1.setText("Javier Aragoneses");
-    PanelDatosPersonales1.add(NameLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 10, -1, -1));
-
-    DniLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    DniLabel1.setForeground(new java.awt.Color(99, 99, 99));
-    DniLabel1.setText("50633883G");
-    PanelDatosPersonales1.add(DniLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 8, -1, 20));
-
-    unLabelDni1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-    unLabelDni1.setForeground(new java.awt.Color(121, 121, 121));
-    unLabelDni1.setText("NIF:");
-    PanelDatosPersonales1.add(unLabelDni1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 3, 30, 30));
-
-    jSeparator9.setBackground(new java.awt.Color(135, 135, 135));
-    jSeparator9.setForeground(new java.awt.Color(135, 135, 135));
-    jSeparator9.setOrientation(javax.swing.SwingConstants.VERTICAL);
-    PanelDatosPersonales1.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 33, 9, 68));
-
-    unFechaLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-    unFechaLabel2.setForeground(new java.awt.Color(121, 121, 121));
-    unFechaLabel2.setText("Fecha de nacimiento:");
-    PanelDatosPersonales1.add(unFechaLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 42, -1, -1));
-
-    unNacionalidadLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-    unNacionalidadLabel1.setForeground(new java.awt.Color(121, 121, 121));
-    unNacionalidadLabel1.setText("Nacionalidad:");
-    PanelDatosPersonales1.add(unNacionalidadLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 73, -1, 20));
-
-    GeneroLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    GeneroLabel1.setForeground(new java.awt.Color(99, 99, 99));
-    GeneroLabel1.setText("Sin genero");
-    PanelDatosPersonales1.add(GeneroLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 73, -1, 20));
-
-    FechaLabel1.setBackground(new java.awt.Color(52, 55, 57));
-    FechaLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    FechaLabel1.setForeground(new java.awt.Color(99, 99, 99));
-    FechaLabel1.setText("28 de septiembre de 2003");
-    PanelDatosPersonales1.add(FechaLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 42, 230, -1));
-
-    jSeparator10.setBackground(new java.awt.Color(135, 135, 135));
-    jSeparator10.setForeground(new java.awt.Color(135, 135, 135));
-    jSeparator10.setOrientation(javax.swing.SwingConstants.VERTICAL);
-    PanelDatosPersonales1.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 71, 10, 22));
-
-    jSeparator12.setBackground(new java.awt.Color(135, 135, 135));
-    jSeparator12.setForeground(new java.awt.Color(135, 135, 135));
-    PanelDatosPersonales1.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 32, 480, 10));
-
-    jSeparator17.setBackground(new java.awt.Color(135, 135, 135));
-    jSeparator17.setForeground(new java.awt.Color(135, 135, 135));
-    jSeparator17.setOrientation(javax.swing.SwingConstants.VERTICAL);
-    PanelDatosPersonales1.add(jSeparator17, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 6, 8, 22));
-
-    PanelFoto1.setBackground(new java.awt.Color(239, 239, 239));
-    PanelFoto1.setForeground(new java.awt.Color(255, 255, 255));
-    PanelFoto1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-    LabelFoto1.setIcon(new javax.swing.ImageIcon("src/main/java/images/nouser.png"));
-    PanelFoto1.add(LabelFoto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, -1, 70));
-
-    jLabel9.setFont(new java.awt.Font("Arial", 0, 48)); // NOI18N
-    jLabel9.setText("?");
-    PanelFoto1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 8, -1, -1));
-
-    PanelDatosPersonales1.add(PanelFoto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 33, 67, 66));
-
-    unGeneroLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-    unGeneroLabel1.setForeground(new java.awt.Color(121, 121, 121));
-    unGeneroLabel1.setText("Genero:");
-    PanelDatosPersonales1.add(unGeneroLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 73, -1, 20));
-
-    NacionalidadLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    NacionalidadLabel1.setForeground(new java.awt.Color(99, 99, 99));
-    NacionalidadLabel1.setText("Española");
-    PanelDatosPersonales1.add(NacionalidadLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(277, 75, -1, -1));
-
-    AnimationPanelEmpleados.add(PanelDatosPersonales1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 480, 100));
-
-    PanelDatosConntrato1.setBackground(new java.awt.Color(231, 231, 231));
-    PanelDatosConntrato1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(146, 146, 146)));
-    PanelDatosConntrato1.setForeground(new java.awt.Color(215, 215, 215));
-    PanelDatosConntrato1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-    HorasLabel1.setBackground(new java.awt.Color(52, 55, 57));
-    HorasLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    HorasLabel1.setForeground(new java.awt.Color(99, 99, 99));
-    HorasLabel1.setText("10 horas");
-    PanelDatosConntrato1.add(HorasLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, -1, -1));
-
-    TrabajoLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    TrabajoLabel1.setForeground(new java.awt.Color(99, 99, 99));
-    TrabajoLabel1.setText("Programador");
-    PanelDatosConntrato1.add(TrabajoLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 8, -1, 20));
-
-    unTrabajoLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-    unTrabajoLabel1.setForeground(new java.awt.Color(117, 117, 117));
-    unTrabajoLabel1.setText("Trabajo:");
-    PanelDatosConntrato1.add(unTrabajoLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 3, -1, 30));
-
-    unFechaLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-    unFechaLabel3.setForeground(new java.awt.Color(117, 117, 117));
-    unFechaLabel3.setText("Jornada:");
-    PanelDatosConntrato1.add(unFechaLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 10, -1, -1));
-
-    jSeparator18.setBackground(new java.awt.Color(135, 135, 135));
-    jSeparator18.setForeground(new java.awt.Color(135, 135, 135));
-    PanelDatosConntrato1.add(jSeparator18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 32, 480, 10));
-
-    unLabelName3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-    unLabelName3.setForeground(new java.awt.Color(117, 117, 117));
-    unLabelName3.setText("Duración:");
-    PanelDatosConntrato1.add(unLabelName3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 3, -1, 30));
-
-    DuracionLabel1.setBackground(new java.awt.Color(52, 55, 57));
-    DuracionLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    DuracionLabel1.setForeground(new java.awt.Color(99, 99, 99));
-    DuracionLabel1.setText("30 días");
-    PanelDatosConntrato1.add(DuracionLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 10, -1, -1));
-
-    unLabelSueldo1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-    unLabelSueldo1.setForeground(new java.awt.Color(117, 117, 117));
-    unLabelSueldo1.setText("Salario diario:");
-    PanelDatosConntrato1.add(unLabelSueldo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 37, -1, 30));
-
-    SueldoLabel1.setBackground(new java.awt.Color(52, 55, 57));
-    SueldoLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    SueldoLabel1.setForeground(new java.awt.Color(99, 99, 99));
-    SueldoLabel1.setText("76€");
-    PanelDatosConntrato1.add(SueldoLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 44, -1, -1));
-
-    jSeparator19.setBackground(new java.awt.Color(135, 135, 135));
-    jSeparator19.setForeground(new java.awt.Color(135, 135, 135));
-    jSeparator19.setOrientation(javax.swing.SwingConstants.VERTICAL);
-    PanelDatosConntrato1.add(jSeparator19, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 6, 8, 22));
-
-    jSeparator20.setBackground(new java.awt.Color(135, 135, 135));
-    jSeparator20.setForeground(new java.awt.Color(135, 135, 135));
-    jSeparator20.setOrientation(javax.swing.SwingConstants.VERTICAL);
-    PanelDatosConntrato1.add(jSeparator20, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 6, 10, 22));
-
-    unRendimientoLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-    unRendimientoLabel1.setForeground(new java.awt.Color(117, 117, 117));
-    unRendimientoLabel1.setText("Rendimiento real:");
-    PanelDatosConntrato1.add(unRendimientoLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(173, 37, -1, 30));
-
-    RendimientoLabel1.setBackground(new java.awt.Color(52, 55, 57));
-    RendimientoLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    RendimientoLabel1.setForeground(new java.awt.Color(99, 99, 99));
-    RendimientoLabel1.setText("8.56€/h");
-    PanelDatosConntrato1.add(RendimientoLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(305, 44, -1, -1));
-
-    jSeparator21.setBackground(new java.awt.Color(135, 135, 135));
-    jSeparator21.setForeground(new java.awt.Color(135, 135, 135));
-    jSeparator21.setOrientation(javax.swing.SwingConstants.VERTICAL);
-    PanelDatosConntrato1.add(jSeparator21, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 40, 8, 22));
-
-    AnimationPanelEmpleados.add(PanelDatosConntrato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 135, 480, 70));
-
-    DescartarButton.setFocusable(false);
-    CerrarContrato.setBackground(new java.awt.Color(52, 68, 98));
-    CerrarContrato.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-    CerrarContrato.setText("Cerrar");
-    CerrarContrato.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            CerrarContratoActionPerformed(evt);
-        }
-    });
-    AnimationPanelEmpleados.add(CerrarContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 150, 30));
-
-    DatosPersonales1.setFont(CargarArchivos.contract_Font);
-    DatosPersonales1.setForeground(new java.awt.Color(88, 88, 88));
-    DatosPersonales1.setText("DATOS DE CONTRATO");
-    AnimationPanelEmpleados.add(DatosPersonales1, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 7, -1, 20));
-
-    SeguroCheckBox.setFocusable(false);
-    SeguroCheckBox1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    SeguroCheckBox1.setForeground(new java.awt.Color(99, 99, 99));
-    SeguroCheckBox1.setText("Pagar seguro de vida del empleado: 120€");
-    SeguroCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            SeguroCheckBox1ActionPerformed(evt);
-        }
-    });
-    AnimationPanelEmpleados.add(SeguroCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
-
-    TrasladoCheckBox.setFocusable(false);
-    TrasladoCheckBox1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    TrasladoCheckBox1.setForeground(new java.awt.Color(99, 99, 99));
-    TrasladoCheckBox1.setText("Pagar traslado desde Castilla la Mancha: 40€");
-    TrasladoCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            TrasladoCheckBox1ActionPerformed(evt);
-        }
-    });
-    AnimationPanelEmpleados.add(TrasladoCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 20));
-
-    unFirmaRepresentanteLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-    unFirmaRepresentanteLabel1.setForeground(new java.awt.Color(63, 63, 63));
-    unFirmaRepresentanteLabel1.setText("Firma de la empresa:");
-    AnimationPanelEmpleados.add(unFirmaRepresentanteLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 252, -1, 20));
-
-    unFirmaTrabajadorLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-    unFirmaTrabajadorLabel1.setForeground(new java.awt.Color(63, 63, 63));
-    unFirmaTrabajadorLabel1.setText("Firma del trabajador:");
-    AnimationPanelEmpleados.add(unFirmaTrabajadorLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, -1, -1));
-
-    FirmaRepresentante1.setEditable(false);
-    FirmaRepresentante1.setBackground(new java.awt.Color(192, 192, 192));
-    FirmaRepresentante1.setHorizontalAlignment(JTextField.CENTER);
-    FirmaRepresentante1.setFont(CargarArchivos.miFirma_Font);
-    FirmaRepresentante1.setForeground(new java.awt.Color(22, 22, 22));
-    FirmaRepresentante1.setBorder(null);
-    FirmaRepresentante1.setCaretColor(new java.awt.Color(40, 40, 40));
-    FirmaRepresentante1.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            FirmaRepresentante1ActionPerformed(evt);
-        }
-    });
-    FirmaRepresentante1.addKeyListener(new java.awt.event.KeyAdapter() {
-        public void keyTyped(java.awt.event.KeyEvent evt) {
-            FirmaRepresentante1KeyTyped(evt);
-        }
-    });
-    AnimationPanelEmpleados.add(FirmaRepresentante1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 150, 25));
-
-    jSeparator22.setBackground(new java.awt.Color(135, 135, 135));
-    jSeparator22.setForeground(new java.awt.Color(135, 135, 135));
-    jSeparator22.setOrientation(javax.swing.SwingConstants.VERTICAL);
-    AnimationPanelEmpleados.add(jSeparator22, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 210, 8, 80));
-
-    FirmaTrabajadorLabel1.setFont(CargarArchivos.arrayFuentesRandom.get(0)
-    );
-    FirmaTrabajadorLabel1.setForeground(new java.awt.Color(58, 77, 127));
-    FirmaTrabajadorLabel1.setText("Javier Aragoneses");
-    AnimationPanelEmpleados.add(FirmaTrabajadorLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(348, 222, 170, 40));
-
-    MenuPanel1.add(AnimationPanelEmpleados);
-    AnimationPanelEmpleados.setBounds(80, 315, 500, 300);
-
-    TransLayerEmpleados.setIcon(new javax.swing.ImageIcon("src/main/java/images/general/trans.png"));
-    TransLayer.setFocusable(false);
-    MenuPanel1.add(TransLayerEmpleados);
-    TransLayerEmpleados.setBounds(0, 315, 680, 320);
-
-    TablaEmpleados.setFocusable(false);
-    TablaEmpleados.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    TablaEmpleados.setModel(abstractModelEmpleados);
-    TablaEmpleados.getColumnModel().getColumn(1).setCellRenderer(new ColorRendimientoTable());
-    TablaEmpleados.getColumnModel().getColumn(2).setCellRenderer(new ColorWorkingTable());
-    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-    centerRenderer.setHorizontalAlignment( JLabel.CENTER );
-    TablaEmpleados.setDefaultRenderer(Object.class, centerRenderer);
-    TablaEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mousePressed(java.awt.event.MouseEvent evt) {
-            TablaEmpleadosMousePressed(evt);
-        }
-    });
-    PaneEmpleados.setViewportView(TablaEmpleados);
-    if (TablaEmpleados.getColumnModel().getColumnCount() > 0) {
-        TablaEmpleados.getColumnModel().getColumn(0).setResizable(false);
-        TablaEmpleados.getColumnModel().getColumn(1).setResizable(false);
-        TablaEmpleados.getColumnModel().getColumn(1).setPreferredWidth(100);
-        TablaEmpleados.getColumnModel().getColumn(2).setResizable(false);
-    }
-
-    PaneEmpleados.setFocusable(false);
-
-    MenuPanel1.add(PaneEmpleados);
-    PaneEmpleados.setBounds(10, 30, 390, 250);
-
-    jLabel2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-    jLabel2.setText("Lista de empleados");
-    MenuPanel1.add(jLabel2);
-    jLabel2.setBounds(10, 10, 170, 19);
-
-    PanelInfoEmpleado.setVisible(true);
-    PanelInfoEmpleado.setBackground(new java.awt.Color(60, 64, 65));
-    PanelInfoEmpleado.setLayout(null);
-
-    jLabel1.setText("Nivel de felicidad");
-    PanelInfoEmpleado.add(jLabel1);
-    jLabel1.setBounds(10, 10, 150, 18);
-
-    VerContratoEmpleados.setText("Revisar contrato");
-    VerContratoEmpleados.setEnabled(false);
-    VerContratoEmpleados.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            VerContratoEmpleadosActionPerformed(evt);
-        }
-    });
-    ListSelectionModel cellSelectionModel = TablaEmpleados.getSelectionModel();
-    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    cellSelectionModel.addListSelectionListener((ListSelectionEvent e) -> {
-        if (TablaEmpleados.getSelectedRows().length==0){
-            VerContratoEmpleados.setEnabled(false);
-            ProgressBarFelicidad.setValue(0);
-            PanelInfoEmpleado.setVisible(false);
-        }
-        else {
-            PanelInfoEmpleado.setVisible(true);
-            VerContratoEmpleados.setEnabled(true);
-            ProgressBarFelicidad.setValue(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getFelicidad());
-            ProgressBarFelicidad.setForeground(Color.getHSBColor(ProgressBarFelicidad.getValue()/300f, 1f, 0.40f));
-            //ProgressBar
-            HorarioLabel.setText(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getHorario());
-            if (!GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).isFinContrato()){
-                PanelRenovacion.setVisible(false);
-                PanelDatosDefecto.setVisible(true);
+        PaneEmpleados.setFocusable(false);
+
+        MenuPanel1.add(PaneEmpleados);
+        PaneEmpleados.setBounds(10, 30, 390, 250);
+
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jLabel2.setText("Lista de empleados");
+        MenuPanel1.add(jLabel2);
+        jLabel2.setBounds(10, 10, 170, 19);
+
+        PanelInfoEmpleado.setVisible(true);
+        PanelInfoEmpleado.setBackground(new java.awt.Color(60, 64, 65));
+        PanelInfoEmpleado.setLayout(null);
+
+        jLabel1.setText("Nivel de felicidad");
+        PanelInfoEmpleado.add(jLabel1);
+        jLabel1.setBounds(10, 10, 150, 18);
+
+        VerContratoEmpleados.setText("Revisar contrato");
+        VerContratoEmpleados.setEnabled(false);
+        VerContratoEmpleados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VerContratoEmpleadosActionPerformed(evt);
+            }
+        });
+        ListSelectionModel cellSelectionModel = TablaEmpleados.getSelectionModel();
+        cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        cellSelectionModel.addListSelectionListener((ListSelectionEvent e) -> {
+            if (TablaEmpleados.getSelectedRows().length==0){
+                VerContratoEmpleados.setEnabled(false);
+                ProgressBarFelicidad.setValue(0);
+                PanelInfoEmpleado.setVisible(false);
             }
             else {
-                PanelRenovacion.setVisible(true);
-                PanelDatosDefecto.setVisible(false);
-            }
-
-        }
-    });
-    PanelInfoEmpleado.add(VerContratoEmpleados);
-    VerContratoEmpleados.setBounds(10, 138, 150, 24);
-
-    LabelFechas.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-    LabelFechas.setText("Dias restantes de contrato: ");
-    PanelInfoEmpleado.add(LabelFechas);
-    LabelFechas.setBounds(10, 80, 210, 14);
-
-    unHorarioLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-    unHorarioLabel.setText("Horario laboral:");
-    PanelInfoEmpleado.add(unHorarioLabel);
-    unHorarioLabel.setBounds(10, 60, 100, 14);
-
-    ProgressBarFelicidad.setForeground(new java.awt.Color(42, 127, 0));
-    PanelInfoEmpleado.add(ProgressBarFelicidad);
-    ProgressBarFelicidad.setBounds(10, 30, 240, 10);
-
-    HorarioLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-    HorarioLabel.setText("9:00  - 16:00 ");
-    PanelInfoEmpleado.add(HorarioLabel);
-    HorarioLabel.setBounds(100, 58, 100, 18);
-
-    PanelRenovacion.setVisible(true);
-    PanelRenovacion.setBackground(new java.awt.Color(60, 64, 65));
-    PanelRenovacion.setLayout(null);
-
-    RenovarBoton.setBackground(new java.awt.Color(0, 102, 6));
-    RenovarBoton.setText("Renovar contrato");
-    PanelRenovacion.add(RenovarBoton);
-    RenovarBoton.setBounds(13, 80, 202, 24);
-
-    EliminarBoton.setBackground(new java.awt.Color(100, 0, 0));
-    EliminarBoton.setIcon(new javax.swing.ImageIcon("src/main/java/images/general/trash.png"));
-    EliminarBoton.setBorderPainted(false);
-    EliminarBoton.setPreferredSize(new java.awt.Dimension(72, 22));
-    EliminarBoton.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            EliminarBotonActionPerformed(evt);
-        }
-    });
-    PanelRenovacion.add(EliminarBoton);
-    EliminarBoton.setBounds(224, 80, 31, 22);
-
-    FieldRenovarDuracion.addKeyListener(fieldTextOnlyNumber);
-    FieldRenovarDuracion.setText("5 días");
-    FieldRenovarDuracion.addFocusListener(new FocusListener() {
-        @Override
-        public void focusGained(FocusEvent e) {
-            FieldRenovarDuracion.setText("");
-        }
-
-        @Override
-        public void focusLost(FocusEvent e) {
-            if (FieldRenovarDuracion.getText().isBlank()){
-                FieldRenovarDuracion.setText(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getDuracion()+" días");
-            }
-            else{
-                try {
-                    if (Integer.valueOf(FieldRenovarDuracion.getText())>20){
-                        FieldRenovarDuracion.setText("20 días");
-                    }
-                    else {
-                        FieldRenovarDuracion.setText(FieldRenovarDuracion.getText()+" días");
-                    }
-                } catch (NumberFormatException ex) {
-                    FieldRenovarDuracion.setText(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getDuracion()+" días");
+                PanelInfoEmpleado.setVisible(true);
+                VerContratoEmpleados.setEnabled(true);
+                ProgressBarFelicidad.setValue(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getFelicidad());
+                ProgressBarFelicidad.setForeground(Color.getHSBColor(ProgressBarFelicidad.getValue()/300f, 1f, 0.40f));
+                //ProgressBar
+                HorarioLabel.setText(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getHorario());
+                if (!GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).isFinContrato()){
+                    PanelRenovacion.setVisible(false);
+                    PanelDatosDefecto.setVisible(true);
                 }
+                else {
+                    PanelRenovacion.setVisible(true);
+                    PanelDatosDefecto.setVisible(false);
+                }
+
             }
+        });
+        PanelInfoEmpleado.add(VerContratoEmpleados);
+        VerContratoEmpleados.setBounds(10, 138, 150, 24);
+
+        LabelFechas.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        LabelFechas.setText("Dias restantes de contrato: ");
+        PanelInfoEmpleado.add(LabelFechas);
+        LabelFechas.setBounds(10, 80, 210, 14);
+
+        unHorarioLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        unHorarioLabel.setText("Horario laboral:");
+        PanelInfoEmpleado.add(unHorarioLabel);
+        unHorarioLabel.setBounds(10, 60, 100, 14);
+
+        ProgressBarFelicidad.setForeground(new java.awt.Color(42, 127, 0));
+        PanelInfoEmpleado.add(ProgressBarFelicidad);
+        ProgressBarFelicidad.setBounds(10, 30, 240, 10);
+
+        HorarioLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        HorarioLabel.setText("9:00  - 16:00 ");
+        PanelInfoEmpleado.add(HorarioLabel);
+        HorarioLabel.setBounds(100, 58, 100, 18);
+
+        PanelRenovacion.setVisible(true);
+        PanelRenovacion.setBackground(new java.awt.Color(60, 64, 65));
+        PanelRenovacion.setLayout(null);
+
+        RenovarBoton.setBackground(new java.awt.Color(0, 102, 6));
+        RenovarBoton.setText("Renovar contrato");
+        PanelRenovacion.add(RenovarBoton);
+        RenovarBoton.setBounds(13, 80, 202, 24);
+
+        EliminarBoton.setBackground(new java.awt.Color(100, 0, 0));
+        EliminarBoton.setIcon(new javax.swing.ImageIcon("src/main/java/images/general/trash.png"));
+        EliminarBoton.setBorderPainted(false);
+        EliminarBoton.setPreferredSize(new java.awt.Dimension(72, 22));
+        EliminarBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarBotonActionPerformed(evt);
+            }
+        });
+        PanelRenovacion.add(EliminarBoton);
+        EliminarBoton.setBounds(224, 80, 31, 24);
+
+        PlainDocument doc = (PlainDocument) FieldRenovarDuracion.getDocument();
+        doc.setDocumentFilter(new FieldTester());
+        FieldRenovarDuracion.addFocusListener(fieldTester(FieldRenovarDuracion));
+        FieldRenovarDuracion.setText("5 días");
+        FieldRenovarDuracion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FieldRenovarDuracionActionPerformed(evt);
+            }
+        });
+        PanelRenovacion.add(FieldRenovarDuracion);
+        FieldRenovarDuracion.setBounds(14, 50, 76, 24);
+
+        jCheckBox1.setText("Pagar seguro de vida: 20€");
+        PanelRenovacion.add(jCheckBox1);
+        jCheckBox1.setBounds(12, 21, 200, 22);
+
+        FieldRenovarJornada.setText("8 horas");
+        FieldRenovarJornada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FieldRenovarJornadaActionPerformed(evt);
+            }
+        });
+        PanelRenovacion.add(FieldRenovarJornada);
+        FieldRenovarJornada.setBounds(90, 50, 80, 24);
+
+        FieldRenovarSueldo.setText("300€");
+        FieldRenovarSueldo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FieldRenovarSueldoActionPerformed(evt);
+            }
+        });
+        PanelRenovacion.add(FieldRenovarSueldo);
+        FieldRenovarSueldo.setBounds(170, 50, 85, 24);
+
+        jSeparator23.setForeground(new java.awt.Color(186, 186, 186));
+        PanelRenovacion.add(jSeparator23);
+        jSeparator23.setBounds(14, 10, 240, 10);
+
+        PanelInfoEmpleado.add(PanelRenovacion);
+        PanelRenovacion.setBounds(-3, 168, 270, 110);
+
+        PanelDatosDefecto.setBackground(new java.awt.Color(60, 64, 65));
+        PanelDatosDefecto.setVisible(false);
+        PanelDatosDefecto.setLayout(null);
+
+        BotonSancionar.setText("Sancionar");
+        BotonSancionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonSancionarActionPerformed(evt);
+            }
+        });
+        PanelDatosDefecto.add(BotonSancionar);
+        BotonSancionar.setBounds(0, 40, 100, 24);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Sin especificar", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        PanelDatosDefecto.add(jComboBox1);
+        jComboBox1.setBounds(110, 70, 130, 24);
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Sin especificar", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
+        PanelDatosDefecto.add(jComboBox2);
+        jComboBox2.setBounds(110, 10, 130, 24);
+
+        BotonDespedir.setText("Despedir");
+        BotonDespedir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonDespedirActionPerformed(evt);
+            }
+        });
+        PanelDatosDefecto.add(BotonDespedir);
+        BotonDespedir.setBounds(0, 70, 100, 24);
+
+        jButton1.setText("Medicar");
+        PanelDatosDefecto.add(jButton1);
+        jButton1.setBounds(0, 10, 100, 24);
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Sin especificar", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
+        PanelDatosDefecto.add(jComboBox3);
+        jComboBox3.setBounds(110, 40, 130, 24);
+
+        PanelInfoEmpleado.add(PanelDatosDefecto);
+        PanelDatosDefecto.setBounds(10, 177, 250, 100);
+
+        jSeparator24.setForeground(new java.awt.Color(186, 186, 186));
+        PanelInfoEmpleado.add(jSeparator24);
+        jSeparator24.setBounds(10, 50, 240, 10);
+
+        jSeparator25.setForeground(new java.awt.Color(186, 186, 186));
+        PanelInfoEmpleado.add(jSeparator25);
+        jSeparator25.setBounds(10, 170, 240, 10);
+
+        jSeparator26.setForeground(new java.awt.Color(186, 186, 186));
+        PanelInfoEmpleado.add(jSeparator26);
+        jSeparator26.setBounds(10, 100, 240, 10);
+
+        MenuPanel1.add(PanelInfoEmpleado);
+        PanelInfoEmpleado.setBounds(408, 10, 260, 280);
+
+        getContentPane().add(MenuPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 675, 310));
+
+        MenuPanel2.setBackground(new java.awt.Color(56, 60, 61));
+        MenuPanel2.setLayout(null);
+
+        AnimationPanel.setVisible(false);
+        AnimationPanel.setBackground(new java.awt.Color(192, 192, 192));
+        AnimationPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 0, true));
+        AnimationPanel.setPreferredSize(new java.awt.Dimension(500, 300));
+        AnimationPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        PanelDatosPersonales.setBackground(new java.awt.Color(231, 231, 231));
+        PanelDatosPersonales.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(146, 146, 146)));
+        PanelDatosPersonales.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        unLabelName.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        unLabelName.setForeground(new java.awt.Color(121, 121, 121));
+        unLabelName.setText("Nombre:");
+        PanelDatosPersonales.add(unLabelName, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 3, -1, 30));
+
+        jSeparator3.setBackground(new java.awt.Color(135, 135, 135));
+        jSeparator3.setForeground(new java.awt.Color(135, 135, 135));
+        PanelDatosPersonales.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 65, 410, 10));
+
+        NameLabel.setBackground(new java.awt.Color(52, 55, 57));
+        NameLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        NameLabel.setForeground(new java.awt.Color(99, 99, 99));
+        NameLabel.setText("Javier Aragoneses");
+        PanelDatosPersonales.add(NameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 10, -1, -1));
+
+        DniLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        DniLabel.setForeground(new java.awt.Color(99, 99, 99));
+        DniLabel.setText("50633883G");
+        PanelDatosPersonales.add(DniLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 8, -1, 20));
+
+        unLabelDni.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        unLabelDni.setForeground(new java.awt.Color(121, 121, 121));
+        unLabelDni.setText("NIF:");
+        PanelDatosPersonales.add(unLabelDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 3, 30, 30));
+
+        jSeparator4.setBackground(new java.awt.Color(135, 135, 135));
+        jSeparator4.setForeground(new java.awt.Color(135, 135, 135));
+        jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        PanelDatosPersonales.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 33, 9, 68));
+
+        unFechaLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        unFechaLabel.setForeground(new java.awt.Color(121, 121, 121));
+        unFechaLabel.setText("Fecha de nacimiento:");
+        PanelDatosPersonales.add(unFechaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 42, -1, -1));
+
+        unNacionalidadLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        unNacionalidadLabel.setForeground(new java.awt.Color(121, 121, 121));
+        unNacionalidadLabel.setText("Nacionalidad:");
+        PanelDatosPersonales.add(unNacionalidadLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 73, -1, 20));
+
+        GeneroLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        GeneroLabel.setForeground(new java.awt.Color(99, 99, 99));
+        GeneroLabel.setText("Sin genero");
+        PanelDatosPersonales.add(GeneroLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 73, -1, 20));
+
+        FechaLabel.setBackground(new java.awt.Color(52, 55, 57));
+        FechaLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        FechaLabel.setForeground(new java.awt.Color(99, 99, 99));
+        FechaLabel.setText("28 de septiembre de 2003");
+        PanelDatosPersonales.add(FechaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 42, 230, -1));
+
+        jSeparator6.setBackground(new java.awt.Color(135, 135, 135));
+        jSeparator6.setForeground(new java.awt.Color(135, 135, 135));
+        jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        PanelDatosPersonales.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 71, 10, 22));
+
+        jSeparator5.setBackground(new java.awt.Color(135, 135, 135));
+        jSeparator5.setForeground(new java.awt.Color(135, 135, 135));
+        PanelDatosPersonales.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 32, 480, 10));
+
+        jSeparator7.setBackground(new java.awt.Color(135, 135, 135));
+        jSeparator7.setForeground(new java.awt.Color(135, 135, 135));
+        jSeparator7.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        PanelDatosPersonales.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 6, 8, 22));
+
+        PanelFoto.setBackground(new java.awt.Color(239, 239, 239));
+        PanelFoto.setForeground(new java.awt.Color(255, 255, 255));
+        PanelFoto.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        LabelFoto.setIcon(new javax.swing.ImageIcon("src/main/java/images/nouser.png"));
+        PanelFoto.add(LabelFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, -1, 70));
+
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 48)); // NOI18N
+        jLabel8.setText("?");
+        PanelFoto.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 8, -1, -1));
+
+        PanelDatosPersonales.add(PanelFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 33, 67, 66));
+
+        unGeneroLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        unGeneroLabel.setForeground(new java.awt.Color(121, 121, 121));
+        unGeneroLabel.setText("Genero:");
+        PanelDatosPersonales.add(unGeneroLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 73, -1, 20));
+
+        NacionalidadLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        NacionalidadLabel.setForeground(new java.awt.Color(99, 99, 99));
+        NacionalidadLabel.setText("Española");
+        PanelDatosPersonales.add(NacionalidadLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(277, 75, -1, -1));
+
+        AnimationPanel.add(PanelDatosPersonales, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 480, 100));
+
+        PanelDatosConntrato.setBackground(new java.awt.Color(231, 231, 231));
+        PanelDatosConntrato.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(146, 146, 146)));
+        PanelDatosConntrato.setForeground(new java.awt.Color(215, 215, 215));
+        PanelDatosConntrato.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        HorasLabel.setBackground(new java.awt.Color(52, 55, 57));
+        HorasLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        HorasLabel.setForeground(new java.awt.Color(99, 99, 99));
+        HorasLabel.setText("10 horas");
+        PanelDatosConntrato.add(HorasLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, -1, -1));
+
+        TrabajoLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        TrabajoLabel.setForeground(new java.awt.Color(99, 99, 99));
+        TrabajoLabel.setText("Programador");
+        PanelDatosConntrato.add(TrabajoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 8, -1, 20));
+
+        unTrabajoLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        unTrabajoLabel.setForeground(new java.awt.Color(117, 117, 117));
+        unTrabajoLabel.setText("Trabajo:");
+        PanelDatosConntrato.add(unTrabajoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 3, -1, 30));
+
+        unFechaLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        unFechaLabel1.setForeground(new java.awt.Color(117, 117, 117));
+        unFechaLabel1.setText("Jornada:");
+        PanelDatosConntrato.add(unFechaLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 10, -1, -1));
+
+        jSeparator11.setBackground(new java.awt.Color(135, 135, 135));
+        jSeparator11.setForeground(new java.awt.Color(135, 135, 135));
+        PanelDatosConntrato.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 32, 480, 10));
+
+        unLabelName2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        unLabelName2.setForeground(new java.awt.Color(117, 117, 117));
+        unLabelName2.setText("Duración:");
+        PanelDatosConntrato.add(unLabelName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 3, -1, 30));
+
+        DuracionLabel.setBackground(new java.awt.Color(52, 55, 57));
+        DuracionLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        DuracionLabel.setForeground(new java.awt.Color(99, 99, 99));
+        DuracionLabel.setText("30 días");
+        PanelDatosConntrato.add(DuracionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 10, -1, -1));
+
+        unLabelSueldo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        unLabelSueldo.setForeground(new java.awt.Color(117, 117, 117));
+        unLabelSueldo.setText("Salario diario:");
+        PanelDatosConntrato.add(unLabelSueldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 37, -1, 30));
+
+        SueldoLabel.setBackground(new java.awt.Color(52, 55, 57));
+        SueldoLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        SueldoLabel.setForeground(new java.awt.Color(99, 99, 99));
+        SueldoLabel.setText("76€");
+        PanelDatosConntrato.add(SueldoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 44, -1, -1));
+
+        jSeparator14.setBackground(new java.awt.Color(135, 135, 135));
+        jSeparator14.setForeground(new java.awt.Color(135, 135, 135));
+        jSeparator14.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        PanelDatosConntrato.add(jSeparator14, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 6, 8, 22));
+
+        jSeparator15.setBackground(new java.awt.Color(135, 135, 135));
+        jSeparator15.setForeground(new java.awt.Color(135, 135, 135));
+        jSeparator15.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        PanelDatosConntrato.add(jSeparator15, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 6, 10, 22));
+
+        unRendimientoLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        unRendimientoLabel.setForeground(new java.awt.Color(117, 117, 117));
+        unRendimientoLabel.setText("Rendimiento:");
+        PanelDatosConntrato.add(unRendimientoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(173, 37, -1, 30));
+
+        RendimientoLabel.setBackground(new java.awt.Color(52, 55, 57));
+        RendimientoLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        RendimientoLabel.setForeground(new java.awt.Color(99, 99, 99));
+        RendimientoLabel.setText("8.56€/h - 16.5€/h");
+        PanelDatosConntrato.add(RendimientoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(275, 44, -1, -1));
+
+        jSeparator16.setBackground(new java.awt.Color(135, 135, 135));
+        jSeparator16.setForeground(new java.awt.Color(135, 135, 135));
+        jSeparator16.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        PanelDatosConntrato.add(jSeparator16, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 40, 8, 22));
+
+        AnimationPanel.add(PanelDatosConntrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 135, 480, 70));
+
+        ContratarButton.setFocusable(false);
+        ContratarButton.setBackground(new java.awt.Color(2, 116, 0));
+        ContratarButton.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        ContratarButton.setText("Contratar");
+        ContratarButton.setEnabled(false);
+        ContratarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ContratarButtonActionPerformed(evt);
+            }
+        });
+        AnimationPanel.add(ContratarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 150, 30));
+
+        DescartarButton.setFocusable(false);
+        DescartarButton.setBackground(new java.awt.Color(93, 0, 0));
+        DescartarButton.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        DescartarButton.setText("Descartar");
+        DescartarButton.setEnabled(false);
+        DescartarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DescartarButtonActionPerformed(evt);
+            }
+        });
+        AnimationPanel.add(DescartarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 150, 30));
+
+        DatosPersonales.setFont(CargarArchivos.contract_Font);
+        DatosPersonales.setForeground(new java.awt.Color(88, 88, 88));
+        DatosPersonales.setText("DATOS DE CONTRATO");
+        AnimationPanel.add(DatosPersonales, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 7, -1, 20));
+
+        SeguroCheckBox.setFocusable(false);
+        SeguroCheckBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        SeguroCheckBox.setForeground(new java.awt.Color(99, 99, 99));
+        SeguroCheckBox.setText("Pagar seguro de vida del empleado: 120€");
+        AnimationPanel.add(SeguroCheckBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
+
+        TrasladoCheckBox.setFocusable(false);
+        TrasladoCheckBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        TrasladoCheckBox.setForeground(new java.awt.Color(99, 99, 99));
+        TrasladoCheckBox.setText("Pagar traslado desde Castilla la Mancha: 40€");
+        AnimationPanel.add(TrasladoCheckBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 20));
+
+        unFirmaRepresentanteLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        unFirmaRepresentanteLabel.setForeground(new java.awt.Color(63, 63, 63));
+        unFirmaRepresentanteLabel.setText("Firma de la empresa:");
+        AnimationPanel.add(unFirmaRepresentanteLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 252, -1, 20));
+
+        unFirmaTrabajadorLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        unFirmaTrabajadorLabel.setForeground(new java.awt.Color(63, 63, 63));
+        unFirmaTrabajadorLabel.setText("Firma del trabajador:");
+        AnimationPanel.add(unFirmaTrabajadorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, -1, -1));
+
+        FirmaRepresentante.setBackground(new java.awt.Color(192, 192, 192));
+        FirmaRepresentante.setFont(CargarArchivos.miFirma_Font);
+        FirmaRepresentante.setForeground(new java.awt.Color(22, 22, 22));
+        FirmaRepresentante.setHorizontalAlignment(JTextField.CENTER);
+        FirmaRepresentante.setBorder(null);
+        FirmaRepresentante.setCaretColor(new java.awt.Color(40, 40, 40));
+        FirmaRepresentante.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                FirmaRepresentanteKeyTyped(evt);
+            }
+        });
+        AnimationPanel.add(FirmaRepresentante, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 150, 25));
+
+        jSeparator13.setBackground(new java.awt.Color(135, 135, 135));
+        jSeparator13.setForeground(new java.awt.Color(135, 135, 135));
+        jSeparator13.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        AnimationPanel.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 210, 8, 80));
+
+        FirmaTrabajadorLabel.setFont(CargarArchivos.arrayFuentesRandom.get(0)
+        );
+        FirmaTrabajadorLabel.setForeground(new java.awt.Color(58, 77, 127));
+        FirmaTrabajadorLabel.setText("Javier Aragoneses");
+        AnimationPanel.add(FirmaTrabajadorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(348, 222, 170, 40));
+
+        MenuPanel2.add(AnimationPanel);
+        AnimationPanel.setBounds(80, 315, 500, 300);
+
+        TransLayer.setIcon(new javax.swing.ImageIcon("src/main/java/images/general/trans.png"));
+        TransLayer.setFocusable(false);
+        MenuPanel2.add(TransLayer);
+        TransLayer.setBounds(0, 315, 680, 320);
+
+        TituloContratos.setBackground(new java.awt.Color(204, 204, 204));
+        TituloContratos.setFont(CargarArchivos.bolsa_Font);
+        TituloContratos.setForeground(new java.awt.Color(194, 194, 194));
+        TituloContratos.setText("Bolsa de empleo");
+        MenuPanel2.add(TituloContratos);
+        TituloContratos.setBounds(12, 8, 230, 30);
+
+        TablaContratos.setFocusable(false);
+        TablaContratos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        TablaContratos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Actividad", "Trabajo", "Salario diario", "Procedencia", "Contrato"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        TablaContratos.setToolTipText(null);
+        TablaContratos.getColumnModel().getColumn(2).setCellRenderer(new com.mycompany.game.ColorSueldoTable());
+        TablaContratos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        TablaContratos.setDefaultRenderer(Object.class, centerRenderer);
+        TablaContratos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TablaContratosMousePressed(evt);
+            }
+        });
+        PaneContratos.setViewportView(TablaContratos);
+        if (TablaContratos.getColumnModel().getColumnCount() > 0) {
+            TablaContratos.getColumnModel().getColumn(0).setResizable(false);
+            TablaContratos.getColumnModel().getColumn(1).setResizable(false);
+            TablaContratos.getColumnModel().getColumn(1).setPreferredWidth(125);
+            TablaContratos.getColumnModel().getColumn(2).setResizable(false);
+            TablaContratos.getColumnModel().getColumn(2).setPreferredWidth(100);
+            TablaContratos.getColumnModel().getColumn(3).setResizable(false);
+            TablaContratos.getColumnModel().getColumn(3).setPreferredWidth(130);
+            TablaContratos.getColumnModel().getColumn(4).setResizable(false);
+            TablaContratos.getColumnModel().getColumn(4).setPreferredWidth(100);
         }
-    });
-    FieldRenovarDuracion.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            FieldRenovarDuracionActionPerformed(evt);
-        }
-    });
-    PanelRenovacion.add(FieldRenovarDuracion);
-    FieldRenovarDuracion.setBounds(14, 50, 76, 24);
 
-    jCheckBox1.setText("Pagar seguro de vida: 20€");
-    PanelRenovacion.add(jCheckBox1);
-    jCheckBox1.setBounds(12, 21, 200, 22);
-
-    FieldRenovarDuracion.addKeyListener(fieldTextOnlyNumber);
-    FieldRenovarJornada.setText("8 horas");
-    FieldRenovarJornada.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            FieldRenovarJornadaActionPerformed(evt);
-        }
-    });
-    PanelRenovacion.add(FieldRenovarJornada);
-    FieldRenovarJornada.setBounds(90, 50, 80, 24);
-
-    FieldRenovarSueldo.addKeyListener(fieldTextOnlyNumber);
-    FieldRenovarSueldo.setText("300€");
-    FieldRenovarSueldo.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            FieldRenovarSueldoActionPerformed(evt);
-        }
-    });
-    PanelRenovacion.add(FieldRenovarSueldo);
-    FieldRenovarSueldo.setBounds(170, 50, 85, 24);
-
-    jSeparator23.setForeground(new java.awt.Color(186, 186, 186));
-    PanelRenovacion.add(jSeparator23);
-    jSeparator23.setBounds(14, 10, 240, 10);
-
-    PanelInfoEmpleado.add(PanelRenovacion);
-    PanelRenovacion.setBounds(-3, 168, 270, 110);
-
-    PanelDatosDefecto.setBackground(new java.awt.Color(60, 64, 65));
-    PanelDatosDefecto.setVisible(false);
-    PanelDatosDefecto.setLayout(null);
-
-    BotonSancionar.setText("Sancionar");
-    BotonSancionar.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            BotonSancionarActionPerformed(evt);
-        }
-    });
-    PanelDatosDefecto.add(BotonSancionar);
-    BotonSancionar.setBounds(0, 40, 100, 24);
-
-    jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Sin especificar", "Item 2", "Item 3", "Item 4" }));
-    jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jComboBox1ActionPerformed(evt);
-        }
-    });
-    PanelDatosDefecto.add(jComboBox1);
-    jComboBox1.setBounds(110, 70, 130, 24);
-
-    jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Sin especificar", "Item 2", "Item 3", "Item 4" }));
-    jComboBox2.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jComboBox2ActionPerformed(evt);
-        }
-    });
-    PanelDatosDefecto.add(jComboBox2);
-    jComboBox2.setBounds(110, 10, 130, 24);
-
-    BotonDespedir.setText("Despedir");
-    BotonDespedir.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            BotonDespedirActionPerformed(evt);
-        }
-    });
-    PanelDatosDefecto.add(BotonDespedir);
-    BotonDespedir.setBounds(0, 70, 100, 24);
-
-    jButton1.setText("Medicar");
-    PanelDatosDefecto.add(jButton1);
-    jButton1.setBounds(0, 10, 100, 24);
-
-    jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Sin especificar", "Item 2", "Item 3", "Item 4" }));
-    jComboBox3.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jComboBox3ActionPerformed(evt);
-        }
-    });
-    PanelDatosDefecto.add(jComboBox3);
-    jComboBox3.setBounds(110, 40, 130, 24);
-
-    PanelInfoEmpleado.add(PanelDatosDefecto);
-    PanelDatosDefecto.setBounds(10, 177, 250, 100);
-
-    jSeparator24.setForeground(new java.awt.Color(186, 186, 186));
-    PanelInfoEmpleado.add(jSeparator24);
-    jSeparator24.setBounds(10, 50, 240, 10);
-
-    jSeparator25.setForeground(new java.awt.Color(186, 186, 186));
-    PanelInfoEmpleado.add(jSeparator25);
-    jSeparator25.setBounds(10, 170, 240, 10);
-
-    jSeparator26.setForeground(new java.awt.Color(186, 186, 186));
-    PanelInfoEmpleado.add(jSeparator26);
-    jSeparator26.setBounds(10, 100, 240, 10);
-
-    MenuPanel1.add(PanelInfoEmpleado);
-    PanelInfoEmpleado.setBounds(408, 10, 260, 280);
-
-    getContentPane().add(MenuPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 675, 310));
-
-    MenuPanel2.setBackground(new java.awt.Color(56, 60, 61));
-    MenuPanel2.setLayout(null);
-
-    AnimationPanel.setVisible(false);
-    AnimationPanel.setBackground(new java.awt.Color(192, 192, 192));
-    AnimationPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 0, true));
-    AnimationPanel.setPreferredSize(new java.awt.Dimension(500, 300));
-    AnimationPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-    PanelDatosPersonales.setBackground(new java.awt.Color(231, 231, 231));
-    PanelDatosPersonales.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(146, 146, 146)));
-    PanelDatosPersonales.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-    unLabelName.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-    unLabelName.setForeground(new java.awt.Color(121, 121, 121));
-    unLabelName.setText("Nombre:");
-    PanelDatosPersonales.add(unLabelName, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 3, -1, 30));
-
-    jSeparator3.setBackground(new java.awt.Color(135, 135, 135));
-    jSeparator3.setForeground(new java.awt.Color(135, 135, 135));
-    PanelDatosPersonales.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 65, 410, 10));
-
-    NameLabel.setBackground(new java.awt.Color(52, 55, 57));
-    NameLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    NameLabel.setForeground(new java.awt.Color(99, 99, 99));
-    NameLabel.setText("Javier Aragoneses");
-    PanelDatosPersonales.add(NameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 10, -1, -1));
-
-    DniLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    DniLabel.setForeground(new java.awt.Color(99, 99, 99));
-    DniLabel.setText("50633883G");
-    PanelDatosPersonales.add(DniLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 8, -1, 20));
-
-    unLabelDni.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-    unLabelDni.setForeground(new java.awt.Color(121, 121, 121));
-    unLabelDni.setText("NIF:");
-    PanelDatosPersonales.add(unLabelDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 3, 30, 30));
-
-    jSeparator4.setBackground(new java.awt.Color(135, 135, 135));
-    jSeparator4.setForeground(new java.awt.Color(135, 135, 135));
-    jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
-    PanelDatosPersonales.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 33, 9, 68));
-
-    unFechaLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-    unFechaLabel.setForeground(new java.awt.Color(121, 121, 121));
-    unFechaLabel.setText("Fecha de nacimiento:");
-    PanelDatosPersonales.add(unFechaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 42, -1, -1));
-
-    unNacionalidadLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-    unNacionalidadLabel.setForeground(new java.awt.Color(121, 121, 121));
-    unNacionalidadLabel.setText("Nacionalidad:");
-    PanelDatosPersonales.add(unNacionalidadLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 73, -1, 20));
-
-    GeneroLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    GeneroLabel.setForeground(new java.awt.Color(99, 99, 99));
-    GeneroLabel.setText("Sin genero");
-    PanelDatosPersonales.add(GeneroLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 73, -1, 20));
-
-    FechaLabel.setBackground(new java.awt.Color(52, 55, 57));
-    FechaLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    FechaLabel.setForeground(new java.awt.Color(99, 99, 99));
-    FechaLabel.setText("28 de septiembre de 2003");
-    PanelDatosPersonales.add(FechaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 42, 230, -1));
-
-    jSeparator6.setBackground(new java.awt.Color(135, 135, 135));
-    jSeparator6.setForeground(new java.awt.Color(135, 135, 135));
-    jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
-    PanelDatosPersonales.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 71, 10, 22));
-
-    jSeparator5.setBackground(new java.awt.Color(135, 135, 135));
-    jSeparator5.setForeground(new java.awt.Color(135, 135, 135));
-    PanelDatosPersonales.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 32, 480, 10));
-
-    jSeparator7.setBackground(new java.awt.Color(135, 135, 135));
-    jSeparator7.setForeground(new java.awt.Color(135, 135, 135));
-    jSeparator7.setOrientation(javax.swing.SwingConstants.VERTICAL);
-    PanelDatosPersonales.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 6, 8, 22));
-
-    PanelFoto.setBackground(new java.awt.Color(239, 239, 239));
-    PanelFoto.setForeground(new java.awt.Color(255, 255, 255));
-    PanelFoto.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-    LabelFoto.setIcon(new javax.swing.ImageIcon("src/main/java/images/nouser.png"));
-    PanelFoto.add(LabelFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, -1, 70));
-
-    jLabel8.setFont(new java.awt.Font("Arial", 0, 48)); // NOI18N
-    jLabel8.setText("?");
-    PanelFoto.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 8, -1, -1));
-
-    PanelDatosPersonales.add(PanelFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 33, 67, 66));
-
-    unGeneroLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-    unGeneroLabel.setForeground(new java.awt.Color(121, 121, 121));
-    unGeneroLabel.setText("Genero:");
-    PanelDatosPersonales.add(unGeneroLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 73, -1, 20));
-
-    NacionalidadLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    NacionalidadLabel.setForeground(new java.awt.Color(99, 99, 99));
-    NacionalidadLabel.setText("Española");
-    PanelDatosPersonales.add(NacionalidadLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(277, 75, -1, -1));
-
-    AnimationPanel.add(PanelDatosPersonales, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 480, 100));
-
-    PanelDatosConntrato.setBackground(new java.awt.Color(231, 231, 231));
-    PanelDatosConntrato.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(146, 146, 146)));
-    PanelDatosConntrato.setForeground(new java.awt.Color(215, 215, 215));
-    PanelDatosConntrato.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-    HorasLabel.setBackground(new java.awt.Color(52, 55, 57));
-    HorasLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    HorasLabel.setForeground(new java.awt.Color(99, 99, 99));
-    HorasLabel.setText("10 horas");
-    PanelDatosConntrato.add(HorasLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, -1, -1));
-
-    TrabajoLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    TrabajoLabel.setForeground(new java.awt.Color(99, 99, 99));
-    TrabajoLabel.setText("Programador");
-    PanelDatosConntrato.add(TrabajoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 8, -1, 20));
-
-    unTrabajoLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-    unTrabajoLabel.setForeground(new java.awt.Color(117, 117, 117));
-    unTrabajoLabel.setText("Trabajo:");
-    PanelDatosConntrato.add(unTrabajoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 3, -1, 30));
-
-    unFechaLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-    unFechaLabel1.setForeground(new java.awt.Color(117, 117, 117));
-    unFechaLabel1.setText("Jornada:");
-    PanelDatosConntrato.add(unFechaLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 10, -1, -1));
-
-    jSeparator11.setBackground(new java.awt.Color(135, 135, 135));
-    jSeparator11.setForeground(new java.awt.Color(135, 135, 135));
-    PanelDatosConntrato.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 32, 480, 10));
-
-    unLabelName2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-    unLabelName2.setForeground(new java.awt.Color(117, 117, 117));
-    unLabelName2.setText("Duración:");
-    PanelDatosConntrato.add(unLabelName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 3, -1, 30));
-
-    DuracionLabel.setBackground(new java.awt.Color(52, 55, 57));
-    DuracionLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    DuracionLabel.setForeground(new java.awt.Color(99, 99, 99));
-    DuracionLabel.setText("30 días");
-    PanelDatosConntrato.add(DuracionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 10, -1, -1));
-
-    unLabelSueldo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-    unLabelSueldo.setForeground(new java.awt.Color(117, 117, 117));
-    unLabelSueldo.setText("Salario diario:");
-    PanelDatosConntrato.add(unLabelSueldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 37, -1, 30));
-
-    SueldoLabel.setBackground(new java.awt.Color(52, 55, 57));
-    SueldoLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    SueldoLabel.setForeground(new java.awt.Color(99, 99, 99));
-    SueldoLabel.setText("76€");
-    PanelDatosConntrato.add(SueldoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 44, -1, -1));
-
-    jSeparator14.setBackground(new java.awt.Color(135, 135, 135));
-    jSeparator14.setForeground(new java.awt.Color(135, 135, 135));
-    jSeparator14.setOrientation(javax.swing.SwingConstants.VERTICAL);
-    PanelDatosConntrato.add(jSeparator14, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 6, 8, 22));
-
-    jSeparator15.setBackground(new java.awt.Color(135, 135, 135));
-    jSeparator15.setForeground(new java.awt.Color(135, 135, 135));
-    jSeparator15.setOrientation(javax.swing.SwingConstants.VERTICAL);
-    PanelDatosConntrato.add(jSeparator15, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 6, 10, 22));
-
-    unRendimientoLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-    unRendimientoLabel.setForeground(new java.awt.Color(117, 117, 117));
-    unRendimientoLabel.setText("Rendimiento:");
-    PanelDatosConntrato.add(unRendimientoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(173, 37, -1, 30));
-
-    RendimientoLabel.setBackground(new java.awt.Color(52, 55, 57));
-    RendimientoLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    RendimientoLabel.setForeground(new java.awt.Color(99, 99, 99));
-    RendimientoLabel.setText("8.56€/h - 16.5€/h");
-    PanelDatosConntrato.add(RendimientoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(275, 44, -1, -1));
-
-    jSeparator16.setBackground(new java.awt.Color(135, 135, 135));
-    jSeparator16.setForeground(new java.awt.Color(135, 135, 135));
-    jSeparator16.setOrientation(javax.swing.SwingConstants.VERTICAL);
-    PanelDatosConntrato.add(jSeparator16, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 40, 8, 22));
-
-    AnimationPanel.add(PanelDatosConntrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 135, 480, 70));
-
-    ContratarButton.setFocusable(false);
-    ContratarButton.setBackground(new java.awt.Color(2, 116, 0));
-    ContratarButton.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-    ContratarButton.setText("Contratar");
-    ContratarButton.setEnabled(false);
-    ContratarButton.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            ContratarButtonActionPerformed(evt);
-        }
-    });
-    AnimationPanel.add(ContratarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 150, 30));
-
-    DescartarButton.setFocusable(false);
-    DescartarButton.setBackground(new java.awt.Color(93, 0, 0));
-    DescartarButton.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-    DescartarButton.setText("Descartar");
-    DescartarButton.setEnabled(false);
-    DescartarButton.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            DescartarButtonActionPerformed(evt);
-        }
-    });
-    AnimationPanel.add(DescartarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 150, 30));
-
-    DatosPersonales.setFont(CargarArchivos.contract_Font);
-    DatosPersonales.setForeground(new java.awt.Color(88, 88, 88));
-    DatosPersonales.setText("DATOS DE CONTRATO");
-    AnimationPanel.add(DatosPersonales, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 7, -1, 20));
-
-    SeguroCheckBox.setFocusable(false);
-    SeguroCheckBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    SeguroCheckBox.setForeground(new java.awt.Color(99, 99, 99));
-    SeguroCheckBox.setText("Pagar seguro de vida del empleado: 120€");
-    AnimationPanel.add(SeguroCheckBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
-
-    TrasladoCheckBox.setFocusable(false);
-    TrasladoCheckBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    TrasladoCheckBox.setForeground(new java.awt.Color(99, 99, 99));
-    TrasladoCheckBox.setText("Pagar traslado desde Castilla la Mancha: 40€");
-    AnimationPanel.add(TrasladoCheckBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 20));
-
-    unFirmaRepresentanteLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-    unFirmaRepresentanteLabel.setForeground(new java.awt.Color(63, 63, 63));
-    unFirmaRepresentanteLabel.setText("Firma de la empresa:");
-    AnimationPanel.add(unFirmaRepresentanteLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 252, -1, 20));
-
-    unFirmaTrabajadorLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-    unFirmaTrabajadorLabel.setForeground(new java.awt.Color(63, 63, 63));
-    unFirmaTrabajadorLabel.setText("Firma del trabajador:");
-    AnimationPanel.add(unFirmaTrabajadorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, -1, -1));
-
-    FirmaRepresentante.setBackground(new java.awt.Color(192, 192, 192));
-    FirmaRepresentante.setFont(CargarArchivos.miFirma_Font);
-    FirmaRepresentante.setForeground(new java.awt.Color(22, 22, 22));
-    FirmaRepresentante.setHorizontalAlignment(JTextField.CENTER);
-    FirmaRepresentante.setBorder(null);
-    FirmaRepresentante.setCaretColor(new java.awt.Color(40, 40, 40));
-    FirmaRepresentante.addKeyListener(new java.awt.event.KeyAdapter() {
-        public void keyTyped(java.awt.event.KeyEvent evt) {
-            FirmaRepresentanteKeyTyped(evt);
-        }
-    });
-    AnimationPanel.add(FirmaRepresentante, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 150, 25));
-
-    jSeparator13.setBackground(new java.awt.Color(135, 135, 135));
-    jSeparator13.setForeground(new java.awt.Color(135, 135, 135));
-    jSeparator13.setOrientation(javax.swing.SwingConstants.VERTICAL);
-    AnimationPanel.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 210, 8, 80));
-
-    FirmaTrabajadorLabel.setFont(CargarArchivos.arrayFuentesRandom.get(0)
-    );
-    FirmaTrabajadorLabel.setForeground(new java.awt.Color(58, 77, 127));
-    FirmaTrabajadorLabel.setText("Javier Aragoneses");
-    AnimationPanel.add(FirmaTrabajadorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(348, 222, 170, 40));
-
-    MenuPanel2.add(AnimationPanel);
-    AnimationPanel.setBounds(80, 315, 500, 300);
-
-    TransLayer.setIcon(new javax.swing.ImageIcon("src/main/java/images/general/trans.png"));
-    TransLayer.setFocusable(false);
-    MenuPanel2.add(TransLayer);
-    TransLayer.setBounds(0, 315, 680, 320);
-
-    TituloContratos.setBackground(new java.awt.Color(204, 204, 204));
-    TituloContratos.setFont(CargarArchivos.bolsa_Font);
-    TituloContratos.setForeground(new java.awt.Color(194, 194, 194));
-    TituloContratos.setText("Bolsa de empleo");
-    MenuPanel2.add(TituloContratos);
-    TituloContratos.setBounds(12, 8, 230, 30);
-
-    TablaContratos.setFocusable(false);
-    TablaContratos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    TablaContratos.setModel(new javax.swing.table.DefaultTableModel(
-        new Object [][] {
-
-        },
-        new String [] {
-            "Actividad", "Trabajo", "Salario diario", "Procedencia", "Contrato"
-        }
-    ) {
-        boolean[] canEdit = new boolean [] {
-            false, false, false, false, false
-        };
-
-        public boolean isCellEditable(int rowIndex, int columnIndex) {
-            return canEdit [columnIndex];
-        }
-    });
-    TablaContratos.setToolTipText(null);
-    TablaContratos.getColumnModel().getColumn(2).setCellRenderer(new com.mycompany.game.ColorSueldoTable());
-    TablaContratos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-    TablaContratos.setDefaultRenderer(Object.class, centerRenderer);
-    TablaContratos.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mousePressed(java.awt.event.MouseEvent evt) {
-            TablaContratosMousePressed(evt);
-        }
-    });
-    PaneContratos.setViewportView(TablaContratos);
-    if (TablaContratos.getColumnModel().getColumnCount() > 0) {
-        TablaContratos.getColumnModel().getColumn(0).setResizable(false);
-        TablaContratos.getColumnModel().getColumn(1).setResizable(false);
-        TablaContratos.getColumnModel().getColumn(1).setPreferredWidth(125);
-        TablaContratos.getColumnModel().getColumn(2).setResizable(false);
-        TablaContratos.getColumnModel().getColumn(2).setPreferredWidth(100);
-        TablaContratos.getColumnModel().getColumn(3).setResizable(false);
-        TablaContratos.getColumnModel().getColumn(3).setPreferredWidth(130);
-        TablaContratos.getColumnModel().getColumn(4).setResizable(false);
-        TablaContratos.getColumnModel().getColumn(4).setPreferredWidth(100);
-    }
-
-    PaneContratos.setFocusable(false);
-
-    MenuPanel2.add(PaneContratos);
-    PaneContratos.setBounds(10, 45, 655, 236);
-
-    ShowContractButton.setBackground(new java.awt.Color(1, 95, 0));
-    ShowContractButton.setForeground(new java.awt.Color(210, 210, 210));
-    ShowContractButton.setIcon(new javax.swing.ImageIcon("src/main/java/images/general/lupa.png"));
-    ShowContractButton.setText("  Revisar contrato");
-    cellSelectionModel = TablaContratos.getSelectionModel();
-    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    cellSelectionModel.addListSelectionListener((ListSelectionEvent e) -> {
-        if (TablaContratos.getSelectedRows().length==0){
-            ShowContractButton.setEnabled(false);
-        }
-        else {
-            ShowContractButton.setEnabled(true);
-        }
-    });
-    ShowContractButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-    ShowContractButton.setEnabled(false);
-    ShowContractButton.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            ShowContractButtonActionPerformed(evt);
-        }
-    });
-    MenuPanel2.add(ShowContractButton);
-    ShowContractButton.setBounds(495, 10, 170, 28);
-
-    getContentPane().add(MenuPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 675, 310));
-
-    MenuPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-    jLabel6.setText("En construccion 3");
-    MenuPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(263, 133, -1, -1));
-
-    getContentPane().add(MenuPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 670, 300));
-
-    pack();
+        PaneContratos.setFocusable(false);
+
+        MenuPanel2.add(PaneContratos);
+        PaneContratos.setBounds(10, 45, 655, 236);
+
+        ShowContractButton.setBackground(new java.awt.Color(1, 95, 0));
+        ShowContractButton.setForeground(new java.awt.Color(210, 210, 210));
+        ShowContractButton.setIcon(new javax.swing.ImageIcon("src/main/java/images/general/lupa.png"));
+        ShowContractButton.setText("  Revisar contrato");
+        cellSelectionModel = TablaContratos.getSelectionModel();
+        cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        cellSelectionModel.addListSelectionListener((ListSelectionEvent e) -> {
+            if (TablaContratos.getSelectedRows().length==0){
+                ShowContractButton.setEnabled(false);
+            }
+            else {
+                ShowContractButton.setEnabled(true);
+            }
+        });
+        ShowContractButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        ShowContractButton.setEnabled(false);
+        ShowContractButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ShowContractButtonActionPerformed(evt);
+            }
+        });
+        MenuPanel2.add(ShowContractButton);
+        ShowContractButton.setBounds(495, 10, 170, 28);
+
+        getContentPane().add(MenuPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 675, 310));
+
+        MenuPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setText("En construccion 3");
+        MenuPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(263, 133, -1, -1));
+
+        getContentPane().add(MenuPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 670, 300));
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -1513,6 +1479,36 @@ public final class Game extends javax.swing.JFrame {
             checkboxState(elemento);
 
         }
+
+    }
+
+    private FocusListener fieldTester(JTextField textfield) {
+        FocusListener field_listener = new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                textfield.setText("");
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                System.out.println(textfield.getText().isBlank());
+                if (textfield.getText().isBlank()) {
+                    textfield.setText(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getDuracion() + " días");
+                } else {
+
+                    if (Integer.valueOf(textfield.getText()) > 20) {
+                        textfield.setText("20 días");
+                    } else if (Integer.valueOf(textfield.getText())<2) {
+                        textfield.setText("3 días");
+                    } else {
+                        textfield.setText(Integer.valueOf(textfield.getText()) + " días");
+                    }
+
+                }
+            }
+
+        };
+        return field_listener;
 
     }
 
