@@ -1,5 +1,6 @@
 package com.mycompany.game;
 
+
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -10,8 +11,9 @@ public class AbstractTable extends AbstractTableModel {
 
     public AbstractTable(List<CrearEmpleados> listaEmpleados) {
         this.listEmpleados = listaEmpleados;
-
+      
     }
+ 
 
     @Override
     public int getRowCount() {
