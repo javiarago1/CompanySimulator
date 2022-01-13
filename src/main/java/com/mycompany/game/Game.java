@@ -8,6 +8,8 @@ import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
@@ -380,7 +382,6 @@ public final class Game extends javax.swing.JFrame {
                 if (!((c >= '0') && (c <= '9')
                     || (c == KeyEvent.VK_BACK_SPACE)
                     || (c == KeyEvent.VK_DELETE))) {
-                getToolkit().beep();
                 e.consume();
             }
         }
@@ -839,13 +840,13 @@ public final class Game extends javax.swing.JFrame {
     MenuPanel1.add(jLabel2);
     jLabel2.setBounds(10, 10, 170, 19);
 
-    PanelInfoEmpleado.setVisible(false);
+    PanelInfoEmpleado.setVisible(true);
     PanelInfoEmpleado.setBackground(new java.awt.Color(60, 64, 65));
     PanelInfoEmpleado.setLayout(null);
 
     jLabel1.setText("Nivel de felicidad");
     PanelInfoEmpleado.add(jLabel1);
-    jLabel1.setBounds(10, 10, 150, 16);
+    jLabel1.setBounds(10, 10, 150, 18);
 
     VerContratoEmpleados.setText("Revisar contrato");
     VerContratoEmpleados.setEnabled(false);
@@ -881,7 +882,7 @@ public final class Game extends javax.swing.JFrame {
         }
     });
     PanelInfoEmpleado.add(VerContratoEmpleados);
-    VerContratoEmpleados.setBounds(10, 138, 150, 22);
+    VerContratoEmpleados.setBounds(10, 138, 150, 24);
 
     LabelFechas.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
     LabelFechas.setText("Dias restantes de contrato: ");
@@ -902,14 +903,14 @@ public final class Game extends javax.swing.JFrame {
     PanelInfoEmpleado.add(HorarioLabel);
     HorarioLabel.setBounds(100, 58, 100, 18);
 
-    PanelRenovacion.setVisible(false);
+    PanelRenovacion.setVisible(true);
     PanelRenovacion.setBackground(new java.awt.Color(60, 64, 65));
     PanelRenovacion.setLayout(null);
 
     RenovarBoton.setBackground(new java.awt.Color(0, 102, 6));
     RenovarBoton.setText("Renovar contrato");
     PanelRenovacion.add(RenovarBoton);
-    RenovarBoton.setBounds(13, 80, 202, 22);
+    RenovarBoton.setBounds(13, 80, 202, 24);
 
     EliminarBoton.setBackground(new java.awt.Color(100, 0, 0));
     EliminarBoton.setIcon(new javax.swing.ImageIcon("src/main/java/images/general/trash.png"));
@@ -925,17 +926,42 @@ public final class Game extends javax.swing.JFrame {
 
     FieldRenovarDuracion.addKeyListener(fieldTextOnlyNumber);
     FieldRenovarDuracion.setText("5 días");
+    FieldRenovarDuracion.addFocusListener(new FocusListener() {
+        @Override
+        public void focusGained(FocusEvent e) {
+            FieldRenovarDuracion.setText("");
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            if (FieldRenovarDuracion.getText().isBlank()){
+                FieldRenovarDuracion.setText(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getDuracion()+" días");
+            }
+            else{
+                try {
+                    if (Integer.valueOf(FieldRenovarDuracion.getText())>20){
+                        FieldRenovarDuracion.setText("20 días");
+                    }
+                    else {
+                        FieldRenovarDuracion.setText(FieldRenovarDuracion.getText()+" días");
+                    }
+                } catch (NumberFormatException ex) {
+                    FieldRenovarDuracion.setText(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getDuracion()+" días");
+                }
+            }
+        }
+    });
     FieldRenovarDuracion.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             FieldRenovarDuracionActionPerformed(evt);
         }
     });
     PanelRenovacion.add(FieldRenovarDuracion);
-    FieldRenovarDuracion.setBounds(14, 50, 76, 22);
+    FieldRenovarDuracion.setBounds(14, 50, 76, 24);
 
     jCheckBox1.setText("Pagar seguro de vida: 20€");
     PanelRenovacion.add(jCheckBox1);
-    jCheckBox1.setBounds(12, 21, 200, 20);
+    jCheckBox1.setBounds(12, 21, 200, 22);
 
     FieldRenovarDuracion.addKeyListener(fieldTextOnlyNumber);
     FieldRenovarJornada.setText("8 horas");
@@ -945,7 +971,7 @@ public final class Game extends javax.swing.JFrame {
         }
     });
     PanelRenovacion.add(FieldRenovarJornada);
-    FieldRenovarJornada.setBounds(90, 50, 80, 22);
+    FieldRenovarJornada.setBounds(90, 50, 80, 24);
 
     FieldRenovarSueldo.addKeyListener(fieldTextOnlyNumber);
     FieldRenovarSueldo.setText("300€");
@@ -955,7 +981,7 @@ public final class Game extends javax.swing.JFrame {
         }
     });
     PanelRenovacion.add(FieldRenovarSueldo);
-    FieldRenovarSueldo.setBounds(170, 50, 85, 22);
+    FieldRenovarSueldo.setBounds(170, 50, 85, 24);
 
     jSeparator23.setForeground(new java.awt.Color(186, 186, 186));
     PanelRenovacion.add(jSeparator23);
@@ -965,6 +991,7 @@ public final class Game extends javax.swing.JFrame {
     PanelRenovacion.setBounds(-3, 168, 270, 110);
 
     PanelDatosDefecto.setBackground(new java.awt.Color(60, 64, 65));
+    PanelDatosDefecto.setVisible(false);
     PanelDatosDefecto.setLayout(null);
 
     BotonSancionar.setText("Sancionar");
@@ -974,7 +1001,7 @@ public final class Game extends javax.swing.JFrame {
         }
     });
     PanelDatosDefecto.add(BotonSancionar);
-    BotonSancionar.setBounds(0, 40, 100, 22);
+    BotonSancionar.setBounds(0, 40, 100, 24);
 
     jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Sin especificar", "Item 2", "Item 3", "Item 4" }));
     jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -983,7 +1010,7 @@ public final class Game extends javax.swing.JFrame {
         }
     });
     PanelDatosDefecto.add(jComboBox1);
-    jComboBox1.setBounds(110, 70, 130, 22);
+    jComboBox1.setBounds(110, 70, 130, 24);
 
     jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Sin especificar", "Item 2", "Item 3", "Item 4" }));
     jComboBox2.addActionListener(new java.awt.event.ActionListener() {
@@ -992,7 +1019,7 @@ public final class Game extends javax.swing.JFrame {
         }
     });
     PanelDatosDefecto.add(jComboBox2);
-    jComboBox2.setBounds(110, 10, 130, 22);
+    jComboBox2.setBounds(110, 10, 130, 24);
 
     BotonDespedir.setText("Despedir");
     BotonDespedir.addActionListener(new java.awt.event.ActionListener() {
@@ -1001,11 +1028,11 @@ public final class Game extends javax.swing.JFrame {
         }
     });
     PanelDatosDefecto.add(BotonDespedir);
-    BotonDespedir.setBounds(0, 70, 100, 22);
+    BotonDespedir.setBounds(0, 70, 100, 24);
 
     jButton1.setText("Medicar");
     PanelDatosDefecto.add(jButton1);
-    jButton1.setBounds(0, 10, 100, 22);
+    jButton1.setBounds(0, 10, 100, 24);
 
     jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Sin especificar", "Item 2", "Item 3", "Item 4" }));
     jComboBox3.addActionListener(new java.awt.event.ActionListener() {
@@ -1014,7 +1041,7 @@ public final class Game extends javax.swing.JFrame {
         }
     });
     PanelDatosDefecto.add(jComboBox3);
-    jComboBox3.setBounds(110, 40, 130, 22);
+    jComboBox3.setBounds(110, 40, 130, 24);
 
     PanelInfoEmpleado.add(PanelDatosDefecto);
     PanelDatosDefecto.setBounds(10, 177, 250, 100);

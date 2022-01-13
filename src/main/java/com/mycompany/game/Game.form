@@ -1160,7 +1160,7 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="PanelInfoEmpleado.setVisible(false);"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="PanelInfoEmpleado.setVisible(true);"/>
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -1257,7 +1257,7 @@
                 </Property>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="PanelRenovacion.setVisible(false);"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="PanelRenovacion.setVisible(true);"/>
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -1312,7 +1312,8 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FieldRenovarDuracionActionPerformed"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="KeyAdapter fieldTextOnlyNumber = new KeyAdapter() {&#xa;            @Override&#xa;            public void keyTyped(KeyEvent e) {&#xa;                char c = e.getKeyChar();&#xa;                if (!((c &gt;= &apos;0&apos;) &amp;&amp; (c &lt;= &apos;9&apos;)&#xa;                        || (c == KeyEvent.VK_BACK_SPACE)&#xa;                        || (c == KeyEvent.VK_DELETE))) {&#xa;                    getToolkit().beep();&#xa;                    e.consume();&#xa;                }&#xa;            }&#xa;        };"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="KeyAdapter fieldTextOnlyNumber = new KeyAdapter() {&#xa;            @Override&#xa;            public void keyTyped(KeyEvent e) {&#xa;                char c = e.getKeyChar();&#xa;                if (!((c &gt;= &apos;0&apos;) &amp;&amp; (c &lt;= &apos;9&apos;) &#xa;                        || (c == KeyEvent.VK_BACK_SPACE)&#xa;                        || (c == KeyEvent.VK_DELETE))) {&#xa;                    e.consume();&#xa;                }&#xa;            }&#xa;        };"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="FieldRenovarDuracion.addFocusListener(new FocusListener() {&#xa;            @Override&#xa;            public void focusGained(FocusEvent e) {&#xa;                FieldRenovarDuracion.setText(&quot;&quot;);&#xa;            }&#xa;&#xa;            @Override&#xa;            public void focusLost(FocusEvent e) {&#xa;                if (FieldRenovarDuracion.getText().isBlank()){&#xa;                    FieldRenovarDuracion.setText(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getDuracion()+&quot; d&#xed;as&quot;);&#xa;                }&#xa;                else{&#xa;                    try {&#xa;                        if (Integer.valueOf(FieldRenovarDuracion.getText())&gt;20){&#xa;                            FieldRenovarDuracion.setText(&quot;20 d&#xed;as&quot;);&#xa;                        }&#xa;                        else {&#xa;                            FieldRenovarDuracion.setText(FieldRenovarDuracion.getText()+&quot; d&#xed;as&quot;);&#xa;                        }&#xa;                    } catch (NumberFormatException ex) {&#xa;                            FieldRenovarDuracion.setText(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getDuracion()+&quot; d&#xed;as&quot;);&#xa;                        }   &#xa;                }          &#xa;            }&#xa;        });"/>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="FieldRenovarDuracion.addKeyListener(fieldTextOnlyNumber);"/>
                   </AuxValues>
                   <Constraints>
@@ -1383,6 +1384,9 @@
                   <Color blue="41" green="40" red="3c" type="rgb"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="PanelDatosDefecto.setVisible(false);"/>
+              </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="10" y="177" width="250" height="100"/>
