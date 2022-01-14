@@ -1165,6 +1165,7 @@
                 </LineBorder>
               </Border>
             </Property>
+            <Property name="focusable" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="PanelInfoEmpleado.setVisible(true);"/>
@@ -1191,8 +1192,15 @@
             </Component>
             <Component class="javax.swing.JButton" name="VerContratoEmpleados">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Revisar contrato"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="12" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="6b" green="6b" red="6b" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Ver contrato"/>
                 <Property name="enabled" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="VerContratoEmpleadosActionPerformed"/>
@@ -1202,7 +1210,7 @@
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="10" y="138" width="150" height="-1"/>
+                  <AbsoluteConstraints x="160" y="0" width="110" height="24"/>
                 </Constraint>
               </Constraints>
             </Component>

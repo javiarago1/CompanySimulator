@@ -847,14 +847,18 @@ public final class Game extends javax.swing.JFrame {
         PanelInfoEmpleado.setVisible(true);
         PanelInfoEmpleado.setBackground(new java.awt.Color(69, 73, 74));
         PanelInfoEmpleado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(107, 107, 107)));
+        PanelInfoEmpleado.setFocusable(false);
         PanelInfoEmpleado.setLayout(null);
 
         jLabel1.setText("Nivel de felicidad");
         PanelInfoEmpleado.add(jLabel1);
         jLabel1.setBounds(10, 10, 150, 18);
 
-        VerContratoEmpleados.setText("Revisar contrato");
+        VerContratoEmpleados.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        VerContratoEmpleados.setForeground(new java.awt.Color(107, 107, 107));
+        VerContratoEmpleados.setText("Ver contrato");
         VerContratoEmpleados.setEnabled(false);
+        VerContratoEmpleados.setFocusable(false);
         VerContratoEmpleados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 VerContratoEmpleadosActionPerformed(evt);
@@ -889,7 +893,7 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         PanelInfoEmpleado.add(VerContratoEmpleados);
-        VerContratoEmpleados.setBounds(10, 138, 150, 24);
+        VerContratoEmpleados.setBounds(160, 0, 110, 24);
 
         LabelFechas.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         LabelFechas.setText("Dias restantes de contrato: ");
@@ -1776,6 +1780,7 @@ public final class Game extends javax.swing.JFrame {
         startTimers();
 
     }
+    
 
     private void setPanelEnabled(JPanel panel, Boolean isEnabled) {
         panel.setEnabled(isEnabled);
@@ -1787,6 +1792,7 @@ public final class Game extends javax.swing.JFrame {
             }
             component.setEnabled(isEnabled);
         }
+        PanelRenovacion.setVisible(false);
     }
 
     private void DescartarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescartarButtonActionPerformed
