@@ -18,7 +18,9 @@ public abstract class CrearEmpleados {
     private int horas, duracion, edad, sueldo;
     protected int felicidad;
     //checker
-
+    
+    
+    private int probabilidadContratado = 50;
     protected boolean switcher;
 
     private int fechaIncorporacion, fechaFinalizacion;
@@ -103,6 +105,8 @@ public abstract class CrearEmpleados {
 
     public abstract String getAbstractRangoRendimiento();
 
+    
+    
     public boolean isEmpleadoRepeticion() {
         return empleadoRepeticion;
     }

@@ -35,8 +35,6 @@ public abstract class CrearTecnico extends CrearEmpleados {
         return rendimientoTempInicial;
     }
     
-    
-
     @Override 
     public String getAbstractRangoRendimiento (){
         return this.rendimientoRango;
