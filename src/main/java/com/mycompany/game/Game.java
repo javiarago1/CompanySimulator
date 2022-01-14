@@ -17,8 +17,6 @@ import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -28,8 +26,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.PlainDocument;
+
 
 public final class Game extends javax.swing.JFrame {
 
@@ -38,7 +35,6 @@ public final class Game extends javax.swing.JFrame {
 
     protected static Point locationMain;
 
-    private int fieldX;
 
     DecimalFormat formateador = new DecimalFormat("#,###.##");
     private double dineroEmpresa = 500;
@@ -1551,11 +1547,8 @@ public final class Game extends javax.swing.JFrame {
                 if (textfield.getText().isBlank()) {
                     textfield.setText(fieldZ + " " + unidad);
                 } else {
-                    System.out.println(Integer.valueOf(textfield.getText()));
-                    System.out.println(fieldX + maxmin[1]);
-                    if (Integer.valueOf(textfield.getText()) > fieldX + maxmin[1]) {
-
-                        textfield.setText((fieldX + maxmin[1]) + " " + unidad);
+                    if (Integer.valueOf(textfield.getText()) > maxmin[1]) {
+                        textfield.setText(maxmin[1] + " " + unidad);
                     } else if (Integer.valueOf(textfield.getText()) < maxmin[0]) {
                         textfield.setText(maxmin[0] + " " + unidad);
                     } else {
