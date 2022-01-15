@@ -394,6 +394,7 @@ public final class Game extends javax.swing.JFrame {
         FieldRenovarJornada = new javax.swing.JTextField();
         FieldRenovarSueldo = new javax.swing.JTextField();
         jSeparator23 = new javax.swing.JSeparator();
+        LabelProbabilidad = new javax.swing.JLabel();
         PanelDatosDefecto = new javax.swing.JPanel();
         BotonSancionar = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -813,7 +814,6 @@ public final class Game extends javax.swing.JFrame {
         MenuPanel1.add(TransLayerEmpleados);
         TransLayerEmpleados.setBounds(0, 315, 680, 320);
 
-        TablaEmpleados.setFocusable(false);
         TablaEmpleados.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         TablaEmpleados.setModel(abstractModelEmpleados);
         TablaEmpleados.getColumnModel().getColumn(1).setCellRenderer(new ColorRendimientoTable());
@@ -821,6 +821,7 @@ public final class Game extends javax.swing.JFrame {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment( JLabel.CENTER );
         TablaEmpleados.setDefaultRenderer(Object.class, centerRenderer);
+        TablaEmpleados.setFocusable(false);
         TablaEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TablaEmpleadosMousePressed(evt);
@@ -903,7 +904,7 @@ public final class Game extends javax.swing.JFrame {
         CheckBoxSeguroRenovacion.setText("Pagar seguro de vida: 20€");
         CheckBoxSeguroRenovacion.setFocusable(false);
         PanelRenovacion.add(CheckBoxSeguroRenovacion);
-        CheckBoxSeguroRenovacion.setBounds(7, 21, 200, 19);
+        CheckBoxSeguroRenovacion.setBounds(7, 21, 170, 19);
 
         PanelRenovarFields.setBackground(new java.awt.Color(69, 73, 74));
         PanelRenovarFields.setLayout(null);
@@ -965,6 +966,10 @@ public final class Game extends javax.swing.JFrame {
         jSeparator23.setForeground(new java.awt.Color(186, 186, 186));
         PanelRenovacion.add(jSeparator23);
         jSeparator23.setBounds(6, 10, 240, 10);
+
+        LabelProbabilidad.setText("90%");
+        PanelRenovacion.add(LabelProbabilidad);
+        LabelProbabilidad.setBounds(200, 20, 22, 16);
 
         PanelInfoEmpleado.add(PanelRenovacion);
         PanelRenovacion.setBounds(4, 160, 250, 117);
@@ -1568,6 +1573,10 @@ public final class Game extends javax.swing.JFrame {
                 if (textfield.getText().isBlank()) {
                     textfield.setText(fieldZ + " " + unidad);
                 } else {
+                    if (textfield.equals(FieldRenovarSueldo)) {
+                        maxmin[0] = 70 * GenerarEmpleados.empleados.get(
+                                TablaEmpleados.getSelectedRow()).getSueldo() / 100;
+                    }
                     if (Integer.valueOf(textfield.getText()) > maxmin[1]) {
                         textfield.setText(maxmin[1] + " " + unidad);
                     } else if (Integer.valueOf(textfield.getText()) < maxmin[0]) {
@@ -1578,6 +1587,8 @@ public final class Game extends javax.swing.JFrame {
                     }
 
                 }
+                LabelProbabilidad.setText(String.valueOf(LuckyClass.probabilidadRenovarContrato(FieldRenovarDuracion.getText(),
+                                FieldRenovarJornada.getText(), FieldRenovarSueldo.getText(), GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()))));
             }
 
         };
@@ -1839,6 +1850,7 @@ public final class Game extends javax.swing.JFrame {
         CheckBoxSeguroRenovacion.setEnabled(estado);
         RenovarBoton.setEnabled(estado);
         EliminarBoton.setEnabled(estado);
+        LabelProbabilidad.setVisible(estado);
 
     }
 
@@ -2002,6 +2014,7 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JLabel LabelFoto1;
     protected static javax.swing.JLabel LabelHoras;
     protected static javax.swing.JLabel LabelMinutos;
+    private javax.swing.JLabel LabelProbabilidad;
     private javax.swing.JPanel MenuPanel1;
     private javax.swing.JPanel MenuPanel2;
     private javax.swing.JPanel MenuPanel3;

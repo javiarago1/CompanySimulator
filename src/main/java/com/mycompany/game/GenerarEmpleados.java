@@ -37,11 +37,10 @@ public class GenerarEmpleados {
                 generarRendimientoEstimado(),
                 generarFechaNacimiento(), generarEdad(), generarFoto(),
                 generarNacionalidad(), generarNacionalidadColor(),
-                generarProcedencia(), generarFuenteFirma(), generarHorario(),GenerarFelicidad()));
+                generarProcedencia(), generarFuenteFirma(), generarHorario(),
+                GenerarFelicidad()));
 
-     
     }
-        
 
     private static String generarDNI() {
         low = 0;
@@ -52,7 +51,7 @@ public class GenerarEmpleados {
         high = 100000000;
         num = r.nextInt(high - low) + low;
         String DNI = String.valueOf(num) + letra;
-        
+
         CargarArchivos.dniValidos.add(DNI);
 
         return DNI;
@@ -244,8 +243,8 @@ public class GenerarEmpleados {
         }
         horaFinal = horaInicial + tempHoras;
 
-       //return tempInicial + ":" + tempMinutos + " - " + (horaFinal) + ":" + tempMinutos;
-         return 10 + ":" + "0"+5 + " - " + "10" + ":" + "12";
+        //return tempInicial + ":" + tempMinutos + " - " + (horaFinal) + ":" + tempMinutos;
+        return 10 + ":" + "0" + 5 + " - " + "10" + ":" + "12";
 
     }
 
@@ -312,11 +311,11 @@ public class GenerarEmpleados {
         return CargarArchivos.arrayFuentesRandom.get(num);
 
     }
-    
-    private static int GenerarFelicidad(){
+
+    private static int GenerarFelicidad() {
         high = 91;
-        low = 60;   
-        num = r.nextInt(high -low)+low;    
+        low = 60;
+        num = r.nextInt(high - low) + low;
         return num;
     }
 

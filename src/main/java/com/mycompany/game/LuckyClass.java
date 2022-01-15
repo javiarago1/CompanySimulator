@@ -49,25 +49,38 @@ public class LuckyClass {
         return temp;
     }
 
+    private static int aumentadorDes(int elementoSolicitado,
+            int elementoAnterior,int modificadorAumento,int modificadorDisminucion) {
+        if (elementoSolicitado > elementoAnterior) {
+            return (elementoSolicitado - elementoAnterior) * modificadorDisminucion;
+        } else if (elementoAnterior > elementoSolicitado) {
+            return -(elementoAnterior - elementoSolicitado) * modificadorAumento;
+        }
+        return 0;
+    }
+
     private static int generarProbabilidadElementos(int elementoSolicitado,
             int elementoAnterior, int tipo) {
         int temp;
-        if (tipo == 0) {
-            temp = ((elementoSolicitado * 50) / elementoAnterior) * 25 / 100;
-            return smallChecker(temp);
-        } else {
-            int restar = 0;
-            if (elementoSolicitado > elementoAnterior) {
-                restar = (elementoSolicitado - elementoAnterior) * 10;
-            } else if (elementoAnterior > elementoSolicitado) {
-                restar = -(elementoAnterior - elementoSolicitado) * 10;
+        switch (tipo) {
+            case 0 -> {
+                temp = ((elementoSolicitado * 50) / elementoAnterior) * 25 / 100;
+                return smallChecker(temp);
             }
-            temp = ((elementoAnterior * 50) / elementoSolicitado) * 25 / 100 - restar;
-            return smallChecker(temp);
+            case 1 -> {
+                temp = ((elementoSolicitado * 50) / elementoAnterior) * 25 / 100 - aumentadorDes(
+                        elementoAnterior, elementoSolicitado,5,10);
+                return smallChecker(temp);
+            }
+            default -> {
+                    temp = ((elementoAnterior * 50) / elementoSolicitado) * 25 / 100 - aumentadorDes(
+                    elementoSolicitado, elementoAnterior,5,5);
+                    return smallChecker(temp);
+            }
         }
     }
 
-    protected static void probabilidadRenovarContrato(String duracionString,
+    protected static int probabilidadRenovarContrato(String duracionString,
             String horasString, String sueldoString, CrearEmpleados ex) {
         int duracion = extraerDatos(duracionString);
         int horas = extraerDatos(horasString);
@@ -75,19 +88,16 @@ public class LuckyClass {
 
         int probDuracion = generarProbabilidadElementos(duracion,
                 ex.getDuracion(), 0);
-        int probHoras = generarProbabilidadElementos(horas, ex.getHoras(), 1);
-        int probSueldo = generarProbabilidadElementos(sueldo, ex.getSueldo(), 0);
+        int probSueldo = generarProbabilidadElementos(sueldo, ex.getSueldo(), 1);
+        int probHoras = generarProbabilidadElementos(horas, ex.getHoras(), 2);
 
-        int probFelicidad = generarProbabilidadElementos(ex.getFelicidad(), 80,
-                0);
+        int probFelicidad = ex.getFelicidad() * 25 / 100;
 
         System.out.println(
                 "Probabilidad duracion: " + probDuracion + " Probabilidad horas" + probHoras + " Probabilidad sueldo " + probSueldo + " felicidad del momento" + probFelicidad);
 
         int probabilidad_final = probDuracion + probHoras + probSueldo + probFelicidad;
-        System.out.println(probabilidad_final);
-        boolean val = new Random().nextInt(1, 101) <= probabilidad_final;
-        System.out.println(val);
+        return probabilidad_final;
 
     }
 
