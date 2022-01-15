@@ -4,7 +4,6 @@ import com.formdev.flatlaf.FlatDarkLaf;
 
 import java.awt.Color;
 
-
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +17,6 @@ import java.text.DecimalFormat;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -69,45 +67,41 @@ public final class Game extends javax.swing.JFrame {
 
     private void controlDinero() {
         timer_dinero = new Timer(1500, (ActionEvent e) -> {
-            SwingWorker<Void, Integer> worker_dinero = new SwingWorker<Void,Integer>() {
+            SwingWorker<Void, Double> worker_dinero = new SwingWorker<Void, Double>() {
                 @Override
                 protected Void doInBackground() throws Exception {
                     tempTotal = 0;
                     for (int i = 0; i < GenerarEmpleados.tecnicos.size(); i++) {
                         if (GenerarEmpleados.tecnicos.get(i).isTrabajando()) {
                             tempTotal += GenerarEmpleados.tecnicos.get(i).getRendimientoXminuto();
-                             publish(i);
                         }
                     }
                     dineroEmpresa += tempTotal;
-                    
-                    dineroEmpresaLabel.setText(
-                            formateador.format(dineroEmpresa) + " €");
-                    if (dineroEmpresa > tempDineroEmpresa) {
-                        dineroEmpresaLabel.setForeground(Color.GREEN);
-                    } else if (dineroEmpresa < tempDineroEmpresa) {
-                        dineroEmpresaLabel.setForeground(Color.RED);
-                    } else {
-                        dineroEmpresaLabel.setForeground(Color.white);
-                    }
-                    tempDineroEmpresa = dineroEmpresa;
+                    double doubleDinero = dineroEmpresa;
+                    publish(doubleDinero);
                     Thread.sleep(500);
                     return null;
                 }
 
                 @Override
-                protected void process(List<Integer> chunks) {
-                    int valor = chunks.get(chunks.size()-1);
-                    
-                    
-                    
+                protected void process(List<Double> chunks) {
+                    Double valor = chunks.get(chunks.size() - 1);
+                    System.out.println(valor);
+                    System.out.println(tempDineroEmpresa);
+                    dineroEmpresaLabel.setText(
+                            formateador.format(valor) + " €");
+                    if (valor > tempDineroEmpresa) {
+                        dineroEmpresaLabel.setForeground(Color.GREEN);
+                    } else if (valor < tempDineroEmpresa) {
+                        dineroEmpresaLabel.setForeground(Color.RED);
+                    } else {
+                        dineroEmpresaLabel.setForeground(Color.WHITE);
+                    }
+                    tempDineroEmpresa = dineroEmpresa;
                 }
-                
-                
-                
+
                 @Override
                 protected void done() {
-
                     dineroEmpresaLabel.setForeground(Color.WHITE);
                 }
 
@@ -1850,14 +1844,14 @@ public final class Game extends javax.swing.JFrame {
             PanelRenovarFields.setVisible(estado);
         }
     }
-    
-    private void panelDisable (boolean estado){
+
+    private void panelDisable(boolean estado) {
         CheckBoxSeguroRenovacion.setEnabled(estado);
         RenovarBoton.setEnabled(estado);
         EliminarBoton.setEnabled(estado);
-        
+
     }
-    
+
     private void VerContratoEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerContratoEmpleadosActionPerformed
         helpDisable(TablaEmpleados);
         VerContratoEmpleados.setEnabled(false);
