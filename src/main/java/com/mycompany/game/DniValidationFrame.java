@@ -1,6 +1,5 @@
 package com.mycompany.game;
 
-import com.sun.source.doctree.SeeTree;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 
@@ -58,12 +57,7 @@ public class DniValidationFrame extends javax.swing.JFrame {
         initComponents();
         listener();
 
-        Timer newTimer = new Timer(1000, (ActionEvent e) -> {
-            // System.out.println("Location validador: "+this.getLocation());
-        });
-        newTimer.start();
-
-        setBackground(new Color(0, 0, 0, 0));
+        this.setBackground(new Color(0, 0, 0, 0));
         this.setLocationRelativeTo(null);
     }
 
@@ -260,28 +254,14 @@ public class DniValidationFrame extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(
-                    DniValidationFrame.class.getName()).log(
-                    java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(
-                    DniValidationFrame.class.getName()).log(
-                    java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(
-                    DniValidationFrame.class.getName()).log(
-                    java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(
                     DniValidationFrame.class.getName()).log(
                     java.util.logging.Level.SEVERE, null, ex);
         }
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DniValidationFrame().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new DniValidationFrame().setVisible(true);
         });
     }
 

@@ -86,8 +86,6 @@ public final class Game extends javax.swing.JFrame {
                 @Override
                 protected void process(List<Double> chunks) {
                     Double valor = chunks.get(chunks.size() - 1);
-                    System.out.println(valor);
-                    System.out.println(tempDineroEmpresa);
                     dineroEmpresaLabel.setText(
                             formateador.format(valor) + " €");
                     if (valor > tempDineroEmpresa) {
@@ -234,7 +232,7 @@ public final class Game extends javax.swing.JFrame {
         FieldRenovarJornada.setText(GenerarEmpleados.empleados.get(
                 TablaEmpleados.getSelectedRow()).getHoras() + " horas");
         FieldRenovarSueldo.setText(GenerarEmpleados.empleados.get(
-                TablaEmpleados.getSelectedRow()).getSueldo() + "€");
+                TablaEmpleados.getSelectedRow()).getSueldo() + " €");
 
     }
 
@@ -1837,6 +1835,13 @@ public final class Game extends javax.swing.JFrame {
 
     }
 
+    private void panelDisable(boolean estado) {
+        CheckBoxSeguroRenovacion.setEnabled(estado);
+        RenovarBoton.setEnabled(estado);
+        EliminarBoton.setEnabled(estado);
+
+    }
+
     private void visibleMet(boolean estado) {
         if (!PanelRenovacion.isVisible()) {
             PanelDatosDefecto.setVisible(estado);
@@ -1845,19 +1850,11 @@ public final class Game extends javax.swing.JFrame {
         }
     }
 
-    private void panelDisable(boolean estado) {
-        CheckBoxSeguroRenovacion.setEnabled(estado);
-        RenovarBoton.setEnabled(estado);
-        EliminarBoton.setEnabled(estado);
-
-    }
 
     private void VerContratoEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerContratoEmpleadosActionPerformed
         helpDisable(TablaEmpleados);
         VerContratoEmpleados.setEnabled(false);
         visibleMet(false);
-        PanelDatosDefecto.setVisible(false);
-        PanelRenovarFields.setVisible(false);
         panelDisable(false);
         rellenarCamposContrato(selectedRow, 1);
         TransLayerEmpleados.setLocation(new Point(0, -5));
@@ -1942,7 +1939,9 @@ public final class Game extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
     private void RenovarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RenovarBotonActionPerformed
-
+        LuckyClass.probabilidadRenovarContrato(FieldRenovarDuracion.getText(),
+                FieldRenovarJornada.getText(), FieldRenovarSueldo.getText(),
+                GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()));
     }//GEN-LAST:event_RenovarBotonActionPerformed
 
     public static void main(String args[]) {
