@@ -14,7 +14,6 @@ public class AbstractTable extends AbstractTableModel {
       
     }
  
-
     @Override
     public int getRowCount() {
         return listEmpleados.size();

@@ -35,5 +35,14 @@ public class LuckyClass {
         System.out.println(a);
         return a;
     }
+    
+    protected static boolean probabilidadRenovarContrato(int duracion,int horas,int sueldo, CrearEmpleados ex){
+        int probDuracion = Math.abs((duracion*100)/ex.getDuracion()-100);
+        int probHoras = Math.abs((horas*100)/ex.getHoras()-100);
+        int probSueldo = Math.abs((sueldo*100)/ex.getSueldo()-100);
+        
+        int probabilidad_final = probDuracion+probHoras+probSueldo+ex.getProbabilidadContratado(); 
+        return new Random().nextInt(1,101)<=probabilidad_final;
+    }
 
 }

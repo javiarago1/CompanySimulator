@@ -299,7 +299,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="80" y="315" width="-1" height="-1"/>
+              <AbsoluteConstraints x="80" y="310" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
 
@@ -1093,7 +1093,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="10" y="30" width="390" height="250"/>
+              <AbsoluteConstraints x="10" y="40" width="390" height="250"/>
             </Constraint>
           </Constraints>
 
@@ -1187,30 +1187,6 @@
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="10" y="10" width="150" height="-1"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-            <Component class="javax.swing.JButton" name="VerContratoEmpleados">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Arial" size="12" style="0"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="6b" green="6b" red="6b" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Ver contrato"/>
-                <Property name="enabled" type="boolean" value="false"/>
-                <Property name="focusable" type="boolean" value="false"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="VerContratoEmpleadosActionPerformed"/>
-              </Events>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="ListSelectionModel cellSelectionModel = TablaEmpleados.getSelectionModel();&#xa;    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xa;    cellSelectionModel.addListSelectionListener((ListSelectionEvent e) -&gt; {&#xa;         if (TablaEmpleados.getSelectedRows().length==0){&#xa;             VerContratoEmpleados.setEnabled(false);&#xa;             ProgressBarFelicidad.setValue(0);&#xa;             PanelInfoEmpleado.setVisible(false);&#xa;         }&#xa;         else {&#xa;             PanelInfoEmpleado.setVisible(true);&#xa;             VerContratoEmpleados.setEnabled(true);&#xa;           &#xa;             ProgressBarFelicidad.setValue(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getFelicidad());&#xa;             ProgressBarFelicidad.setForeground(Color.getHSBColor(ProgressBarFelicidad.getValue()/300f, 1f, 0.40f));&#xa;             //ProgressBar&#xa;             HorarioLabel.setText(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getHorario());&#xa;             if (!GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).isFinContrato()){&#xa;                PanelRenovacion.setVisible(false);&#xa;                PanelDatosDefecto.setVisible(true);&#xa;             }&#xa;             else {&#xa;                PanelRenovacion.setVisible(true);&#xa;                rellenarFieldsRenovacion();&#xa;                PanelDatosDefecto.setVisible(false);            &#xa;             }&#xa;             &#xa;         }&#xa;        });"/>
-              </AuxValues>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="160" y="0" width="110" height="24"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -1322,25 +1298,11 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JTextField" name="FieldRenovarDuracion">
+                <Component class="javax.swing.JCheckBox" name="CheckBoxSeguroRenovacion">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="5 d&#xed;as"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FieldRenovarDuracionActionPerformed"/>
-                  </Events>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="KeyAdapter field_listener = new KeyAdapter() {&#xa;        @Override&#xa;        public void keyTyped(KeyEvent e) {&#xa;        char c = e.getKeyChar();&#xa;        if ( ((c &lt; &apos;0&apos;) || (c &gt; &apos;9&apos;)) &amp;&amp; (c != KeyEvent.VK_BACK_SPACE)) {&#xa;            e.consume();  &#xa;        }&#xa;     }&#xa;};&#xa;FieldRenovarDuracion.addKeyListener(field_listener);&#xa;int[]maxminD={2,10};&#xa;FieldRenovarDuracion.addFocusListener(fieldTester(FieldRenovarDuracion, &quot;d&#xed;as&quot;, maxminD));"/>
-                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-                  </AuxValues>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="6" y="50" width="76" height="-1"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
-                <Component class="javax.swing.JCheckBox" name="jCheckBox1">
-                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Arial" size="12" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Pagar seguro de vida: 20&#x20ac;"/>
                     <Property name="focusable" type="boolean" value="false"/>
                   </Properties>
@@ -1350,39 +1312,80 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JTextField" name="FieldRenovarJornada">
+                <Container class="javax.swing.JPanel" name="PanelRenovarFields">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="8 horas"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="4a" green="49" red="45" type="rgb"/>
+                    </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FieldRenovarJornadaActionPerformed"/>
-                  </Events>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="int [] maxminJ = {4,12};&#xa;FieldRenovarJornada.addFocusListener(fieldTester(FieldRenovarJornada,&quot;horas&quot;,maxminJ));"/>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="FieldRenovarJornada.addKeyListener(field_listener);"/>
-                  </AuxValues>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="81" y="50" width="80" height="-1"/>
+                      <AbsoluteConstraints x="1" y="49" width="250" height="30"/>
                     </Constraint>
                   </Constraints>
-                </Component>
-                <Component class="javax.swing.JTextField" name="FieldRenovarSueldo">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="100&#x20ac;"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FieldRenovarSueldoActionPerformed"/>
-                  </Events>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="FieldRenovarSueldo.addKeyListener(field_listener);&#xa;int [] maxminS={5,1000};&#xa;FieldRenovarSueldo.addFocusListener(fieldTester(FieldRenovarSueldo,&quot;&#x20ac;&quot;,maxminS));"/>
-                  </AuxValues>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="160" y="50" width="85" height="-1"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+                    <Property name="useNullLayout" type="boolean" value="true"/>
+                  </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JTextField" name="FieldRenovarDuracion">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="5 d&#xed;as"/>
+                        <Property name="selectionEnd" type="int" value="12"/>
+                        <Property name="selectionStart" type="int" value="1"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FieldRenovarDuracionActionPerformed"/>
+                      </Events>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="KeyAdapter field_listener = new KeyAdapter() {&#xa;        @Override&#xa;        public void keyTyped(KeyEvent e) {&#xa;        char c = e.getKeyChar();&#xa;        if ( ((c &lt; &apos;0&apos;) || (c &gt; &apos;9&apos;)) &amp;&amp; (c != KeyEvent.VK_BACK_SPACE)) {&#xa;            e.consume();  &#xa;        }&#xa;     }&#xa;};&#xa;FieldRenovarDuracion.addKeyListener(field_listener);&#xa;int[]maxminD={2,10};&#xa;FieldRenovarDuracion.addFocusListener(fieldTester(FieldRenovarDuracion, &quot;d&#xed;as&quot;, maxminD));"/>
+                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+                      </AuxValues>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                          <AbsoluteConstraints x="6" y="3" width="76" height="-1"/>
+                        </Constraint>
+                      </Constraints>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="FieldRenovarJornada">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="8 horas"/>
+                        <Property name="selectionEnd" type="int" value="12"/>
+                        <Property name="selectionStart" type="int" value="1"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FieldRenovarJornadaActionPerformed"/>
+                      </Events>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="int [] maxminJ = {4,12};&#xa;FieldRenovarJornada.addFocusListener(fieldTester(FieldRenovarJornada,&quot;horas&quot;,maxminJ));"/>
+                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="FieldRenovarJornada.addKeyListener(field_listener);"/>
+                      </AuxValues>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                          <AbsoluteConstraints x="81" y="3" width="80" height="-1"/>
+                        </Constraint>
+                      </Constraints>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="FieldRenovarSueldo">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="100&#x20ac;"/>
+                        <Property name="selectionEnd" type="int" value="12"/>
+                        <Property name="selectionStart" type="int" value="1"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FieldRenovarSueldoActionPerformed"/>
+                      </Events>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="FieldRenovarSueldo.addKeyListener(field_listener);&#xa;int [] maxminS={5,1000};&#xa;FieldRenovarSueldo.addFocusListener(fieldTester(FieldRenovarSueldo,&quot;&#x20ac;&quot;,maxminS));"/>
+                      </AuxValues>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                          <AbsoluteConstraints x="160" y="3" width="85" height="-1"/>
+                        </Constraint>
+                      </Constraints>
+                    </Component>
+                  </SubComponents>
+                </Container>
                 <Component class="javax.swing.JSeparator" name="jSeparator23">
                   <Properties>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -1469,6 +1472,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox2ActionPerformed"/>
                   </Events>
                   <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jComboBox2.setEditable(false);"/>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
                   <Constraints>
@@ -1564,6 +1568,31 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="VerContratoEmpleados">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="12" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="6b" green="6b" red="6b" type="rgb"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.ImageIcon(&quot;src/main/java/images/general/lupa.png&quot;)" type="code"/>
+            </Property>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="VerContratoEmpleadosActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="ListSelectionModel cellSelectionModel = TablaEmpleados.getSelectionModel();&#xa;    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xa;    cellSelectionModel.addListSelectionListener((ListSelectionEvent e) -&gt; {&#xa;         if (TablaEmpleados.getSelectedRows().length==0){&#xa;             VerContratoEmpleados.setEnabled(false);&#xa;             ProgressBarFelicidad.setValue(0);&#xa;             PanelInfoEmpleado.setVisible(false);&#xa;         }&#xa;         else {&#xa;             PanelInfoEmpleado.setVisible(true);&#xa;             VerContratoEmpleados.setEnabled(true);&#xa;           &#xa;             ProgressBarFelicidad.setValue(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getFelicidad());&#xa;             ProgressBarFelicidad.setForeground(Color.getHSBColor(ProgressBarFelicidad.getValue()/300f, 1f, 0.40f));&#xa;             //ProgressBar&#xa;             HorarioLabel.setText(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getHorario());&#xa;             if (!GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).isFinContrato()){&#xa;                PanelRenovacion.setVisible(false);&#xa;                PanelDatosDefecto.setVisible(true);&#xa;             }&#xa;             else {&#xa;                PanelRenovacion.setVisible(true);&#xa;                rellenarFieldsRenovacion();&#xa;                PanelDatosDefecto.setVisible(false);            &#xa;             }&#xa;             &#xa;         }&#xa;        });"/>
+          </AuxValues>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="370" y="10" width="30" height="24"/>
+            </Constraint>
+          </Constraints>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="MenuPanel2">
@@ -1601,7 +1630,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="80" y="315" width="-1" height="-1"/>
+              <AbsoluteConstraints x="80" y="310" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
 

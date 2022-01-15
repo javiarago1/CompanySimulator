@@ -105,8 +105,14 @@ public abstract class CrearEmpleados {
 
     public abstract String getAbstractRangoRendimiento();
 
-    
-    
+    public int getProbabilidadContratado() {
+        return probabilidadContratado;
+    }
+
+    public void setProbabilidadContratado(int probabilidadContratado) {
+        this.probabilidadContratado = probabilidadContratado;
+    }
+
     public boolean isEmpleadoRepeticion() {
         return empleadoRepeticion;
     }

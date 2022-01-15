@@ -3,7 +3,7 @@ package com.mycompany.game;
 import com.formdev.flatlaf.FlatDarkLaf;
 
 import java.awt.Color;
-import java.awt.Component;
+
 
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -17,6 +17,8 @@ import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -27,14 +29,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import javax.swing.table.DefaultTableModel;
 
-
 public final class Game extends javax.swing.JFrame {
 
     protected static final AbstractTable abstractModelEmpleados = new AbstractTable(
             GenerarEmpleados.empleados);
 
     protected static Point locationMain;
-
 
     DecimalFormat formateador = new DecimalFormat("#,###.##");
     private double dineroEmpresa = 500;
@@ -68,18 +68,19 @@ public final class Game extends javax.swing.JFrame {
     }
 
     private void controlDinero() {
-
         timer_dinero = new Timer(1500, (ActionEvent e) -> {
-            SwingWorker<Void, Void> worker_dinero = new SwingWorker<Void, Void>() {
+            SwingWorker<Void, Integer> worker_dinero = new SwingWorker<Void,Integer>() {
                 @Override
                 protected Void doInBackground() throws Exception {
                     tempTotal = 0;
                     for (int i = 0; i < GenerarEmpleados.tecnicos.size(); i++) {
                         if (GenerarEmpleados.tecnicos.get(i).isTrabajando()) {
                             tempTotal += GenerarEmpleados.tecnicos.get(i).getRendimientoXminuto();
+                             publish(i);
                         }
                     }
                     dineroEmpresa += tempTotal;
+                    
                     dineroEmpresaLabel.setText(
                             formateador.format(dineroEmpresa) + " €");
                     if (dineroEmpresa > tempDineroEmpresa) {
@@ -95,7 +96,18 @@ public final class Game extends javax.swing.JFrame {
                 }
 
                 @Override
+                protected void process(List<Integer> chunks) {
+                    int valor = chunks.get(chunks.size()-1);
+                    
+                    
+                    
+                }
+                
+                
+                
+                @Override
                 protected void done() {
+
                     dineroEmpresaLabel.setForeground(Color.WHITE);
                 }
 
@@ -189,10 +201,6 @@ public final class Game extends javax.swing.JFrame {
 
     private void restarCapacidad() {
         arrayEliminados = new ArrayList<>();
-        for (CrearTecnico e : GenerarEmpleados.tecnicos) {
-            System.out.println(e);
-        }
-
         for (CrearEmpleados ex : GenerarEmpleados.empleados) {
             ex.checkWorkingHorario(horas_reloj, minutos_reloj, dias_reloj);
             if (ex.isTrabajando()) {
@@ -219,7 +227,6 @@ public final class Game extends javax.swing.JFrame {
 
             } else if (ex.isFinContrato()) {
                 renovarMet(ex);
-
             }
         }
         if (arrayEliminados.size() > -1) {
@@ -382,7 +389,6 @@ public final class Game extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         PanelInfoEmpleado = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        VerContratoEmpleados = new javax.swing.JButton();
         LabelFechas = new javax.swing.JLabel();
         unHorarioLabel = new javax.swing.JLabel();
         ProgressBarFelicidad = new javax.swing.JProgressBar();
@@ -390,8 +396,9 @@ public final class Game extends javax.swing.JFrame {
         PanelRenovacion = new javax.swing.JPanel();
         RenovarBoton = new javax.swing.JButton();
         EliminarBoton = new javax.swing.JButton();
+        CheckBoxSeguroRenovacion = new javax.swing.JCheckBox();
+        PanelRenovarFields = new javax.swing.JPanel();
         FieldRenovarDuracion = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
         FieldRenovarJornada = new javax.swing.JTextField();
         FieldRenovarSueldo = new javax.swing.JTextField();
         jSeparator23 = new javax.swing.JSeparator();
@@ -405,6 +412,7 @@ public final class Game extends javax.swing.JFrame {
         jSeparator24 = new javax.swing.JSeparator();
         jSeparator25 = new javax.swing.JSeparator();
         jSeparator26 = new javax.swing.JSeparator();
+        VerContratoEmpleados = new javax.swing.JButton();
         MenuPanel2 = new javax.swing.JPanel();
         AnimationPanel = new javax.swing.JPanel();
         PanelDatosPersonales = new javax.swing.JPanel();
@@ -806,7 +814,7 @@ public final class Game extends javax.swing.JFrame {
         AnimationPanelEmpleados.add(FirmaTrabajadorLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(348, 222, 170, 40));
 
         MenuPanel1.add(AnimationPanelEmpleados);
-        AnimationPanelEmpleados.setBounds(80, 315, 500, 300);
+        AnimationPanelEmpleados.setBounds(80, 310, 500, 300);
 
         TransLayerEmpleados.setIcon(new javax.swing.ImageIcon("src/main/java/images/general/trans.png"));
         TransLayer.setFocusable(false);
@@ -837,7 +845,7 @@ public final class Game extends javax.swing.JFrame {
         PaneEmpleados.setFocusable(false);
 
         MenuPanel1.add(PaneEmpleados);
-        PaneEmpleados.setBounds(10, 30, 390, 250);
+        PaneEmpleados.setBounds(10, 40, 390, 250);
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel2.setText("Lista de empleados");
@@ -852,48 +860,7 @@ public final class Game extends javax.swing.JFrame {
 
         jLabel1.setText("Nivel de felicidad");
         PanelInfoEmpleado.add(jLabel1);
-        jLabel1.setBounds(10, 10, 150, 18);
-
-        VerContratoEmpleados.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        VerContratoEmpleados.setForeground(new java.awt.Color(107, 107, 107));
-        VerContratoEmpleados.setText("Ver contrato");
-        VerContratoEmpleados.setEnabled(false);
-        VerContratoEmpleados.setFocusable(false);
-        VerContratoEmpleados.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VerContratoEmpleadosActionPerformed(evt);
-            }
-        });
-        ListSelectionModel cellSelectionModel = TablaEmpleados.getSelectionModel();
-        cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        cellSelectionModel.addListSelectionListener((ListSelectionEvent e) -> {
-            if (TablaEmpleados.getSelectedRows().length==0){
-                VerContratoEmpleados.setEnabled(false);
-                ProgressBarFelicidad.setValue(0);
-                PanelInfoEmpleado.setVisible(false);
-            }
-            else {
-                PanelInfoEmpleado.setVisible(true);
-                VerContratoEmpleados.setEnabled(true);
-
-                ProgressBarFelicidad.setValue(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getFelicidad());
-                ProgressBarFelicidad.setForeground(Color.getHSBColor(ProgressBarFelicidad.getValue()/300f, 1f, 0.40f));
-                //ProgressBar
-                HorarioLabel.setText(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getHorario());
-                if (!GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).isFinContrato()){
-                    PanelRenovacion.setVisible(false);
-                    PanelDatosDefecto.setVisible(true);
-                }
-                else {
-                    PanelRenovacion.setVisible(true);
-                    rellenarFieldsRenovacion();
-                    PanelDatosDefecto.setVisible(false);
-                }
-
-            }
-        });
-        PanelInfoEmpleado.add(VerContratoEmpleados);
-        VerContratoEmpleados.setBounds(160, 0, 110, 24);
+        jLabel1.setBounds(10, 10, 150, 16);
 
         LabelFechas.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         LabelFechas.setText("Dias restantes de contrato: ");
@@ -940,6 +907,15 @@ public final class Game extends javax.swing.JFrame {
         PanelRenovacion.add(EliminarBoton);
         EliminarBoton.setBounds(216, 84, 31, 26);
 
+        CheckBoxSeguroRenovacion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        CheckBoxSeguroRenovacion.setText("Pagar seguro de vida: 20€");
+        CheckBoxSeguroRenovacion.setFocusable(false);
+        PanelRenovacion.add(CheckBoxSeguroRenovacion);
+        CheckBoxSeguroRenovacion.setBounds(7, 21, 200, 19);
+
+        PanelRenovarFields.setBackground(new java.awt.Color(69, 73, 74));
+        PanelRenovarFields.setLayout(null);
+
         KeyAdapter field_listener = new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -953,21 +929,20 @@ public final class Game extends javax.swing.JFrame {
         int[]maxminD={2,10};
         FieldRenovarDuracion.addFocusListener(fieldTester(FieldRenovarDuracion, "días", maxminD));
         FieldRenovarDuracion.setText("5 días");
+        FieldRenovarDuracion.setSelectionEnd(12);
+        FieldRenovarDuracion.setSelectionStart(1);
         FieldRenovarDuracion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FieldRenovarDuracionActionPerformed(evt);
             }
         });
-        PanelRenovacion.add(FieldRenovarDuracion);
-        FieldRenovarDuracion.setBounds(6, 50, 76, 24);
-
-        jCheckBox1.setText("Pagar seguro de vida: 20€");
-        jCheckBox1.setFocusable(false);
-        PanelRenovacion.add(jCheckBox1);
-        jCheckBox1.setBounds(7, 21, 200, 22);
+        PanelRenovarFields.add(FieldRenovarDuracion);
+        FieldRenovarDuracion.setBounds(6, 3, 76, 22);
 
         FieldRenovarJornada.addKeyListener(field_listener);
         FieldRenovarJornada.setText("8 horas");
+        FieldRenovarJornada.setSelectionEnd(12);
+        FieldRenovarJornada.setSelectionStart(1);
         int [] maxminJ = {4,12};
         FieldRenovarJornada.addFocusListener(fieldTester(FieldRenovarJornada,"horas",maxminJ));
         FieldRenovarJornada.addActionListener(new java.awt.event.ActionListener() {
@@ -975,10 +950,12 @@ public final class Game extends javax.swing.JFrame {
                 FieldRenovarJornadaActionPerformed(evt);
             }
         });
-        PanelRenovacion.add(FieldRenovarJornada);
-        FieldRenovarJornada.setBounds(81, 50, 80, 24);
+        PanelRenovarFields.add(FieldRenovarJornada);
+        FieldRenovarJornada.setBounds(81, 3, 80, 22);
 
         FieldRenovarSueldo.setText("100€");
+        FieldRenovarSueldo.setSelectionEnd(12);
+        FieldRenovarSueldo.setSelectionStart(1);
         FieldRenovarSueldo.addKeyListener(field_listener);
         int [] maxminS={5,1000};
         FieldRenovarSueldo.addFocusListener(fieldTester(FieldRenovarSueldo,"€",maxminS));
@@ -987,8 +964,11 @@ public final class Game extends javax.swing.JFrame {
                 FieldRenovarSueldoActionPerformed(evt);
             }
         });
-        PanelRenovacion.add(FieldRenovarSueldo);
-        FieldRenovarSueldo.setBounds(160, 50, 85, 24);
+        PanelRenovarFields.add(FieldRenovarSueldo);
+        FieldRenovarSueldo.setBounds(160, 3, 85, 22);
+
+        PanelRenovacion.add(PanelRenovarFields);
+        PanelRenovarFields.setBounds(1, 49, 250, 30);
 
         jSeparator23.setForeground(new java.awt.Color(186, 186, 186));
         PanelRenovacion.add(jSeparator23);
@@ -1008,7 +988,7 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         PanelDatosDefecto.add(BotonSancionar);
-        BotonSancionar.setBounds(0, 40, 100, 24);
+        BotonSancionar.setBounds(0, 40, 100, 22);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Sin especificar", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -1017,8 +997,9 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         PanelDatosDefecto.add(jComboBox1);
-        jComboBox1.setBounds(110, 70, 130, 24);
+        jComboBox1.setBounds(110, 70, 130, 22);
 
+        jComboBox2.setEditable(false);
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Sin especificar", "Item 2", "Item 3", "Item 4" }));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1026,7 +1007,7 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         PanelDatosDefecto.add(jComboBox2);
-        jComboBox2.setBounds(110, 10, 130, 24);
+        jComboBox2.setBounds(110, 10, 130, 22);
 
         BotonDespedir.setText("Despedir");
         BotonDespedir.addActionListener(new java.awt.event.ActionListener() {
@@ -1035,11 +1016,11 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         PanelDatosDefecto.add(BotonDespedir);
-        BotonDespedir.setBounds(0, 70, 100, 24);
+        BotonDespedir.setBounds(0, 70, 100, 22);
 
         jButton1.setText("Medicar");
         PanelDatosDefecto.add(jButton1);
-        jButton1.setBounds(0, 10, 100, 24);
+        jButton1.setBounds(0, 10, 100, 22);
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Sin especificar", "Item 2", "Item 3", "Item 4" }));
         jComboBox3.addActionListener(new java.awt.event.ActionListener() {
@@ -1048,7 +1029,7 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         PanelDatosDefecto.add(jComboBox3);
-        jComboBox3.setBounds(110, 40, 130, 24);
+        jComboBox3.setBounds(110, 40, 130, 22);
 
         PanelInfoEmpleado.add(PanelDatosDefecto);
         PanelDatosDefecto.setBounds(10, 177, 244, 100);
@@ -1067,6 +1048,46 @@ public final class Game extends javax.swing.JFrame {
 
         MenuPanel1.add(PanelInfoEmpleado);
         PanelInfoEmpleado.setBounds(408, 10, 271, 280);
+
+        VerContratoEmpleados.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        VerContratoEmpleados.setForeground(new java.awt.Color(107, 107, 107));
+        VerContratoEmpleados.setIcon(new javax.swing.ImageIcon("src/main/java/images/general/lupa.png"));
+        VerContratoEmpleados.setEnabled(false);
+        VerContratoEmpleados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VerContratoEmpleadosActionPerformed(evt);
+            }
+        });
+        ListSelectionModel cellSelectionModel = TablaEmpleados.getSelectionModel();
+        cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        cellSelectionModel.addListSelectionListener((ListSelectionEvent e) -> {
+            if (TablaEmpleados.getSelectedRows().length==0){
+                VerContratoEmpleados.setEnabled(false);
+                ProgressBarFelicidad.setValue(0);
+                PanelInfoEmpleado.setVisible(false);
+            }
+            else {
+                PanelInfoEmpleado.setVisible(true);
+                VerContratoEmpleados.setEnabled(true);
+
+                ProgressBarFelicidad.setValue(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getFelicidad());
+                ProgressBarFelicidad.setForeground(Color.getHSBColor(ProgressBarFelicidad.getValue()/300f, 1f, 0.40f));
+                //ProgressBar
+                HorarioLabel.setText(GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).getHorario());
+                if (!GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()).isFinContrato()){
+                    PanelRenovacion.setVisible(false);
+                    PanelDatosDefecto.setVisible(true);
+                }
+                else {
+                    PanelRenovacion.setVisible(true);
+                    rellenarFieldsRenovacion();
+                    PanelDatosDefecto.setVisible(false);
+                }
+
+            }
+        });
+        MenuPanel1.add(VerContratoEmpleados);
+        VerContratoEmpleados.setBounds(370, 10, 30, 24);
 
         getContentPane().add(MenuPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 675, 310));
 
@@ -1331,7 +1352,7 @@ public final class Game extends javax.swing.JFrame {
         AnimationPanel.add(FirmaTrabajadorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(348, 222, 170, 40));
 
         MenuPanel2.add(AnimationPanel);
-        AnimationPanel.setBounds(80, 315, 500, 300);
+        AnimationPanel.setBounds(80, 310, 500, 300);
 
         TransLayer.setIcon(new javax.swing.ImageIcon("src/main/java/images/general/trans.png"));
         TransLayer.setFocusable(false);
@@ -1617,7 +1638,9 @@ public final class Game extends javax.swing.JFrame {
         timerContrato();
 
         TransLayer.setLocation(new Point(0, -5));
-        animacionSubir(AnimationPanel);
+        AnimationPanel.setVisible(true);
+        comprobarPanel(AnimationPanel, true);
+        AnimationPanel.setLocation(80, 10);
 
         selectedRow = TablaContratos.getSelectedRow();
         rellenarCamposContrato(selectedRow, 0);
@@ -1747,10 +1770,12 @@ public final class Game extends javax.swing.JFrame {
 
 
     private void ContratarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContratarButtonActionPerformed
-        animacionDerecha();
+        AnimationPanel.setVisible(false);
+        AnimationPanel.setLocation(80, 310);
+        helpAble(TablaContratos);
+        contratoIsVisible = false;
         comprobarCheckBox();
         TransLayer.setLocation(new Point(0, 315));
-        timer_contrato.stop();
         GenerarEmpleados.contratos.get(selectedRow).setFirmaEmpresa(
                 FirmaRepresentante.getText());
         GenerarEmpleados.empleados.add(GenerarEmpleados.contratos.get(
@@ -1773,93 +1798,29 @@ public final class Game extends javax.swing.JFrame {
         }
         DescartarButton.setEnabled(false);
         ContratarButton.setEnabled(false);
-
+        timer_contrato.stop();
         TablaModelContratos.removeRow(selectedRow);
         GenerarEmpleados.contratos.remove(selectedRow);
-        helpAble(TablaContratos);
+
         startTimers();
 
     }
-    
 
-    private void setPanelEnabled(JPanel panel, Boolean isEnabled) {
-        panel.setEnabled(isEnabled);
-
-        Component[] components = panel.getComponents();
-        for (Component component : components) {
-            if (component instanceof JPanel jPanel) {
-                setPanelEnabled(jPanel, isEnabled);
-            }
-            component.setEnabled(isEnabled);
-        }
-        PanelRenovacion.setVisible(false);
-    }
 
     private void DescartarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescartarButtonActionPerformed
         eliminarComun();
-        animacionBajar(AnimationPanel);
+        AnimationPanel.setVisible(false);
+        AnimationPanel.setLocation(80, 310);
+        comprobarPanel(AnimationPanel, false);
+        helpAble(TablaContratos);
 
     }//GEN-LAST:event_DescartarButtonActionPerformed
-    private void animacionDerecha() {
-
-        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-            @Override
-            protected Void doInBackground() throws Exception {
-                for (int i = 80; i < 700; i += 8) {
-                    AnimationPanel.setLocation(i, 10);
-                    Thread.sleep(1);
-                }
-                AnimationPanel.setVisible(false);
-                contratoIsVisible = false;
-                return null;
-            }
-        };
-        worker.execute();
-    }
-
-    private void animacionSubir(JPanel panel) {
-
-        panel.setVisible(true);
-        SwingWorker<Void, Void> subir_worker = new SwingWorker<Void, Void>() {
-            @Override
-            protected Void doInBackground() throws Exception {
-                for (int j = 315; j > 9; j -= 8) {
-                    panel.setLocation(80, j);
-                    Thread.sleep(1);
-
-                }
-                comprobarPanel(panel, true);
-                return null;
-            }
-        };
-        subir_worker.execute();
-
-    }
-
-    private void animacionBajar(JPanel panel) {
-        SwingWorker<Void, Void> bajar_worker = new SwingWorker<Void, Void>() {
-            @Override
-            protected Void doInBackground() throws Exception {
-                for (int j = 10; j < 315; j += 10) {
-                    panel.setLocation(80, j);
-                    Thread.sleep(1);
-
-                }
-                panel.setVisible(false);
-                comprobarPanel(panel, false);
-                return null;
-            }
-        };
-        bajar_worker.execute();
-
-    }
 
     private void comprobarPanel(JPanel panel, boolean abierto) {
         if (panel.equals(AnimationPanel)) {
             contratoIsVisible = abierto;
         }
     }
-
 
     private void FirmaRepresentanteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FirmaRepresentanteKeyTyped
         if (FirmaRepresentante.getText().length() >= 14) {
@@ -1882,21 +1843,43 @@ public final class Game extends javax.swing.JFrame {
 
     }
 
-
+    private void visibleMet(boolean estado) {
+        if (!PanelRenovacion.isVisible()) {
+            PanelDatosDefecto.setVisible(estado);
+        } else {
+            PanelRenovarFields.setVisible(estado);
+        }
+    }
+    
+    private void panelDisable (boolean estado){
+        CheckBoxSeguroRenovacion.setEnabled(estado);
+        RenovarBoton.setEnabled(estado);
+        EliminarBoton.setEnabled(estado);
+        
+    }
+    
     private void VerContratoEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerContratoEmpleadosActionPerformed
-        AnimationPanelEmpleados.setVisible(true);
         helpDisable(TablaEmpleados);
-        setPanelEnabled(PanelInfoEmpleado, false);
-
+        VerContratoEmpleados.setEnabled(false);
+        visibleMet(false);
+        PanelDatosDefecto.setVisible(false);
+        PanelRenovarFields.setVisible(false);
+        panelDisable(false);
         rellenarCamposContrato(selectedRow, 1);
         TransLayerEmpleados.setLocation(new Point(0, -5));
-        animacionSubir(AnimationPanelEmpleados);
+        AnimationPanelEmpleados.setVisible(true);
+        AnimationPanelEmpleados.setLocation(80, 10);
+        comprobarPanel(AnimationPanelEmpleados, true);
     }//GEN-LAST:event_VerContratoEmpleadosActionPerformed
 
     private void CerrarContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarContratoActionPerformed
-        animacionBajar(AnimationPanelEmpleados);
+        VerContratoEmpleados.setEnabled(true);
+        AnimationPanelEmpleados.setVisible(false);
+        comprobarPanel(AnimationPanelEmpleados, false);
+        visibleMet(true);
+        panelDisable(true);
         helpAble(TablaEmpleados);
-        setPanelEnabled(PanelInfoEmpleado, true);
+        AnimationPanelEmpleados.setLocation(80, 310);
         TransLayerEmpleados.setLocation(new Point(0, 315));
 
     }//GEN-LAST:event_CerrarContratoActionPerformed
@@ -1929,9 +1912,6 @@ public final class Game extends javax.swing.JFrame {
     }//GEN-LAST:event_formComponentMoved
 
     private void BotonSancionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSancionarActionPerformed
-
-        System.out.println(
-                GenerarEmpleados.empleados.get(0).getAbstractRendimiento());
 
     }//GEN-LAST:event_BotonSancionarActionPerformed
 
@@ -1968,7 +1948,7 @@ public final class Game extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
     private void RenovarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RenovarBotonActionPerformed
-        
+
     }//GEN-LAST:event_RenovarBotonActionPerformed
 
     public static void main(String args[]) {
@@ -1998,6 +1978,7 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JButton BotonDespedir;
     private javax.swing.JButton BotonSancionar;
     private javax.swing.JButton CerrarContrato;
+    private javax.swing.JCheckBox CheckBoxSeguroRenovacion;
     private javax.swing.JPanel ContrarEmpleados;
     private javax.swing.JButton ContratarButton;
     private javax.swing.JLabel DatosPersonales;
@@ -2047,6 +2028,7 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JPanel PanelInfoEmpleado;
     private javax.swing.JPanel PanelIzquierdo;
     private javax.swing.JPanel PanelRenovacion;
+    private javax.swing.JPanel PanelRenovarFields;
     private javax.swing.JPanel PanelSuperior;
     private javax.swing.JProgressBar ProgressBarFelicidad;
     private javax.swing.JLabel RendimientoLabel;
@@ -2070,7 +2052,6 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JPanel VerEmpelados;
     private javax.swing.JLabel dineroEmpresaLabel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
