@@ -1,6 +1,9 @@
 package com.mycompany.game;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
+import javax.swing.Timer;
 
 public class LuckyClass {
 
@@ -69,7 +72,7 @@ public class LuckyClass {
             }
             case 1 -> {
                 temp = ((elementoSolicitado * 50) / elementoAnterior) * 25 / 100 - aumentadorDes(
-                        elementoAnterior, elementoSolicitado,5,10);
+                        elementoAnterior, elementoSolicitado,3,3);
                 return smallChecker(temp);
             }
             default -> {
@@ -99,6 +102,28 @@ public class LuckyClass {
         int probabilidad_final = probDuracion + probHoras + probSueldo + probFelicidad;
         return probabilidad_final;
 
+    }
+    
+    protected static void procesoAceptacion (int probabilidad,CrearEmpleados ex){
+        int numLista =GenerarEmpleados.empleados.indexOf(ex);
+        GenerarEmpleados.empleados.remove(ex);
+        Game.abstractModelEmpleados.fireTableRowsDeleted(numLista,numLista);
+        boolean val = r.nextInt(1, 101) <= probabilidad;
+        int tiempoEspera = r.nextInt(5000-3000)+3000;
+        Timer timer_proceso = new Timer(tiempoEspera, (ActionEvent e) -> {
+            if (val){
+                GenerarEmpleados.empleados.add(ex);
+                int num = GenerarEmpleados.empleados.size()-1;
+                Game.abstractModelEmpleados.fireTableRowsInserted(num,
+                        num);
+            }
+            else {
+                Game.removerEmpleadoLista(ex);
+            }
+        });
+        timer_proceso.setRepeats(false);
+        timer_proceso.start();
+            
     }
 
 }

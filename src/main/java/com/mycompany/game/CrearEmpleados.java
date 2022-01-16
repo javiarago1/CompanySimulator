@@ -105,6 +105,20 @@ public abstract class CrearEmpleados {
 
     public abstract String getAbstractRangoRendimiento();
 
+    
+    public String getEstadoContrato(int currentDate){
+        if (finContrato){
+            return "El contrato ha finalizado";
+        }
+        else if (fechaIncorporacion>currentDate){
+            return "Fecha de incorporación: día "+fechaIncorporacion;
+        }
+        else {
+            int restante = fechaFinalizacion-currentDate;
+            return "Tiempo restaten de contrato: "+restante;
+        }
+    }
+    
     public int getProbabilidadContratado() {
         return probabilidadContratado;
     }

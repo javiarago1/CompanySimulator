@@ -226,7 +226,6 @@ public class GenerarEmpleados {
         int temp;
 
         int horaMaxima = finalJornada - tempHoras;
-        System.out.println(tempHoras);
         high = horaMaxima + 1;
         low = 8;
         horaInicial = r.nextInt(high - low) + low;
