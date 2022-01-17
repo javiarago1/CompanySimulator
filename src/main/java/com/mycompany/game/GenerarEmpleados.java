@@ -37,7 +37,7 @@ public class GenerarEmpleados {
                 generarRendimientoEstimado(),
                 generarFechaNacimiento(), generarEdad(), generarFoto(),
                 generarNacionalidad(), generarNacionalidadColor(),
-                generarProcedencia(), generarFuenteFirma(), generarHorario(),
+                generarProcedencia(), generarFuenteFirma(), generarHorario(tempHoras),
                 GenerarFelicidad()));
 
     }
@@ -217,7 +217,7 @@ public class GenerarEmpleados {
 
     }
 
-    private static String generarHorario() {
+    protected static String generarHorario(int tempHoras) {
         int finalJornada = 20;
         String tempMinutos = "00";
         String tempInicial;
@@ -242,10 +242,11 @@ public class GenerarEmpleados {
         }
         horaFinal = horaInicial + tempHoras;
 
-        //return tempInicial + ":" + tempMinutos + " - " + (horaFinal) + ":" + tempMinutos;
-        return 10 + ":" + "0" + 5 + " - " + "10" + ":" + "12";
+        return tempInicial + ":" + tempMinutos + " - " + (horaFinal) + ":" + tempMinutos;
+        //return 10 + ":" + "0" + 5 + " - " + "10" + ":" + "12";
 
     }
+    
 
     private static int generadorDias() {
         high = 12;

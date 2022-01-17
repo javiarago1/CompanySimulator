@@ -65,7 +65,7 @@ public abstract class CrearEmpleados {
         extractHorario();
     }
 
-    private void extractHorario() {
+    public void extractHorario() {
         horaFinal = Integer.parseInt(horario.substring(8, 10));
         minutoFinal = Integer.parseInt(horario.substring(11, 13));
 
@@ -81,10 +81,9 @@ public abstract class CrearEmpleados {
     public void checkWorkingHorario(int horaReal, int minutoReal, int diaReal) {
 
         this.trabajandoDeb = ((horaReal >= horaHorario && minutoReal >= minutoHorario || horaReal > horaHorario) && (horaReal < horaFinal || horaReal == horaFinal && minutoReal < minutoFinal) && (diaReal >= fechaIncorporacion && diaReal < fechaFinalizacion));
-
-        this.finContrato = (horaReal > horaFinal || horaReal == horaFinal && minutoReal >= minutoFinal) && (fechaFinalizacion-diaReal<=1);
-
-
+        
+        this.finContrato = ((horaReal > horaFinal || horaReal == horaFinal && minutoReal >= minutoFinal) && (fechaFinalizacion-diaReal==1) || (fechaFinalizacion-diaReal<=0));
+        
         if (!trabajandoDeb && trabajando) {
             Game.abstractModelEmpleados.fireTableCellUpdated(
                     GenerarEmpleados.empleados.indexOf(this), 2);
@@ -115,7 +114,7 @@ public abstract class CrearEmpleados {
         }
         else {
             int restante = fechaFinalizacion-currentDate;
-            return "Tiempo restaten de contrato: "+restante;
+            return "Tiempo restate de contrato: "+restante;
         }
     }
     

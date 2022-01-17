@@ -1,13 +1,13 @@
 package com.mycompany.game;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Random;
 import javax.swing.Timer;
 
 public class LuckyClass {
 
     private static final Random r = new Random();
+    private static int horas, duracion, sueldo;
 
     protected static void probabilidadTrabajando(CrearEmpleados ex) {
         // 90 - ex.getFelicidad()
@@ -53,7 +53,8 @@ public class LuckyClass {
     }
 
     private static int aumentadorDes(int elementoSolicitado,
-            int elementoAnterior,int modificadorAumento,int modificadorDisminucion) {
+            int elementoAnterior, int modificadorAumento,
+            int modificadorDisminucion) {
         if (elementoSolicitado > elementoAnterior) {
             return (elementoSolicitado - elementoAnterior) * modificadorDisminucion;
         } else if (elementoAnterior > elementoSolicitado) {
@@ -72,23 +73,22 @@ public class LuckyClass {
             }
             case 1 -> {
                 temp = ((elementoSolicitado * 50) / elementoAnterior) * 25 / 100 - aumentadorDes(
-                        elementoAnterior, elementoSolicitado,3,3);
+                        elementoAnterior, elementoSolicitado, 3, 3);
                 return smallChecker(temp);
             }
             default -> {
-                    temp = ((elementoAnterior * 50) / elementoSolicitado) * 25 / 100 - aumentadorDes(
-                    elementoSolicitado, elementoAnterior,5,5);
-                    return smallChecker(temp);
+                temp = ((elementoAnterior * 50) / elementoSolicitado) * 25 / 100 - aumentadorDes(
+                        elementoSolicitado, elementoAnterior, 5, 5);
+                return smallChecker(temp);
             }
         }
     }
 
     protected static int probabilidadRenovarContrato(String duracionString,
             String horasString, String sueldoString, CrearEmpleados ex) {
-        int duracion = extraerDatos(duracionString);
-        int horas = extraerDatos(horasString);
-        int sueldo = extraerDatos(sueldoString);
-
+        duracion = extraerDatos(duracionString);
+        horas = extraerDatos(horasString);
+        sueldo = extraerDatos(sueldoString);
         int probDuracion = generarProbabilidadElementos(duracion,
                 ex.getDuracion(), 0);
         int probSueldo = generarProbabilidadElementos(sueldo, ex.getSueldo(), 1);
@@ -103,27 +103,42 @@ public class LuckyClass {
         return probabilidad_final;
 
     }
-    
-    protected static void procesoAceptacion (int probabilidad,CrearEmpleados ex){
-        int numLista =GenerarEmpleados.empleados.indexOf(ex);
+
+    private static void datosCambiados(CrearEmpleados ex) {
+        if (horas != ex.getHoras()) {
+            ex.setHoras(horas);
+            ex.setHorario(GenerarEmpleados.generarHorario(horas));
+            ex.extractHorario();
+        }
+        if (duracion != ex.getDuracion()) {
+            ex.setDuracion(duracion);
+            ex.setFechaIncorporacion(Game.dias_reloj + 1);
+            ex.setFechaFinalizacion(ex.getFechaIncorporacion() + duracion);
+        }
+        if (sueldo != ex.getSueldo()) {
+            ex.setSueldo(sueldo);
+        }
+    }
+
+    protected static void procesoAceptacion(int probabilidad, CrearEmpleados ex) {
+        int numLista = GenerarEmpleados.empleados.indexOf(ex);
         GenerarEmpleados.empleados.remove(ex);
-        Game.abstractModelEmpleados.fireTableRowsDeleted(numLista,numLista);
+        Game.abstractModelEmpleados.fireTableRowsDeleted(numLista, numLista);
         boolean val = r.nextInt(1, 101) <= probabilidad;
-        int tiempoEspera = r.nextInt(5000-3000)+3000;
+        int tiempoEspera = r.nextInt(5000 - 3000) + 3000;
         Timer timer_proceso = new Timer(tiempoEspera, (ActionEvent e) -> {
-            if (val){
+            if (val) {
+                datosCambiados(ex);
+               // int num = GenerarEmpleados.empleados.size() - 1;
                 GenerarEmpleados.empleados.add(ex);
-                int num = GenerarEmpleados.empleados.size()-1;
-                Game.abstractModelEmpleados.fireTableRowsInserted(num,
-                        num);
-            }
-            else {
+                Game.abstractModelEmpleados.fireTableDataChanged();
+            } else {
                 Game.removerEmpleadoLista(ex);
             }
         });
         timer_proceso.setRepeats(false);
         timer_proceso.start();
-            
+
     }
 
 }

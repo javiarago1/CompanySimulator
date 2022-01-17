@@ -42,7 +42,7 @@ public final class Game extends javax.swing.JFrame {
 
     private int minutos_reloj = 0;
     private int horas_reloj = 10;
-    private int dias_reloj = 1;
+    protected static int dias_reloj = 1;
     private Timer Writer;
     private Timer timer_contrato;
     private Timer timer_borrar;
@@ -175,17 +175,18 @@ public final class Game extends javax.swing.JFrame {
             } else {
                 Game.LabelMinutos.setText(String.valueOf(minutos_reloj));
             }
-            if (horas_reloj == 11) {
+            if (minutos_reloj == 20) {
+                        TablaEmpleados.getSelectionModel().clearSelection();
                 dias_reloj++;
                 LabelDias.setText("Dia: " + dias_reloj);
                 horas_reloj = 10;
-                LabelHoras.setText("0" + String.valueOf(horas_reloj) + ":");
+                LabelHoras.setText("" + String.valueOf(horas_reloj) + ":");
                 minutos_reloj = 0;
                 LabelMinutos.setText(String.valueOf("0" + minutos_reloj));
             }
             restarCapacidad();
         });
-        TablaEmpleados.getSelectionModel().clearSelection();
+
         timer_reloj.setRepeats(true);
         timer_reloj.setCoalesce(true);
         timer_reloj.start();
@@ -850,7 +851,7 @@ public final class Game extends javax.swing.JFrame {
 
         jLabel1.setText("Nivel de felicidad");
         PanelInfoEmpleado.add(jLabel1);
-        jLabel1.setBounds(10, 10, 150, 16);
+        jLabel1.setBounds(10, 10, 150, 18);
 
         LabelFechas.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         LabelFechas.setText("Dias restantes de contrato: ");
@@ -919,13 +920,15 @@ public final class Game extends javax.swing.JFrame {
         int[]maxminD={2,10};
 
         FieldRenovarDuracion.addFocusListener(fieldTester(FieldRenovarDuracion, "días", maxminD));
+        FieldRenovarDuracion.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         FieldRenovarDuracion.setText("5 días");
         FieldRenovarDuracion.setSelectionEnd(12);
         FieldRenovarDuracion.setSelectionStart(1);
         PanelRenovarFields.add(FieldRenovarDuracion);
-        FieldRenovarDuracion.setBounds(6, 3, 76, 22);
+        FieldRenovarDuracion.setBounds(6, 3, 76, 23);
 
         FieldRenovarJornada.addKeyListener(field_listener);
+        FieldRenovarJornada.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         FieldRenovarJornada.setText("8 horas");
         FieldRenovarJornada.setSelectionEnd(12);
         FieldRenovarJornada.setSelectionStart(1);
@@ -933,8 +936,9 @@ public final class Game extends javax.swing.JFrame {
 
         FieldRenovarJornada.addFocusListener(fieldTester(FieldRenovarJornada,"horas",maxminJ));
         PanelRenovarFields.add(FieldRenovarJornada);
-        FieldRenovarJornada.setBounds(81, 3, 80, 22);
+        FieldRenovarJornada.setBounds(81, 3, 80, 23);
 
+        FieldRenovarSueldo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         FieldRenovarSueldo.setText("100€");
         FieldRenovarSueldo.setSelectionEnd(12);
         FieldRenovarSueldo.setSelectionStart(1);
@@ -942,7 +946,7 @@ public final class Game extends javax.swing.JFrame {
         int [] maxminS={5,1000};
         FieldRenovarSueldo.addFocusListener(fieldTester(FieldRenovarSueldo,"€",maxminS));
         PanelRenovarFields.add(FieldRenovarSueldo);
-        FieldRenovarSueldo.setBounds(160, 3, 85, 22);
+        FieldRenovarSueldo.setBounds(160, 3, 85, 23);
 
         PanelRenovacion.add(PanelRenovarFields);
         PanelRenovarFields.setBounds(1, 49, 250, 30);
@@ -951,9 +955,10 @@ public final class Game extends javax.swing.JFrame {
         PanelRenovacion.add(jSeparator23);
         jSeparator23.setBounds(6, 10, 240, 10);
 
+        LabelProbabilidad.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         LabelProbabilidad.setText("Prob: 90%");
         PanelRenovacion.add(LabelProbabilidad);
-        LabelProbabilidad.setBounds(190, 21, 60, 20);
+        LabelProbabilidad.setBounds(188, 22, 60, 20);
 
         PanelInfoEmpleado.add(PanelRenovacion);
         PanelRenovacion.setBounds(4, 160, 250, 117);
@@ -969,16 +974,16 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         PanelDatosDefecto.add(BotonSancionar);
-        BotonSancionar.setBounds(0, 40, 100, 22);
+        BotonSancionar.setBounds(0, 40, 100, 24);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Sin especificar", "Item 2", "Item 3", "Item 4" }));
         PanelDatosDefecto.add(jComboBox1);
-        jComboBox1.setBounds(110, 70, 130, 22);
+        jComboBox1.setBounds(110, 70, 130, 24);
 
         jComboBox2.setEditable(false);
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Sin especificar", "Item 2", "Item 3", "Item 4" }));
         PanelDatosDefecto.add(jComboBox2);
-        jComboBox2.setBounds(110, 10, 130, 22);
+        jComboBox2.setBounds(110, 10, 130, 24);
 
         BotonDespedir.setText("Despedir");
         BotonDespedir.addActionListener(new java.awt.event.ActionListener() {
@@ -987,15 +992,15 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         PanelDatosDefecto.add(BotonDespedir);
-        BotonDespedir.setBounds(0, 70, 100, 22);
+        BotonDespedir.setBounds(0, 70, 100, 24);
 
         jButton1.setText("Medicar");
         PanelDatosDefecto.add(jButton1);
-        jButton1.setBounds(0, 10, 100, 22);
+        jButton1.setBounds(0, 10, 100, 24);
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Sin especificar", "Item 2", "Item 3", "Item 4" }));
         PanelDatosDefecto.add(jComboBox3);
-        jComboBox3.setBounds(110, 40, 130, 22);
+        jComboBox3.setBounds(110, 40, 130, 24);
 
         PanelInfoEmpleado.add(PanelDatosDefecto);
         PanelDatosDefecto.setBounds(10, 177, 244, 100);
@@ -1926,13 +1931,13 @@ public final class Game extends javax.swing.JFrame {
     }//GEN-LAST:event_EliminarBotonActionPerformed
 
     private void RenovarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RenovarBotonActionPerformed
+        CrearEmpleados ex = GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow());
         LuckyClass.procesoAceptacion(LuckyClass.probabilidadRenovarContrato(
                 FieldRenovarDuracion.getText(),
                 FieldRenovarJornada.getText(), FieldRenovarSueldo.getText(),
-                GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow())),
-                GenerarEmpleados.empleados.get(TablaEmpleados.getSelectedRow()));
+                ex),ex);
     }//GEN-LAST:event_RenovarBotonActionPerformed
-
+    
     public static void main(String args[]) {
         try {
             UIManager.put("Table.selectionBackground", new java.awt.Color(9, 48,
