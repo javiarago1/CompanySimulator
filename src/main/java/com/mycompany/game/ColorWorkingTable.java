@@ -1,5 +1,6 @@
 package com.mycompany.game;
 
+
 import java.awt.Component;
 
 import javax.swing.JLabel;
@@ -18,7 +19,7 @@ public class ColorWorkingTable extends DefaultTableCellRenderer {
                 isSelected, hasFocus, row, column);
         l.setHorizontalAlignment(JLabel.CENTER);
         String dato = String.valueOf(value);
-                
+     
         if (dato.equals("Working")) {
             l.setForeground(ColorSueldoTable.VERDE_SUELDO);
         } else {
@@ -26,6 +27,8 @@ public class ColorWorkingTable extends DefaultTableCellRenderer {
         }
 
         return l;
+
+  
     }
 
 }

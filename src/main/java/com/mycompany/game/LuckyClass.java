@@ -34,7 +34,7 @@ public class LuckyClass {
     }
 
     protected static int azarTiempoRenovar() {
-        int a = r.nextInt(50 - 40) + 40;
+        int a = r.nextInt(20 - 18) + 18;
         System.out.println(a);
         return a;
     }

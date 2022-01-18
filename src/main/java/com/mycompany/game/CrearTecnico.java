@@ -48,10 +48,10 @@ public abstract class CrearTecnico extends CrearEmpleados {
     @Override
     public void checkWorkingHorario(int horaReal, int minutoReal, int diaReal) {
         super.checkWorkingHorario(horaReal, minutoReal, diaReal);
-        if (switcher) {
+        if (switcher_rendimiento) {
             Game.abstractModelEmpleados.fireTableCellUpdated(
                     GenerarEmpleados.empleados.indexOf(this), 1);
-            switcher = false;
+            switcher_rendimiento = false;
         }
         System.out.println(rendimiento+""+trabajandoDeb);
         if (this.felicidad != this.felicidadTempInicial) {
@@ -62,7 +62,7 @@ public abstract class CrearTecnico extends CrearEmpleados {
                     ((100 - op) / 100) * this.rendimiento).replace(",", ".")));
             Game.abstractModelEmpleados.fireTableCellUpdated(
                     GenerarEmpleados.empleados.indexOf(this), 1);
-            switcher = true;
+            switcher_rendimiento = true;
         }
 
     }

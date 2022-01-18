@@ -1,6 +1,5 @@
 package com.mycompany.game;
 
-
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -11,9 +10,9 @@ public class AbstractTable extends AbstractTableModel {
 
     public AbstractTable(List<CrearEmpleados> listaEmpleados) {
         this.listEmpleados = listaEmpleados;
-      
+
     }
- 
+
     @Override
     public int getRowCount() {
         return listEmpleados.size();
@@ -41,7 +40,12 @@ public class AbstractTable extends AbstractTableModel {
 
         }
         return null;
+    }
 
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        super.setValueAt(aValue, rowIndex, columnIndex);
+        fireTableCellUpdated(rowIndex, columnIndex);
     }
 
     @Override
@@ -59,7 +63,9 @@ public class AbstractTable extends AbstractTableModel {
 
     @Override
     public void fireTableRowsDeleted(int firstRow, int lastRow) {
-        super.fireTableRowsDeleted(firstRow, lastRow);
+        if (!Game.AnimationPanelEmpleados.isVisible()) {
+            super.fireTableRowsDeleted(firstRow, lastRow);
+        }
     }
 
     @Override

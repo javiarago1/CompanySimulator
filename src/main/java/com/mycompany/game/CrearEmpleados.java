@@ -18,10 +18,9 @@ public abstract class CrearEmpleados {
     private int horas, duracion, edad, sueldo;
     protected int felicidad;
     //checker
-    
-    
+
     private int probabilidadContratado = 50;
-    protected boolean switcher;
+    protected boolean switcher_rendimiento, switcher_alerta, switcher_hilo;
 
     private int fechaIncorporacion, fechaFinalizacion;
 
@@ -65,7 +64,7 @@ public abstract class CrearEmpleados {
         extractHorario();
     }
 
-    public void extractHorario() {
+    protected final void extractHorario() {
         horaFinal = Integer.parseInt(horario.substring(8, 10));
         minutoFinal = Integer.parseInt(horario.substring(11, 13));
 
@@ -81,13 +80,15 @@ public abstract class CrearEmpleados {
     public void checkWorkingHorario(int horaReal, int minutoReal, int diaReal) {
 
         this.trabajandoDeb = ((horaReal >= horaHorario && minutoReal >= minutoHorario || horaReal > horaHorario) && (horaReal < horaFinal || horaReal == horaFinal && minutoReal < minutoFinal) && (diaReal >= fechaIncorporacion && diaReal < fechaFinalizacion));
-        
-        this.finContrato = ((horaReal > horaFinal || horaReal == horaFinal && minutoReal >= minutoFinal) && (fechaFinalizacion-diaReal==1) || (fechaFinalizacion-diaReal<=0));
-        
+
+        this.finContrato = ((horaReal > horaFinal || horaReal == horaFinal && minutoReal >= minutoFinal) && (fechaFinalizacion - diaReal == 1) || (fechaFinalizacion - diaReal <= 0));
+
         if (!trabajandoDeb && trabajando) {
-            Game.abstractModelEmpleados.fireTableCellUpdated(
-                    GenerarEmpleados.empleados.indexOf(this), 2);
+
             trabajando = false;
+            Game.abstractModelEmpleados.setValueAt(getStrWorking(),
+                    GenerarEmpleados.empleados.indexOf(this), 2);
+
 
         } else if (tempDay != diaReal && trabajandoDeb) {
             trabajando = true;
@@ -99,25 +100,37 @@ public abstract class CrearEmpleados {
     }
 
     public abstract Object getAbstractRendimientoTemp();
-    
+
     public abstract Object getAbstractRendimiento();
 
     public abstract String getAbstractRangoRendimiento();
 
-    
-    public String getEstadoContrato(int currentDate){
-        if (finContrato){
+    public String getEstadoContrato(int currentDate) {
+        if (finContrato) {
             return "El contrato ha finalizado";
-        }
-        else if (fechaIncorporacion>currentDate){
-            return "Fecha de incorporación: día "+fechaIncorporacion;
-        }
-        else {
-            int restante = fechaFinalizacion-currentDate;
-            return "Tiempo restate de contrato: "+restante;
+        } else if (fechaIncorporacion > currentDate) {
+            return "Fecha de incorporación: día " + fechaIncorporacion;
+        } else {
+            int restante = fechaFinalizacion - currentDate;
+            return "Tiempo restate de contrato: " + restante;
         }
     }
-    
+
+    public int calculateLight() {
+        if (contadorInternoRenovar > 40) {
+            return 1000;
+        } else if (contadorInternoRenovar <= 40 && contadorInternoRenovar > 30) {
+            return 850;
+        } else if (contadorInternoRenovar <= 30 && contadorInternoRenovar > 20) {
+            return 650;
+        } else if (contadorInternoRenovar <= 20 && contadorInternoRenovar > 10) {
+            return 350;
+        } else {
+            return 175;
+        }
+
+    }
+
     public int getProbabilidadContratado() {
         return probabilidadContratado;
     }
@@ -142,8 +155,22 @@ public abstract class CrearEmpleados {
         this.finContrato = finContrato;
     }
 
-    
-    
+    public boolean isSwitcher_hilo() {
+        return switcher_hilo;
+    }
+
+    public void setSwitcher_hilo(boolean switcher_hilo) {
+        this.switcher_hilo = switcher_hilo;
+    }
+
+    public boolean isSwitcher_alerta() {
+        return switcher_alerta;
+    }
+
+    public void setSwitcher_alerta(boolean switcher_alerta) {
+        this.switcher_alerta = switcher_alerta;
+    }
+
     public int getContadorInternoRenovar() {
         return contadorInternoRenovar;
     }
@@ -203,11 +230,11 @@ public abstract class CrearEmpleados {
     }
 
     public boolean isSwitcher() {
-        return switcher;
+        return switcher_rendimiento;
     }
 
     public void setSwitcher(boolean switcher) {
-        this.switcher = switcher;
+        this.switcher_rendimiento = switcher;
     }
 
     public int getFelicidadTempInicial() {
