@@ -105,6 +105,7 @@ public class LuckyClass {
     }
 
     private static void datosCambiados(CrearEmpleados ex) {
+        ex.setFinContrato(false);
         if (horas != ex.getHoras()) {
             ex.setHoras(horas);
             ex.setHorario(GenerarEmpleados.generarHorario(horas));
@@ -129,7 +130,6 @@ public class LuckyClass {
         Timer timer_proceso = new Timer(tiempoEspera, (ActionEvent e) -> {
             if (val) {
                 datosCambiados(ex);
-               // int num = GenerarEmpleados.empleados.size() - 1;
                 GenerarEmpleados.empleados.add(ex);
                 Game.abstractModelEmpleados.fireTableDataChanged();
             } else {
