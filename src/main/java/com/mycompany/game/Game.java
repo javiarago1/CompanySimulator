@@ -3,6 +3,7 @@ package com.mycompany.game;
 import com.formdev.flatlaf.FlatDarkLaf;
 
 import java.awt.Color;
+import java.awt.Insets;
 
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -17,8 +18,6 @@ import java.text.DecimalFormat;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -385,6 +384,8 @@ public final class Game extends javax.swing.JFrame {
         unHorarioLabel = new javax.swing.JLabel();
         ProgressBarFelicidad = new javax.swing.JProgressBar();
         HorarioLabel = new javax.swing.JLabel();
+        PaneTextArea = new javax.swing.JScrollPane();
+        TextAreaCausa = new javax.swing.JTextArea();
         PanelRenovacion = new javax.swing.JPanel();
         RenovarBoton = new javax.swing.JButton();
         EliminarBoton = new javax.swing.JButton();
@@ -404,8 +405,8 @@ public final class Game extends javax.swing.JFrame {
         jComboBox3 = new javax.swing.JComboBox<>();
         jSeparator24 = new javax.swing.JSeparator();
         jSeparator25 = new javax.swing.JSeparator();
-        jSeparator26 = new javax.swing.JSeparator();
         VerContratoEmpleados = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         MenuPanel2 = new javax.swing.JPanel();
         AnimationPanel = new javax.swing.JPanel();
         PanelDatosPersonales = new javax.swing.JPanel();
@@ -866,6 +867,18 @@ public final class Game extends javax.swing.JFrame {
         PanelInfoEmpleado.add(HorarioLabel);
         HorarioLabel.setBounds(100, 58, 100, 18);
 
+        TextAreaCausa.setLineWrap(true);
+        TextAreaCausa.setMargin(new Insets(10, 10,10, 10));
+        TextAreaCausa.setColumns(10);
+        TextAreaCausa.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        TextAreaCausa.setRows(2);
+        TextAreaCausa.setAlignmentX(2.0F);
+        TextAreaCausa.setAlignmentY(2.0F);
+        PaneTextArea.setViewportView(TextAreaCausa);
+
+        PanelInfoEmpleado.add(PaneTextArea);
+        PaneTextArea.setBounds(10, 100, 240, 60);
+
         PanelRenovacion.setVisible(true);
         PanelRenovacion.setBackground(new java.awt.Color(69, 73, 74));
         PanelRenovacion.setLayout(null);
@@ -945,7 +958,7 @@ public final class Game extends javax.swing.JFrame {
         PanelRenovacion.add(PanelRenovarFields);
         PanelRenovarFields.setBounds(1, 49, 250, 30);
 
-        jSeparator23.setForeground(new java.awt.Color(186, 186, 186));
+        jSeparator23.setForeground(new java.awt.Color(155, 155, 155));
         PanelRenovacion.add(jSeparator23);
         jSeparator23.setBounds(6, 10, 240, 10);
 
@@ -999,17 +1012,13 @@ public final class Game extends javax.swing.JFrame {
         PanelInfoEmpleado.add(PanelDatosDefecto);
         PanelDatosDefecto.setBounds(10, 177, 244, 100);
 
-        jSeparator24.setForeground(new java.awt.Color(186, 186, 186));
+        jSeparator24.setForeground(new java.awt.Color(155, 155, 155));
         PanelInfoEmpleado.add(jSeparator24);
         jSeparator24.setBounds(10, 50, 240, 10);
 
-        jSeparator25.setForeground(new java.awt.Color(186, 186, 186));
+        jSeparator25.setForeground(new java.awt.Color(155, 155, 155));
         PanelInfoEmpleado.add(jSeparator25);
         jSeparator25.setBounds(10, 170, 240, 10);
-
-        jSeparator26.setForeground(new java.awt.Color(186, 186, 186));
-        PanelInfoEmpleado.add(jSeparator26);
-        jSeparator26.setBounds(10, 100, 240, 10);
 
         MenuPanel1.add(PanelInfoEmpleado);
         PanelInfoEmpleado.setBounds(408, 10, 271, 280);
@@ -1053,6 +1062,15 @@ public final class Game extends javax.swing.JFrame {
         });
         MenuPanel1.add(VerContratoEmpleados);
         VerContratoEmpleados.setBounds(370, 10, 30, 24);
+
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        MenuPanel1.add(jButton2);
+        jButton2.setBounds(220, 10, 75, 22);
 
         getContentPane().add(MenuPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 675, 310));
 
@@ -1702,7 +1720,6 @@ public final class Game extends javax.swing.JFrame {
     }//GEN-LAST:event_TablaContratosMousePressed
 
     private void firmaListener() {
-
         FirmaRepresentante.getDocument().addDocumentListener(
                 new DocumentListener() {
 
@@ -1926,13 +1943,25 @@ public final class Game extends javax.swing.JFrame {
     }//GEN-LAST:event_EliminarBotonActionPerformed
 
     private void RenovarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RenovarBotonActionPerformed
+
         CrearEmpleados ex = GenerarEmpleados.empleados.get(
                 TablaEmpleados.getSelectedRow());
+        ex.setDuracionPosible(LuckyClass.extraerDatos(
+                Game.FieldRenovarDuracion.getText()));
+        ex.setJornadaPosible(LuckyClass.extraerDatos(
+                Game.FieldRenovarJornada.getText()));
+        ex.setSueldoPosible(LuckyClass.extraerDatos(
+                Game.FieldRenovarSueldo.getText()));
         LuckyClass.procesoAceptacion(LuckyClass.probabilidadRenovarContrato(
                 FieldRenovarDuracion.getText(),
                 FieldRenovarJornada.getText(), FieldRenovarSueldo.getText(),
                 ex), ex);
     }//GEN-LAST:event_RenovarBotonActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        System.out.println("es fin wtf: " + GenerarEmpleados.empleados.get(
+                TablaEmpleados.getSelectedRow()).isFinContrato());
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -1975,8 +2004,8 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JLabel FechaLabel;
     private javax.swing.JLabel FechaLabel1;
     protected static javax.swing.JTextField FieldRenovarDuracion;
-    private javax.swing.JTextField FieldRenovarJornada;
-    private javax.swing.JTextField FieldRenovarSueldo;
+    protected static javax.swing.JTextField FieldRenovarJornada;
+    protected static javax.swing.JTextField FieldRenovarSueldo;
     private javax.swing.JTextField FirmaRepresentante;
     private javax.swing.JTextField FirmaRepresentante1;
     private javax.swing.JLabel FirmaTrabajadorLabel;
@@ -2002,6 +2031,7 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JLabel NameLabel1;
     private javax.swing.JScrollPane PaneContratos;
     private javax.swing.JScrollPane PaneEmpleados;
+    private javax.swing.JScrollPane PaneTextArea;
     private javax.swing.JPanel PanelDatosConntrato;
     private javax.swing.JPanel PanelDatosConntrato1;
     private javax.swing.JPanel PanelDatosDefecto;
@@ -2025,6 +2055,7 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JLabel SueldoLabel1;
     protected static javax.swing.JTable TablaContratos;
     private static javax.swing.JTable TablaEmpleados;
+    private javax.swing.JTextArea TextAreaCausa;
     private javax.swing.JLabel TituloContratos;
     private javax.swing.JLabel TrabajoLabel;
     private javax.swing.JLabel TrabajoLabel1;
@@ -2036,6 +2067,7 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JPanel VerEmpelados;
     private javax.swing.JLabel dineroEmpresaLabel;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -2066,7 +2098,6 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator23;
     private javax.swing.JSeparator jSeparator24;
     private javax.swing.JSeparator jSeparator25;
-    private javax.swing.JSeparator jSeparator26;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;

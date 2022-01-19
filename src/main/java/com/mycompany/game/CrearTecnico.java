@@ -53,7 +53,6 @@ public abstract class CrearTecnico extends CrearEmpleados {
                     GenerarEmpleados.empleados.indexOf(this), 1);
             switcher_rendimiento = false;
         }
-        System.out.println(rendimiento+""+trabajandoDeb);
         if (this.felicidad != this.felicidadTempInicial) {
             double op = this.felicidadTempInicial - this.felicidad;
             this.felicidadTempInicial = felicidad;

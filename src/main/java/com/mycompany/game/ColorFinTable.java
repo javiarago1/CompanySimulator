@@ -22,26 +22,27 @@ public class ColorFinTable extends DefaultTableCellRenderer {
         CrearEmpleados ex = GenerarEmpleados.empleados.get(row);
 
         if (!ex.isSwitcher_hilo() && ex.isFinContrato()) {
-            int velocidad = ex.calculateLight();
+
             ex.setSwitcher_hilo(true);
             Runnable runner = () -> {
                 try {
-                    Thread.sleep(velocidad);
+                    Thread.sleep(1000);
                     ex.setSwitcher_alerta(true);
                     abstractModelEmpleados.fireTableCellUpdated(row, column);
-                    Thread.sleep(velocidad);
+                    Thread.sleep(1000);
                     ex.setSwitcher_alerta(false);
                     abstractModelEmpleados.fireTableCellUpdated(row, column);
-                    ex.setSwitcher_hilo(false);
+
                 } catch (InterruptedException e) {
                 }
+                ex.setSwitcher_hilo(false);
             };
             Thread hilo = new Thread(runner);
             hilo.start();
 
         }
         if (ex.isSwitcher_alerta() && ex.isFinContrato()) {
-            l.setForeground(new Color(182, 185, 87));
+            l.setForeground(Color.yellow);
             return l;
         } else {
             l.setForeground(new Color(187, 187, 187));

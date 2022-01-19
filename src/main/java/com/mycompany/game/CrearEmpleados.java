@@ -17,9 +17,13 @@ public abstract class CrearEmpleados {
     private LocalDate DatoLocal;
     private int horas, duracion, edad, sueldo;
     protected int felicidad;
-    //checker
 
-    private int probabilidadContratado = 50;
+
+    
+    // Variable guardar renegociación
+    private int duracionPosible,jornadaPosible,sueldoPosible;
+    //
+    
     protected boolean switcher_rendimiento, switcher_alerta, switcher_hilo;
 
     private int fechaIncorporacion, fechaFinalizacion;
@@ -83,6 +87,8 @@ public abstract class CrearEmpleados {
 
         this.finContrato = ((horaReal > horaFinal || horaReal == horaFinal && minutoReal >= minutoFinal) && (fechaFinalizacion - diaReal == 1) || (fechaFinalizacion - diaReal <= 0));
 
+        System.out.println(getAbstractRendimiento()+" "+finContrato);
+        
         if (!trabajandoDeb && trabajando) {
 
             trabajando = false;
@@ -112,32 +118,37 @@ public abstract class CrearEmpleados {
             return "Fecha de incorporación: día " + fechaIncorporacion;
         } else {
             int restante = fechaFinalizacion - currentDate;
-            return "Tiempo restate de contrato: " + restante;
+            String wordString = "días";
+            if (restante<=1)wordString = wordString.substring(0, wordString.length()-1);
+            return "Tiempo restate de contrato: " + restante + " "+ wordString;
         }
     }
 
-    public int calculateLight() {
-        if (contadorInternoRenovar > 40) {
-            return 1000;
-        } else if (contadorInternoRenovar <= 40 && contadorInternoRenovar > 30) {
-            return 850;
-        } else if (contadorInternoRenovar <= 30 && contadorInternoRenovar > 20) {
-            return 650;
-        } else if (contadorInternoRenovar <= 20 && contadorInternoRenovar > 10) {
-            return 350;
-        } else {
-            return 175;
-        }
-
+    public int getDuracionPosible() {
+        return duracionPosible;
     }
 
-    public int getProbabilidadContratado() {
-        return probabilidadContratado;
+    public void setDuracionPosible(int duracionPosible) {
+        this.duracionPosible = duracionPosible;
     }
 
-    public void setProbabilidadContratado(int probabilidadContratado) {
-        this.probabilidadContratado = probabilidadContratado;
+    public int getJornadaPosible() {
+        return jornadaPosible;
     }
+
+    public void setJornadaPosible(int jornadaPosible) {
+        this.jornadaPosible = jornadaPosible;
+    }
+
+    public int getSueldoPosible() {
+        return sueldoPosible;
+    }
+
+    public void setSueldoPosible(int sueldoPosible) {
+        this.sueldoPosible = sueldoPosible;
+    }
+
+    
 
     public boolean isEmpleadoRepeticion() {
         return empleadoRepeticion;

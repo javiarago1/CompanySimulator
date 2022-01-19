@@ -7,7 +7,6 @@ import javax.swing.Timer;
 public class LuckyClass {
 
     private static final Random r = new Random();
-    private static int horas, duracion, sueldo;
 
     protected static void probabilidadTrabajando(CrearEmpleados ex) {
         // 90 - ex.getFelicidad()
@@ -34,12 +33,12 @@ public class LuckyClass {
     }
 
     protected static int azarTiempoRenovar() {
-        int a = r.nextInt(20 - 18) + 18;
+        int a = r.nextInt(50 - 40) + 40;
         System.out.println(a);
         return a;
     }
 
-    private static int extraerDatos(String var) {
+    protected static int extraerDatos(String var) {
         return Integer.valueOf(var.substring(0, var.indexOf(' ')));
     }
 
@@ -86,14 +85,17 @@ public class LuckyClass {
 
     protected static int probabilidadRenovarContrato(String duracionString,
             String horasString, String sueldoString, CrearEmpleados ex) {
-        duracion = extraerDatos(duracionString);
-        horas = extraerDatos(horasString);
-        sueldo = extraerDatos(sueldoString);
+
+        //Datos obtenidos
+        int duracion = extraerDatos(duracionString);
+        int horas = extraerDatos(horasString);
+        int sueldo = extraerDatos(sueldoString);
+
+        //Probabilidad calculadad a partir de los datos
         int probDuracion = generarProbabilidadElementos(duracion,
                 ex.getDuracion(), 0);
         int probSueldo = generarProbabilidadElementos(sueldo, ex.getSueldo(), 1);
         int probHoras = generarProbabilidadElementos(horas, ex.getHoras(), 2);
-
         int probFelicidad = ex.getFelicidad() * 25 / 100;
 
         System.out.println(
@@ -105,6 +107,9 @@ public class LuckyClass {
     }
 
     private static void datosCambiados(CrearEmpleados ex) {
+        int horas = ex.getJornadaPosible();
+        int duracion = ex.getDuracionPosible();
+        int sueldo = ex.getSueldoPosible();
         ex.setFinContrato(false);
         if (horas != ex.getHoras()) {
             ex.setHoras(horas);
@@ -119,6 +124,7 @@ public class LuckyClass {
         if (sueldo != ex.getSueldo()) {
             ex.setSueldo(sueldo);
         }
+
     }
 
     protected static void procesoAceptacion(int probabilidad, CrearEmpleados ex) {
@@ -135,6 +141,7 @@ public class LuckyClass {
             } else {
                 Game.removerEmpleadoLista(ex);
             }
+            ((Timer) e.getSource()).stop();
         });
         timer_proceso.setRepeats(false);
         timer_proceso.start();
