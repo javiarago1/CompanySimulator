@@ -242,8 +242,8 @@ public class GenerarEmpleados {
         }
         horaFinal = horaInicial + tempHoras;
 
-        return tempInicial + ":" + tempMinutos + " - " + (horaFinal) + ":" + tempMinutos;
-        //return 10 + ":" + "0" + 5 + " - " + "10" + ":" + "12";
+        //return tempInicial + ":" + tempMinutos + " - " + (horaFinal) + ":" + tempMinutos;
+        return 10 + ":" + "0" + 5 + " - " + "10" + ":" + "12";
 
     }
     

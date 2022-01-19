@@ -18,11 +18,12 @@ public abstract class CrearEmpleados {
     private int horas, duracion, edad, sueldo;
     protected int felicidad;
 
-
-    
     // Variable guardar renegociación
-    private int duracionPosible,jornadaPosible,sueldoPosible;
+    private int duracionPosible, jornadaPosible, sueldoPosible;
     //
+
+    //actividad 
+    private int actividadString;
     
     protected boolean switcher_rendimiento, switcher_alerta, switcher_hilo;
 
@@ -87,14 +88,11 @@ public abstract class CrearEmpleados {
 
         this.finContrato = ((horaReal > horaFinal || horaReal == horaFinal && minutoReal >= minutoFinal) && (fechaFinalizacion - diaReal == 1) || (fechaFinalizacion - diaReal <= 0));
 
-        System.out.println(getAbstractRendimiento()+" "+finContrato);
-        
         if (!trabajandoDeb && trabajando) {
 
             trabajando = false;
             Game.abstractModelEmpleados.setValueAt(getStrWorking(),
                     GenerarEmpleados.empleados.indexOf(this), 2);
-
 
         } else if (tempDay != diaReal && trabajandoDeb) {
             trabajando = true;
@@ -113,14 +111,16 @@ public abstract class CrearEmpleados {
 
     public String getEstadoContrato(int currentDate) {
         if (finContrato) {
-            return "El contrato ha finalizado";
+            return "\u2022 "+"El contrato ha finalizado";
         } else if (fechaIncorporacion > currentDate) {
-            return "Fecha de incorporación: día " + fechaIncorporacion;
+            return "\u2022 "+"Fecha de incorporación: día " + fechaIncorporacion;
         } else {
             int restante = fechaFinalizacion - currentDate;
             String wordString = "días";
-            if (restante<=1)wordString = wordString.substring(0, wordString.length()-1);
-            return "Tiempo restate de contrato: " + restante + " "+ wordString;
+            if (restante <= 1) {
+                wordString = wordString.substring(0, wordString.length() - 1);
+            }
+            return "\u2022 "+"Tiempo restate de contrato: " + restante + " " + wordString;
         }
     }
 
@@ -131,7 +131,7 @@ public abstract class CrearEmpleados {
     public void setDuracionPosible(int duracionPosible) {
         this.duracionPosible = duracionPosible;
     }
-
+    
     public int getJornadaPosible() {
         return jornadaPosible;
     }
@@ -144,11 +144,17 @@ public abstract class CrearEmpleados {
         return sueldoPosible;
     }
 
+    public int getActividadString() {
+        return actividadString;
+    }
+
+    public void setActividadString(int actividadString) {
+        this.actividadString = actividadString;
+    }
+
     public void setSueldoPosible(int sueldoPosible) {
         this.sueldoPosible = sueldoPosible;
     }
-
-    
 
     public boolean isEmpleadoRepeticion() {
         return empleadoRepeticion;
