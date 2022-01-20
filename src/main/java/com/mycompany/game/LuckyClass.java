@@ -111,6 +111,7 @@ public class LuckyClass {
         int duracion = ex.getDuracionPosible();
         int sueldo = ex.getSueldoPosible();
         ex.setFinContrato(false);
+        Game.checkBoxGestor(ex);
         if (horas != ex.getHoras()) {
             ex.setHoras(horas);
             ex.setHorario(GenerarEmpleados.generarHorario(horas));
@@ -123,6 +124,7 @@ public class LuckyClass {
         }
         if (sueldo != ex.getSueldo()) {
             ex.setSueldo(sueldo);
+            ex.setColorSueldo(ColorSueldoTable.colorSueldo(ex.getSueldo()));
         }
 
     }
