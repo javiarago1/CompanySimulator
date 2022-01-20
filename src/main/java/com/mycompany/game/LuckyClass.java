@@ -33,7 +33,7 @@ public class LuckyClass {
     }
 
     protected static int azarTiempoRenovar() {
-        int a = r.nextInt(10 - 5) +5;
+        int a = r.nextInt(100- 50) +50;
         System.out.println(a);
         return a;
     }
@@ -106,7 +106,7 @@ public class LuckyClass {
 
     }
 
-    private static void datosCambiados(CrearEmpleados ex) {
+    private static void datosCambiados(CrearEmpleados ex,int dias_reloj) {
         int horas = ex.getJornadaPosible();
         int duracion = ex.getDuracionPosible();
         int sueldo = ex.getSueldoPosible();
@@ -118,7 +118,7 @@ public class LuckyClass {
         }
         if (duracion != ex.getDuracion()) {
             ex.setDuracion(duracion);
-            ex.setFechaIncorporacion(Game.dias_reloj + 1);
+            ex.setFechaIncorporacion(dias_reloj + 1);
             ex.setFechaFinalizacion(ex.getFechaIncorporacion() + duracion);
         }
         if (sueldo != ex.getSueldo()) {
@@ -127,17 +127,18 @@ public class LuckyClass {
 
     }
 
-    protected static void procesoAceptacion(int probabilidad, CrearEmpleados ex) {
+    protected static void procesoAceptacion(int probabilidad, CrearEmpleados ex,int dias_reloj) {
         int numLista = GenerarEmpleados.empleados.indexOf(ex);
         GenerarEmpleados.empleados.remove(ex);
         Game.abstractModelEmpleados.fireTableRowsDeleted(numLista, numLista);
         boolean val = r.nextInt(1, 101) <= probabilidad;
         int tiempoEspera = r.nextInt(5000 - 3000) + 3000;
-        Timer timer_proceso = new Timer(tiempoEspera, (ActionEvent e) -> {
+        Timer timer_proceso = new Timer(tiempoEspera, (ActionEvent e) -> {     
             if (val) {
-                datosCambiados(ex);
+  
+                datosCambiados(ex,dias_reloj);
                 GenerarEmpleados.empleados.add(ex);
-                Game.abstractModelEmpleados.fireTableDataChanged();
+                Game.abstractModelEmpleados.fireTableRowsInserted(numLista, numLista);
             } else {
                 Game.removerEmpleadoLista(ex);
             }
