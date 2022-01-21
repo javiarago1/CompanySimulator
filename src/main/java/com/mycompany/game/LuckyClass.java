@@ -137,7 +137,6 @@ public class LuckyClass {
         int tiempoEspera = r.nextInt(5000 - 3000) + 3000;
         Timer timer_proceso = new Timer(tiempoEspera, (ActionEvent e) -> {     
             if (val) {
-  
                 datosCambiados(ex,dias_reloj);
                 GenerarEmpleados.empleados.add(ex);
                 Game.abstractModelEmpleados.fireTableRowsInserted(numLista, numLista);
