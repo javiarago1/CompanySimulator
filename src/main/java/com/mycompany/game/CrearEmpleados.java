@@ -96,7 +96,7 @@ public abstract class CrearEmpleados {
             if (!jornadaSale) {
                 jornadaSale = true;
                 this.actividadArray.add(
-                        Game.LabelHoras.getText() + Game.LabelMinutos.getText() + "  -  Ha terminado su jornada.");
+                        Game.getDataTime() + "  -  Ha terminado su jornada.");
                 Game.llenarListaEventos(this);
             }
 
@@ -108,7 +108,7 @@ public abstract class CrearEmpleados {
             if (!jornadaEntra) {
                 jornadaEntra = true;
                 this.actividadArray.add(
-                        Game.LabelHoras.getText() + Game.LabelMinutos.getText() + "  -  Ha comenzado su jornada.");
+                        Game.getDataTime() + "  -  Ha comenzado su jornada.");
                 Game.llenarListaEventos(this);
             }
 

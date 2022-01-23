@@ -36,7 +36,8 @@ public final class Game extends javax.swing.JFrame {
 
     DecimalFormat formateador = new DecimalFormat("#,###.##");
     private static double dineroEmpresa = 500;
-    private double tempTotal, tempDineroEmpresa;
+    private double tempTotal, tempDineroEmpresa, dineroEmpresaInicio = dineroEmpresa;
+    private static int beneficios,dineroNegro;
 
     protected static int selectedRow;
 
@@ -136,7 +137,7 @@ public final class Game extends javax.swing.JFrame {
         timer_añadir.start();
     }
 
-    private String getDataTime() {
+    protected static String getDataTime() {
         String tempHora = LabelHoras.getText() + LabelMinutos.getText();
         return tempHora;
     }
@@ -184,7 +185,7 @@ public final class Game extends javax.swing.JFrame {
                 LabelHoras.setText("" + String.valueOf(horas_reloj) + ":");
                 minutos_reloj = 0;
                 LabelMinutos.setText(String.valueOf("0" + minutos_reloj));
-                diaAcabado();
+                //diaAcabado();
             }
             restarCapacidad();
         });
@@ -223,7 +224,7 @@ public final class Game extends javax.swing.JFrame {
 
     private void deselectEmpleado() {
         TablaEmpleados.getSelectionModel().clearSelection();
-        PanelInfoEmpleado.setVisible(false); 
+        PanelInfoEmpleado.setVisible(false);
         if (AnimationPanelEmpleados.isVisible()) {
             CerrarContratoActionPerformed(null);
         }
@@ -239,12 +240,58 @@ public final class Game extends javax.swing.JFrame {
         }
     }
 
+    private void llenarTablaEmpleados() {
+        for (CrearEmpleados e : GenerarEmpleados.empleados) {
+            Object[] row = {e.getNombreCompleto(), e.getSueldo() + " €"};
+            TablaResumen.addRow(row);
+        }
+    }
+
+    private int calcularSueldos() {
+        int tempSueldos = 0;
+        for (CrearEmpleados e : GenerarEmpleados.empleados) {
+            tempSueldos += e.getSueldo();
+        }
+        return tempSueldos;
+    }
+
+    private void colorLabelResumen(int valor, JLabel label) {
+        if (valor < 0) {
+            label.setForeground(new Color(105, 0, 0));
+        } else if (valor > 0) {
+            label.setForeground(new Color(21, 113, 0));
+        } else {
+            label.setForeground(new Color(144, 144, 144));
+        }
+
+    }
+
+    private void calcularFinanzas() {
+        //beneficios = (int) (dineroEmpresa - dineroEmpresaInicio);
+        beneficios = 200;
+        int sueldos = calcularSueldos();
+        int impuestos = HaciendaClass.calcularImpuestoBeneficios(beneficios);
+        int tasa = HaciendaClass.calcularTasa();
+        int total = beneficios - sueldos - impuestos - tasa;
+        colorLabelResumen(beneficios, LabelBeneficios);
+        colorLabelResumen(total, LabelTotal);
+
+        LabelBeneficios.setText(String.valueOf(beneficios) + " €");
+        LabelSueldos.setText(String.valueOf(sueldos) + " €");
+        LabelImpuestos.setText(String.valueOf(impuestos) + " €");
+        LabelTasa.setText(String.valueOf(tasa) + " €");
+        LabelTotal.setText(total + " €");
+    }
+
     private void diaAcabado() {
+        calcularFinanzas();
+        llenarTablaEmpleados();
         finishAllTimers();
         modifyPanels(false);
         deselectEmpleado();
         modifyButtons(false);
         limpiarLista();
+
     }
 
     private void restarCapacidad() {
@@ -352,7 +399,7 @@ public final class Game extends javax.swing.JFrame {
 
     private void cargarModels() {
         TablaModelContratos = (DefaultTableModel) TablaContratos.getModel();
-
+        TablaResumen = (DefaultTableModel) TablaResumenEmpleados.getModel();
     }
 
     private void misComps() {
@@ -398,6 +445,7 @@ public final class Game extends javax.swing.JFrame {
         LabelMinutos = new javax.swing.JLabel();
         dineroEmpresaLabel = new javax.swing.JLabel();
         LabelDias = new javax.swing.JLabel();
+        LabelDineroNegro = new javax.swing.JLabel();
         MenuPanel1 = new javax.swing.JPanel();
         AnimationPanelEmpleados = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -533,6 +581,26 @@ public final class Game extends javax.swing.JFrame {
         PanelResumen = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         NextDayButton = new javax.swing.JButton();
+        PaneTablaResumen = new javax.swing.JScrollPane();
+        TablaResumenEmpleados = new javax.swing.JTable();
+        BotonLavar = new javax.swing.JButton();
+        PanelInfoResumen = new javax.swing.JPanel();
+        unSueldosLabel = new javax.swing.JLabel();
+        unBeneficiosLabel = new javax.swing.JLabel();
+        unImpuestosLabel = new javax.swing.JLabel();
+        unTasaLabel = new javax.swing.JLabel();
+        LabelBeneficios = new javax.swing.JLabel();
+        LabelSueldos = new javax.swing.JLabel();
+        LabelImpuestos = new javax.swing.JLabel();
+        LabelTasa = new javax.swing.JLabel();
+        unTotalLabel = new javax.swing.JLabel();
+        jSeparator27 = new javax.swing.JSeparator();
+        LabelTotal = new javax.swing.JLabel();
+        SliderLavar = new javax.swing.JSlider();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jCheckBox3 = new javax.swing.JCheckBox();
+        LabelDineroLavar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -615,6 +683,10 @@ public final class Game extends javax.swing.JFrame {
 
         LabelDias.setText("Dia 1");
         PanelSuperior.add(LabelDias, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, -1, -1));
+
+        LabelDineroNegro.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        LabelDineroNegro.setText("0");
+        PanelSuperior.add(LabelDineroNegro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
         getContentPane().add(PanelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, 675, 120));
 
@@ -919,7 +991,7 @@ public final class Game extends javax.swing.JFrame {
 
         jLabel1.setText("Nivel de felicidad");
         PanelInfoEmpleado.add(jLabel1);
-        jLabel1.setBounds(10, 6, 150, 18);
+        jLabel1.setBounds(10, 6, 150, 16);
 
         LabelFechas.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         LabelFechas.setText("• Dias restantes de contrato: 2 días");
@@ -1032,7 +1104,7 @@ public final class Game extends javax.swing.JFrame {
         LabelProbabilidad.setText("Prob: 90%");
         LabelProbabilidad.setToolTipText("Probabilidad de que el contrato sea aceptado por el empleado.\n25 puntos: felicidad\n25 puntos: duración de jornada\n25 puntos: duración de contrato\n25 puntos: sueldo");
         PanelRenovacion.add(LabelProbabilidad);
-        LabelProbabilidad.setBounds(174, 22, 60, 20);
+        LabelProbabilidad.setBounds(174, 22, 70, 20);
 
         jSeparator26.setForeground(new java.awt.Color(102, 102, 102));
         PanelRenovacion.add(jSeparator26);
@@ -1052,16 +1124,16 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         PanelDatosDefecto.add(BotonSancionar);
-        BotonSancionar.setBounds(0, 40, 100, 24);
+        BotonSancionar.setBounds(0, 40, 100, 22);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Sin especificar", "Item 2", "Item 3", "Item 4" }));
         PanelDatosDefecto.add(jComboBox1);
-        jComboBox1.setBounds(110, 70, 130, 24);
+        jComboBox1.setBounds(110, 70, 130, 22);
 
         jComboBox2.setEditable(false);
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Sin especificar", "Item 2", "Item 3", "Item 4" }));
         PanelDatosDefecto.add(jComboBox2);
-        jComboBox2.setBounds(110, 10, 130, 24);
+        jComboBox2.setBounds(110, 10, 130, 22);
 
         BotonDespedir.setText("Despedir");
         BotonDespedir.addActionListener(new java.awt.event.ActionListener() {
@@ -1070,15 +1142,15 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         PanelDatosDefecto.add(BotonDespedir);
-        BotonDespedir.setBounds(0, 70, 100, 24);
+        BotonDespedir.setBounds(0, 70, 100, 22);
 
         jButton1.setText("Medicar");
         PanelDatosDefecto.add(jButton1);
-        jButton1.setBounds(0, 10, 100, 24);
+        jButton1.setBounds(0, 10, 100, 22);
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Sin especificar", "Item 2", "Item 3", "Item 4" }));
         PanelDatosDefecto.add(jComboBox3);
-        jComboBox3.setBounds(110, 40, 130, 24);
+        jComboBox3.setBounds(110, 40, 130, 22);
 
         PanelInfoEmpleado.add(PanelDatosDefecto);
         PanelDatosDefecto.setBounds(10, 177, 244, 100);
@@ -1158,7 +1230,7 @@ public final class Game extends javax.swing.JFrame {
             }
         });
         MenuPanel1.add(jButton2);
-        jButton2.setBounds(220, 10, 83, 24);
+        jButton2.setBounds(220, 10, 75, 22);
 
         getContentPane().add(MenuPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 675, 310));
 
@@ -1512,8 +1584,9 @@ public final class Game extends javax.swing.JFrame {
 
         PanelResumen.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setText("Se terminó el día");
-        PanelResumen.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, -1, -1));
+        jLabel6.setFont(CargarArchivos.contract_Font);
+        jLabel6.setText("Resumen del día");
+        PanelResumen.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -3, -1, -1));
 
         NextDayButton.setText("Comenzar siguiente día");
         NextDayButton.addActionListener(new java.awt.event.ActionListener() {
@@ -1521,7 +1594,120 @@ public final class Game extends javax.swing.JFrame {
                 NextDayButtonActionPerformed(evt);
             }
         });
-        PanelResumen.add(NextDayButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(453, 270, 210, -1));
+        PanelResumen.add(NextDayButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 260, 210, 30));
+
+        TablaResumenEmpleados.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        TablaResumenEmpleados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Empleados", "Sueldo"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        TablaResumenEmpleados.setFocusable(false);
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setHorizontalAlignment(JLabel.CENTER);
+        TablaResumenEmpleados.getColumnModel().getColumn(1).setCellRenderer(renderer);
+        TablaResumenEmpleados.getTableHeader().setReorderingAllowed(false);
+        PaneTablaResumen.setViewportView(TablaResumenEmpleados);
+        if (TablaResumenEmpleados.getColumnModel().getColumnCount() > 0) {
+            TablaResumenEmpleados.getColumnModel().getColumn(0).setResizable(false);
+            TablaResumenEmpleados.getColumnModel().getColumn(0).setPreferredWidth(300);
+            TablaResumenEmpleados.getColumnModel().getColumn(1).setResizable(false);
+        }
+
+        PanelResumen.add(PaneTablaResumen, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 22, 420, 230));
+
+        BotonLavar.setText("Lavar beneficios");
+        BotonLavar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonLavarActionPerformed(evt);
+            }
+        });
+        PanelResumen.add(BotonLavar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 150, 25));
+
+        PanelInfoResumen.setBackground(new java.awt.Color(69, 73, 74));
+        PanelInfoResumen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(93, 93, 93)));
+        PanelInfoResumen.setForeground(new java.awt.Color(84, 84, 84));
+        PanelInfoResumen.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        unSueldosLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        unSueldosLabel.setText("Sueldos:");
+        PanelInfoResumen.add(unSueldosLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
+
+        unBeneficiosLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        unBeneficiosLabel.setText("Beneficios:");
+        PanelInfoResumen.add(unBeneficiosLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        unImpuestosLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        unImpuestosLabel.setText("Impuestos:");
+        PanelInfoResumen.add(unImpuestosLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+
+        unTasaLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        unTasaLabel.setText("Tasa:");
+        PanelInfoResumen.add(unTasaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+
+        LabelBeneficios.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        LabelBeneficios.setForeground(new java.awt.Color(21, 113, 0));
+        LabelBeneficios.setText("2200 €");
+        PanelInfoResumen.add(LabelBeneficios, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, -1, -1));
+
+        LabelSueldos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        LabelSueldos.setForeground(new java.awt.Color(105, 0, 0));
+        LabelSueldos.setText("1200 €");
+        PanelInfoResumen.add(LabelSueldos, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, -1));
+
+        LabelImpuestos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        LabelImpuestos.setForeground(new java.awt.Color(105, 0, 0));
+        LabelImpuestos.setText("200 €");
+        PanelInfoResumen.add(LabelImpuestos, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
+
+        LabelTasa.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        LabelTasa.setForeground(new java.awt.Color(105, 0, 0));
+        LabelTasa.setText("150 €");
+        PanelInfoResumen.add(LabelTasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, -1, -1));
+
+        unTotalLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        unTotalLabel.setText("Total:");
+        PanelInfoResumen.add(unTotalLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+
+        jSeparator27.setForeground(new java.awt.Color(128, 128, 128));
+        PanelInfoResumen.add(jSeparator27, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 91, 200, 10));
+
+        LabelTotal.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        LabelTotal.setForeground(new java.awt.Color(21, 113, 0));
+        LabelTotal.setText("220 €");
+        PanelInfoResumen.add(LabelTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
+
+        PanelResumen.add(PanelInfoResumen, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 22, 220, 120));
+
+        SliderLavar.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                SliderLavarStateChanged(evt);
+            }
+        });
+        PanelResumen.add(SliderLavar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 170, 20));
+
+        jCheckBox1.setText("Pagar sueldos a tus empleados");
+        PanelResumen.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, -1, -1));
+
+        jCheckBox2.setText("Pagar  impuestos de sueldos");
+        PanelResumen.add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 190, -1, -1));
+
+        jCheckBox3.setText("Pagar tasa diaria de empresario");
+        PanelResumen.add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, -1, -1));
+
+        LabelDineroLavar.setText("200 €");
+        PanelResumen.add(LabelDineroLavar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, -1, -1));
 
         getContentPane().add(PanelResumen, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 670, 300));
 
@@ -1916,7 +2102,7 @@ public final class Game extends javax.swing.JFrame {
         TablaModelContratos.removeRow(selectedRow);
         GenerarEmpleados.contratos.remove(selectedRow);
 
-        startAllTimers();
+        startTimers();
 
     }
 
@@ -2064,8 +2250,7 @@ public final class Game extends javax.swing.JFrame {
     }//GEN-LAST:event_RenovarBotonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        System.out.println("es fin wtf: " + GenerarEmpleados.empleados.get(
-                TablaEmpleados.getSelectedRow()).isFinContrato());
+        diaAcabado();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void TablaEmpleadosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaEmpleadosMousePressed
@@ -2078,10 +2263,28 @@ public final class Game extends javax.swing.JFrame {
     private void NextDayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextDayButtonActionPerformed
         PanelResumen.setVisible(false);
         MenuPanel1.setVisible(true);
-        
+
         modifyButtons(true);
         startAllTimers();
     }//GEN-LAST:event_NextDayButtonActionPerformed
+
+    private void BotonLavarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonLavarActionPerformed
+        int temp = SliderLavar.getValue() * beneficios/100;
+        beneficios -= SliderLavar.getValue() * beneficios/100;
+        dineroNegro +=temp; 
+        LabelBeneficios.setText(beneficios+" €");
+        LabelDineroNegro.setText(dineroNegro+" €");
+    }//GEN-LAST:event_BotonLavarActionPerformed
+
+    private void SliderLavarStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SliderLavarStateChanged
+        LabelDineroLavar.setText(
+                SliderLavar.getValue() * beneficios / 100 + " €");
+        if (SliderLavar.getValue() == 0) {
+            BotonLavar.setEnabled(false);
+        } else {
+            BotonLavar.setEnabled(true);
+        }
+    }//GEN-LAST:event_SliderLavarStateChanged
 
     public static void main(String args[]) {
         try {
@@ -2108,6 +2311,7 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JPanel AnimationPanel;
     protected static javax.swing.JPanel AnimationPanelEmpleados;
     private javax.swing.JButton BotonDespedir;
+    private javax.swing.JButton BotonLavar;
     private javax.swing.JButton BotonSancionar;
     private javax.swing.JButton CerrarContrato;
     private static javax.swing.JCheckBox CheckBoxSeguroRenovacion;
@@ -2136,13 +2340,20 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JLabel HorarioLabel;
     private javax.swing.JLabel HorasLabel;
     private javax.swing.JLabel HorasLabel1;
+    private javax.swing.JLabel LabelBeneficios;
     private javax.swing.JLabel LabelDias;
+    private javax.swing.JLabel LabelDineroLavar;
+    private javax.swing.JLabel LabelDineroNegro;
     private javax.swing.JLabel LabelFechas;
     private javax.swing.JLabel LabelFoto;
     private javax.swing.JLabel LabelFoto1;
     protected static javax.swing.JLabel LabelHoras;
+    private javax.swing.JLabel LabelImpuestos;
     protected static javax.swing.JLabel LabelMinutos;
     private javax.swing.JLabel LabelProbabilidad;
+    private javax.swing.JLabel LabelSueldos;
+    private javax.swing.JLabel LabelTasa;
+    private javax.swing.JLabel LabelTotal;
     private javax.swing.JList<String> ListActividad;
     private javax.swing.JPanel MenuPanel1;
     private javax.swing.JPanel MenuPanel2;
@@ -2154,6 +2365,7 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JScrollPane PaneContratos;
     private javax.swing.JScrollPane PaneEmpleados;
     private javax.swing.JScrollPane PaneList;
+    private javax.swing.JScrollPane PaneTablaResumen;
     private javax.swing.JPanel PanelDatosConntrato;
     private javax.swing.JPanel PanelDatosConntrato1;
     private javax.swing.JPanel PanelDatosDefecto;
@@ -2162,6 +2374,7 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JPanel PanelFoto;
     private javax.swing.JPanel PanelFoto1;
     private javax.swing.JPanel PanelInfoEmpleado;
+    private javax.swing.JPanel PanelInfoResumen;
     private javax.swing.JPanel PanelIzquierdo;
     private javax.swing.JPanel PanelRenovacion;
     private javax.swing.JPanel PanelRenovarFields;
@@ -2174,10 +2387,12 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JCheckBox SeguroCheckBox;
     private javax.swing.JCheckBox SeguroCheckBox1;
     private javax.swing.JButton ShowContractButton;
+    private javax.swing.JSlider SliderLavar;
     private javax.swing.JLabel SueldoLabel;
     private javax.swing.JLabel SueldoLabel1;
     protected static javax.swing.JTable TablaContratos;
     private static javax.swing.JTable TablaEmpleados;
+    private javax.swing.JTable TablaResumenEmpleados;
     private javax.swing.JLabel TituloContratos;
     private javax.swing.JLabel TrabajoLabel;
     private javax.swing.JLabel TrabajoLabel1;
@@ -2189,6 +2404,9 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JLabel dineroEmpresaLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -2221,6 +2439,7 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator24;
     private javax.swing.JSeparator jSeparator25;
     private javax.swing.JSeparator jSeparator26;
+    private javax.swing.JSeparator jSeparator27;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
@@ -2228,6 +2447,7 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JLabel unBeneficiosLabel;
     private javax.swing.JLabel unFechaLabel;
     private javax.swing.JLabel unFechaLabel1;
     private javax.swing.JLabel unFechaLabel2;
@@ -2239,6 +2459,7 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JLabel unGeneroLabel;
     private javax.swing.JLabel unGeneroLabel1;
     private javax.swing.JLabel unHorarioLabel;
+    private javax.swing.JLabel unImpuestosLabel;
     private javax.swing.JLabel unLabelDni;
     private javax.swing.JLabel unLabelDni1;
     private javax.swing.JLabel unLabelName;
@@ -2251,10 +2472,14 @@ public final class Game extends javax.swing.JFrame {
     private javax.swing.JLabel unNacionalidadLabel1;
     private javax.swing.JLabel unRendimientoLabel;
     private javax.swing.JLabel unRendimientoLabel1;
+    private javax.swing.JLabel unSueldosLabel;
+    private javax.swing.JLabel unTasaLabel;
+    private javax.swing.JLabel unTotalLabel;
     private javax.swing.JLabel unTrabajoLabel;
     private javax.swing.JLabel unTrabajoLabel1;
     // End of variables declaration//GEN-END:variables
     protected static DefaultTableModel TablaModelContratos;
     protected static DefaultListModel<String> listModel = new DefaultListModel<String>();
+    protected static DefaultTableModel TablaResumen;
 ;
 }

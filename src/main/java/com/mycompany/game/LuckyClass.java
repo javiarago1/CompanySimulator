@@ -33,7 +33,7 @@ public class LuckyClass {
     }
 
     protected static int azarTiempoRenovar() {
-        int a = r.nextInt(100- 50) +50;
+        int a = r.nextInt(100 - 50) + 50;
         System.out.println(a);
         return a;
     }
@@ -49,8 +49,8 @@ public class LuckyClass {
             return 0;
         }
         return temp;
-    }
 
+    }
     private static int aumentadorDes(int elementoSolicitado,
             int elementoAnterior, int modificadorAumento,
             int modificadorDisminucion) {
@@ -62,6 +62,18 @@ public class LuckyClass {
         return 0;
     }
 
+    private static int funcionSueldo(int elementoSolicitado,
+            int elementoAnterior) {
+        double temp1 = elementoSolicitado * 100 / elementoAnterior - 100;
+        if (temp1 >= 100) {
+            System.out.println((0.25 * temp1 + 25) * 0.25);
+            return (int) ((0.25 * temp1 + 25) * 0.25);
+        } else {
+            System.out.println((12 / 9 * (elementoSolicitado - 70) + 10) * 0.25);
+            return (int) ((12 / 9 * (elementoSolicitado - 70) + 10) * 0.25);
+        }
+    }
+
     private static int generarProbabilidadElementos(int elementoSolicitado,
             int elementoAnterior, int tipo) {
         int temp;
@@ -71,9 +83,7 @@ public class LuckyClass {
                 return smallChecker(temp);
             }
             case 1 -> {
-                temp = ((elementoSolicitado * 50) / elementoAnterior) * 25 / 100 - aumentadorDes(
-                        elementoAnterior, elementoSolicitado, 3, 3);
-                return smallChecker(temp);
+                return funcionSueldo(elementoSolicitado, elementoAnterior);
             }
             default -> {
                 temp = ((elementoAnterior * 50) / elementoSolicitado) * 25 / 100 - aumentadorDes(
@@ -101,12 +111,14 @@ public class LuckyClass {
         System.out.println(
                 "Probabilidad duracion: " + probDuracion + " Probabilidad horas" + probHoras + " Probabilidad sueldo " + probSueldo + " felicidad del momento" + probFelicidad);
 
+        
         int probabilidad_final = probDuracion + probHoras + probSueldo + probFelicidad;
+        if (probabilidad_final>100)probabilidad_final=100;
         return probabilidad_final;
 
     }
 
-    private static void datosCambiados(CrearEmpleados ex,int dias_reloj) {
+    private static void datosCambiados(CrearEmpleados ex, int dias_reloj) {
         int horas = ex.getJornadaPosible();
         int duracion = ex.getDuracionPosible();
         int sueldo = ex.getSueldoPosible();
@@ -129,17 +141,19 @@ public class LuckyClass {
 
     }
 
-    protected static void procesoAceptacion(int probabilidad, CrearEmpleados ex,int dias_reloj) {
+    protected static void procesoAceptacion(int probabilidad, CrearEmpleados ex,
+            int dias_reloj) {
         int numLista = GenerarEmpleados.empleados.indexOf(ex);
         GenerarEmpleados.empleados.remove(ex);
         Game.abstractModelEmpleados.fireTableRowsDeleted(numLista, numLista);
         boolean val = r.nextInt(1, 101) <= probabilidad;
         int tiempoEspera = r.nextInt(5000 - 3000) + 3000;
-        Timer timer_proceso = new Timer(tiempoEspera, (ActionEvent e) -> {     
+        Timer timer_proceso = new Timer(tiempoEspera, (ActionEvent e) -> {
             if (val) {
-                datosCambiados(ex,dias_reloj);
+                datosCambiados(ex, dias_reloj);
                 GenerarEmpleados.empleados.add(ex);
-                Game.abstractModelEmpleados.fireTableRowsInserted(numLista, numLista);
+                Game.abstractModelEmpleados.fireTableRowsInserted(numLista,
+                        numLista);
             } else {
                 Game.removerEmpleadoLista(ex);
             }
